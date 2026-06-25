@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWG to Revit BIM Modeling | Client Radar OS Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #060913;
+            --surface-color: rgba(22, 28, 45, 0.4);
+            --border-color: rgba(255, 255, 255, 0.07);
+            --primary-accent: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+            --glow-color: rgba(124, 58, 237, 0.15);
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --success-color: #10B981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Subtle glowing background decorations */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.12) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 0 40px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #A78BFA;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: var(--primary-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .lead-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        .glass-card {
+            background: var(--surface-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(124, 58, 237, 0.3);
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 24px;
+            background: var(--primary-accent);
+            border-radius: 2px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .check-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .check-list li::before {
+            content: '✓';
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .step-list li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 20px;
+        }
+
+        .step-list li::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 22px;
+            height: 22px;
+            background: var(--primary-accent);
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 15px;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #F8FAFC;
+        }
+
+        .faq-a {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .sidebar-widget {
+            position: sticky;
+            top: 40px;
+        }
+
+        .cta-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: var(--primary-accent);
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 4px 15px var(--glow-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(124, 58, 237, 0.4);
+        }
+
+        .price-tag {
+            font-size: 2.2rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            margin: 15px 0;
+            color: #FFFFFF;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .badge-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.8rem;
+            background: rgba(124, 58, 237, 0.15);
+            color: #C084FC;
+            border-radius: 6px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="badge">DWG_TO_REVIT</span>
+            <h1>DWG to Revit BIM Modeling</h1>
+            <p class="lead-text">Transform multi-layer CAD line work into structured, intelligent BIM files ready for scheduling, quantities, and clash tests.</p>
+        </header>
+
+        <div class="grid-layout">
+            <div class="main-content">
+                <div class="glass-card">
+                    <h2>Key Deliverables</h2>
+                    <ul class="check-list">
+                        <li>Native Revit (RVT) file organized by standard categories</li>
+<li>Revit Sheet setups aligned with CAD templates</li>
+<li>Standard walls, floors, ceilings, and architectural components</li>
+<li>3D renders of internal layouts</li>
+
+                    </ul>
+                </div>
+
+                <div class="glass-card">
+                    <h2>Working Process</h2>
+                    <ul class="step-list">
+                        <li data-step="1">CAD Cleanup: Strip annotations, purge blocks, and inspect units.</li>
+<li data-step="2">Link CAD: Link DWG file into Revit using shared origins.</li>
+<li data-step="3">Auto-Drafting & Modeling: Model load-bearing columns, perimeter walls, and structural elements.</li>
+<li data-step="4">Schedule configuration: Map room parameters and basic attributes.</li>
+
+                    </ul>
+                </div>
+
+                <div class="glass-card">
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                <div class="faq-q">What Revit versions do you support?</div>
+                <div class="faq-a">I support all versions from Revit 2021 up to 2025. Please specify your preference on startup.</div>
+            </div>
+
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="sidebar-widget glass-card">
+                    <h2>Get an Estimate</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Starting from:</p>
+                    <div class="price-tag">$250 - $700</div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 15px;">
+                        Final price will be determined based on the size, complexity, and exact timeline of your project.
+                    </p>
+                    <hr style="border: none; border-top: 1px solid rgba(255, 255, 255, 0.05); margin: 15px 0;">
+                    <h2>Required Files</h2>
+                    <div style="margin-top: 10px;">
+                        <span class="badge-pill">AutoCAD DWG files</span>
+<span class="badge-pill">Layer standards manual (if any)</span>
+<span class="badge-pill">Revit template file (optional)</span>
+
+                    </div>
+                    <a href="mailto:freelance@example.com?subject=Inquiry%20for%20DWG to Revit BIM Modeling" class="cta-btn">Book a consultation</a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Client Radar OS Private Workspace. All rights reserved. Content is private and generated for authorized client presentations.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "sources": [
+    {
+      "id": "google_search",
+      "name": "Google Search API",
+      "enabled": true,
+      "type": "api"
+    },
+    {
+      "id": "github_search",
+      "name": "GitHub Search",
+      "enabled": true,
+      "type": "api"
+    },
+    {
+      "id": "rss",
+      "name": "RSS Feeds",
+      "enabled": true,
+      "type": "rss",
+      "urls": [
+        "https://hnrss.org/jobs",
+        "https://reddit.com/r/freelance_jobs/.rss",
+        "https://reddit.com/r/forhire/.rss"
+      ]
+    },
+    {
+      "id": "reddit",
+      "name": "Reddit API",
+      "enabled": false,
+      "type": "api"
+    },
+    {
+      "id": "freelancer",
+      "name": "Freelancer API",
+      "enabled": false,
+      "type": "api"
+    }
+  ]
+}

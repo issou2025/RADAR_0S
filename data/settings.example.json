@@ -1,0 +1,9 @@
+{
+  "github_username": "YOUR_GITHUB_USERNAME",
+  "repository_name": "client-radar-os-private",
+  "branch": "main",
+  "github_token": "ghp_YOUR_PERSONAL_ACCESS_TOKEN",
+  "leads_path": "data/leads.json",
+  "user_actions_path": "data/user_actions.json",
+  "github_pages_base_url": "https://YOUR_GITHUB_USERNAME.github.io/client-radar-os-private"
+}
