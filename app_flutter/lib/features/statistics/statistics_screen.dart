@@ -183,7 +183,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
         children: [
           Text(value, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color)),
           const SizedBox(height: 4),
-          Text(label, style: const TextStyle(fontSize: 10, color: AppTheme.textMuted), textAlign: Center),
+          Text(label, style: const TextStyle(fontSize: 10, color: AppTheme.textMuted), textAlign: TextAlign.center),
         ],
       ),
     );

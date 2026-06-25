@@ -198,7 +198,7 @@ class _KeywordLabScreenState extends State<KeywordLabScreen> {
             const SizedBox(height: 8),
             const Text(
               "Les métriques apparaîtront après avoir importé et qualifié des opportunités contenant vos mots-clés d'intention.",
-              textAlign: Center,
+              textAlign: TextAlign.center,
               style: TextStyle(color: AppTheme.textSecondary),
             ),
           ],

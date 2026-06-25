@@ -302,7 +302,7 @@ class _LeadFeedScreenState extends State<LeadFeedScreen> {
           const SizedBox(height: 8),
           const Text(
             "Modifiez les filtres de recherche ou effectuez une synchronisation.",
-            textAlign: Center,
+            textAlign: TextAlign.center,
             style: TextStyle(color: AppTheme.textSecondary),
           ),
           const SizedBox(height: 24),

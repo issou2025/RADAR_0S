@@ -69,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         const SizedBox(height: 40),
                         Text(
                           slide.title,
-                          textAlign: Center,
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         const SizedBox(height: 16),
                         Text(
                           slide.description,
-                          textAlign: Center,
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontSize: 16,
                             color: AppTheme.textSecondary,

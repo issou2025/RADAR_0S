@@ -83,7 +83,7 @@ class _LeadDetailScreenState extends State<LeadDetailScreen> with SingleTickerPr
       SnackBar(
         content: Text("$label copié dans le presse-papiers !"),
         backgroundColor: AppTheme.primaryColor,
-        duration: const Duration(seconds: 1.5),
+        duration: const Duration(milliseconds: 1500),
       ),
     );
   }

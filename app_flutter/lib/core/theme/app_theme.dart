@@ -37,7 +37,7 @@ class AppTheme {
         ),
         iconTheme: IconThemeData(color: textPrimary),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: cardColor,
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -47,11 +47,11 @@ class AppTheme {
         margin: const EdgeInsets.only(bottom: 12),
       ),
       textTheme: const TextTheme(
-        titleLarge: TextStyle(color: textPrimary, fontSize: 22, fontWeight: FontWeight.w600),
-        titleMedium: TextStyle(color: textPrimary, fontSize: 16, fontWeight: FontWeight.w500),
-        bodyLarge: TextStyle(color: textPrimary, fontSize: 15),
-        bodyMedium: TextStyle(color: textSecondary, fontSize: 14),
-        bodySmall: TextStyle(color: textMuted, fontSize: 12),
+        titleLarge: TextStyle(color: textPrimary, fontSize: 22, fontWeight: FontWeight.w600, fontFamily: 'Outfit'),
+        titleMedium: TextStyle(color: textPrimary, fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'Outfit'),
+        bodyLarge: TextStyle(color: textPrimary, fontSize: 15, fontFamily: 'Outfit'),
+        bodyMedium: TextStyle(color: textSecondary, fontSize: 14, fontFamily: 'Outfit'),
+        bodySmall: TextStyle(color: textMuted, fontSize: 12, fontFamily: 'Outfit'),
       ),
       colorScheme: const ColorScheme.dark(
         primary: primaryColor,

@@ -144,7 +144,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       _isSyncing
                           ? "Synchronisation des opportunités en cours..."
                           : "Détection active : ${_leads.length} opportunités scannées dans la base locale.",
-                      style: const TextStyle(color: Colors.white80, fontSize: 14),
+                      style: const TextStyle(color: Colors.white70, fontSize: 14),
                     ),
                   ],
                 ),
@@ -324,7 +324,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 const SizedBox(height: 8),
                 Text(
                   label,
-                  textAlign: Center,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 )
               ],
