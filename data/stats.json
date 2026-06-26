@@ -1,5 +1,5 @@
 {
-  "total_leads": 17,
+  "total_leads": 21,
   "qualified_leads": 11,
   "very_hot_leads": 7,
   "contacted": 0,
@@ -13,18 +13,18 @@
   ],
   "best_keywords": [
     "need",
-    "available",
     "project",
     "job",
+    "available",
     "training"
   ],
   "best_service_types": [
     "STRUCTURAL_DRAWINGS",
-    "BIM_MODELING",
-    "FLUTTER_APP"
+    "FLUTTER_APP",
+    "PYTHON_AUTOMATION"
   ],
   "conversion_rate": 0.0,
-  "average_score": 78.35,
-  "average_risk": 7.18,
-  "weekly_report_summary": "Rapport généré le 2026-06-26.\nOpportunités totales : 17\nPistes qualifiées : 11 (Score >= 75)\nTrès chaudes : 7 (Score >= 90)\nContactées : 0\nProjets Gagnés : 0\nTaux de conversion : 0.0%\n\nMeilleure source : GitHub Search\nMeilleur service : STRUCTURAL_DRAWINGS\nRecommandation : Focalisez-vous sur le service STRUCTURAL DRAWINGS avec le mot-clé 'need' pour maximiser vos conversions cette semaine."
+  "average_score": 75.33,
+  "average_risk": 5.81,
+  "weekly_report_summary": "Rapport généré le 2026-06-26.\nOpportunités totales : 21\nPistes qualifiées : 11 (Score >= 75)\nTrès chaudes : 7 (Score >= 90)\nContactées : 0\nProjets Gagnés : 0\nTaux de conversion : 0.0%\n\nMeilleure source : GitHub Search\nMeilleur service : STRUCTURAL_DRAWINGS\nRecommandation : Focalisez-vous sur le service STRUCTURAL DRAWINGS avec le mot-clé 'need' pour maximiser vos conversions cette semaine."
 }
