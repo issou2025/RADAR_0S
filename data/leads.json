@@ -770,6 +770,64 @@
     "updated_at": "2026-06-25T11:00:00"
   },
   {
+    "title": "[FR] Support programmatic administration of AI Gateway configuration",
+    "description": "<!-- issue-warning -->\n> [!WARNING]\n> Before submitting a PR, please make sure that:\n> - A maintainer has triaged this issue and applied the `ready` label\n> - This issue has no assignee\n> - No duplicate PR exists\n>\n> PRs not meeting these requirements may be automatically closed.\n\n### Willingness to contribute\n\nYes. I can contribute this feature independently.\n\n### Proposal Summary\n\nWhile experimenting with the AI Gateway, I noticed that gateway providers and models appear to be managed primarily through the UI. This works well for interactive administration, but it makes it more difficult to automate AI Gateway provisioning as part of an Infrastructure-as-Code or CI/CD workflow. It appears that there is source code that could be built upon to support this idea, so not necessarily looking to \"reinvent the wheel\" here.\n\nI’m interested in understanding whether programmatic management of AI Gateway configuration is something that would align with the project’s long-term direction before investing time in a potential implementation.\n\n### Motivation\n\n> #### What is the use case for this feature?\nThe use case is enabling administrators to provision and manage AI Gateway configuration programmatically rather than exclusively through the UI. This would allow Gateway providers and models to be created, updated, and managed as part of automated deployment workflows.\n\n> #### Why is this use case valuable to support for MLflow users in general?\nMany MLflow deployments are provisioned and maintained through automation rather than manual configuration. Supporting programmatic administration would make AI Gateway easier to integrate into existing deployment workflows, improve repeatability across environments, and reduce manual configuration steps. It would also make it easier to recreate environments consistently after upgrades or disaster recovery.\n\n> #### Why is this use case valuable to support for your project(s) or organization?\nI'll be completely honest: I have a YouTube channel where I teach things related to AI/ML, and I'm currently working on content on working with MLflow. I like to teach my learners how to do things programmatically, and I generally lean with a flavoring of how I would approach things in my own job as a Staff ML Engineer at State Farm. As such, I prefer to lean toward doing things in a programmatic, repeatable way, so it feels like a gap today that there's not a clean way to do this outside of the UI. I can imagine that many in a similar position as me would greatly benefit from something like this to support their own respective organizations.\n\n> #### Why is it currently difficult to achieve this use case?\nThe current AI Gateway leans toward doing things through the UI. As a professional Staff ML Engineer, this is not preferable as a) there is no trace back to how a human user would set this up and b) it is not easily repeatable. In terms of implementing this feature, it seems like it shouldn't be too bad as the MLflow source code already leans this way already.\n\n### Details\n\nI intentionally haven’t proposed a concrete implementation because I’d first like to understand whether this capability aligns with the long-term direction of AI Gateway.\n\nAt a high level, I imagine this could take the form of a supported programmatic administration interface that allows AI Gateway configuration to be managed without relying on the UI. Depending on MLflow’s preferred architecture, this could potentially be exposed through REST endpoints, Python client APIs, or another administrative interface.\n\nFrom an administrator’s perspective, the desired capabilities would include managing Gateway providers and models (e.g., create, update, list, and delete operations), enabling AI Gateway configuration to be incorporated into automated deployment and provisioning workflows.\n\nIf this is an area the maintainers are interested in pursuing, I’d be happy to collaborate on a design and contribute an implementation.\n\n### What machine learning domain(s) is this feature request about?\n\n- [x] `domain/genai`: LLMs, Agents, and other GenAI-related use cases\n- [ ] `domain/classical-ml`: Traditional machine learning, such as linear regression.\n- [ ] `domain/deep-learning`: Deep learning and neural networks.\n- [ ] `domain/platform`: MLflow platform foundation, not specific to a particular machine learning domain.\n\n### What area(s) of MLflow is this feature request about?\n\n- [ ] `area/tracking`: Tracking Service, tracking client APIs, autologging\n- [ ] `area/model-registry`: Model Registry service, APIs, and the fluent client calls for Model Registry\n- [ ] `area/scoring`: MLflow model serving, deployment tools, Spark UDFs\n- [ ] `area/evaluation`: MLflow model evaluation features, evaluation metrics, and evaluation workflows\n- [ ] `area/prompt`: MLflow prompt engineering features, prompt templates, and prompt management\n- [ ] `area/tracing`: MLflow Tracing features, tracing APIs, and LLM tracing functionality\n- [x] `area/gateway`: MLflow AI Gateway client APIs, server, and third-party integrations\n- [ ] `area/projects`: MLproject format, project running backends\n- [ ] `area/uiux`: Front-end, user experience, plotting\n- [ ] `area/docs`: MLflow documentation pages",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/mlflow/mlflow/issues/24186",
+    "published_date": "2026-06-27",
+    "language": "en",
+    "score": 70,
+    "score_reasons": [
+      "Contains structural drawings (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)",
+      "Contains deadline/quote keyword (+5)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260627_070025_011",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-06-27T07:00:25.118562",
+    "updated_at": "2026-06-27T07:00:25.118570",
+    "keywords_detected": [
+      "proposal",
+      "job",
+      "project"
+    ],
+    "service_type": "STRUCTURAL_DRAWINGS",
+    "offer_page": "/offers/structural-drawings.html",
+    "budget_detected": "not specified",
+    "recommended_price": "800 - 2000 EUR",
+    "questions_to_ask": [
+      "Avez-vous déjà réalisé l'étude de sol géotechnique pour les fondations ?",
+      "Quelles sont les charges d'exploitation particulières (machines, toiture végétalisée) ?",
+      "Fournissez-vous les plans d'architecte définitifs au format DWG ?",
+      "Quels sont les détails d'exécution attendus (nomenclatures d'acier, détails de ferraillage) ?",
+      "Quel est votre calendrier souhaité pour la validation des plans ?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260627_070025_011.md"
+  },
+  {
     "id": "lead_2026_005",
     "title": "Need python automation script for Excel data",
     "description": "Looking for a quick python task. I have 50 excel sheets containing product prices. I need a python script to merge them into a single master sheet, clean duplicates, and highlight price changes. Need this done today. Cheap price please.",
