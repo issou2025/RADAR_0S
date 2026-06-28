@@ -943,6 +943,63 @@
     "proposal_path": "/proposals/lead_20260627_070025_011.md"
   },
   {
+    "title": "Anti-bot / scraping-resilience hardening (gated on Phase 4 scale + measured block rates)",
+    "description": "## Motivation\n\nForward-looking tracking issue for scraper anti-bot resilience. **Not for immediate implementation** — captured so the analysis isn't lost. The current hand-rolled stealth is adequate for today's mainstream-retail targets; this work is gated on **measured recurring blocks** and/or **Phase 4 discovery scale** (machine-discovered URLs across many shops at high concurrency — a much larger surface, cf. the Phase 1.7 SSRF note in CLAUDE.md).\n\n## Current state (baseline)\n\nThe scraper (`scraper/main.py`) launches a **single global Chromium at lifespan** (`:438-457`) and creates `new_context()` per request (`:712`). Existing, modest, hand-rolled stealth:\n- `--disable-blink-features=AutomationControlled` native launch flag (`:445-455`) — correctly chosen over `add_init_script` prototype-patching, which CF can detect.\n- Pinned `_BROWSER_USER_AGENT` (`:589-591`) + realistic viewport/locale/Accept-Language (`:711-713`).\n- Cloudflare managed-challenge detection via `window._cf_chl_opt` (`:625-627`).\n\nNot present: any stealth/fingerprint library, proxy rotation, browser recycling.\n\n## Gaps identified (all language-independent — no Node/TS migration needed; every fix below is first-class Python)\n\n1. **Shared fingerprint + TLS (JA3/JA4) across contexts.** One Chromium binary ⇒ every context shares the same hardware fingerprint *and* TLS cipher ordering. Latent today (we don't rotate proxies, so we present as one consistent client); becomes the \"many users / one fingerprint\" tell once proxy/cookie rotation + high concurrency arrive at Phase 4. Note: switching host language would NOT change JA3 — same binary = same TLS signature; mitigation is a fingerprint library and/or TLS-impersonating proxy and/or hardened fork, not a rewrite.\n2. **No browser recycling.** The lifespan browser runs indefinitely → memory fragmentation + a continuously-mappable browser lifetime. *(This is the one item worth doing sooner — it's memory hygiene independent of anti-bot; see below.)*\n3. **Pinned-UA drift.** `_BROWSER_USER_AGENT` will drift from real Chrome over time (already noted in-code).\n\n## Candidate mitigations (evaluate when triggered, cheapest first)\n\n- **Per-context fingerprint randomization** — e.g. `browserforge` (statistically realistic fingerprints injected per `new_context()`); also addresses UA drift.\n- **Browser recycling** — recycle (close + relaunch) the global browser after N requests / a time budget.\n- **Hardened browser fork** — evaluate **Patchright** (patched Playwright, strips automation tells at the binary level, drop-in for Python) or **Camoufox** (hardened Firefox) only if standard Chromium + fingerprint randomization proves insufficient.\n- **Proxy rotation** — residential/rotating proxies; pair with per-session fingerprint so rotated IPs don't all share one hardware hash.\n\n## Explicitly out of scope / discount\n\n- **Do not** add stealth machinery speculatively (reproduce-before-blaming: each layer is its own maintenance + detection surface). Add only against measured block rates.\n- This is **not** a reason to migrate the scraper to Node/TS — all mitigations are Python-available, and the JA3/fingerprint vectors are binary-level, not language-level. (See the keep-Python decision.)\n\n## Suggested near-term carve-out\n\n**Browser recycling** (gap #2) is the only piece worth doing independent of anti-bot — it's operational memory hygiene for the long-lived global browser. Consider splitting it into its own small issue if/when scraper memory becomes a concern.\n\n## Triggers to start this work\n- [ ] Measured, recurring block/challenge rate above an agreed threshold, OR\n- [ ] Phase 4 discovery begins high-volume multi-shop scraping, OR\n- [ ] Proxy rotation is introduced (then per-session fingerprinting becomes a prerequisite, not optional).",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/nadavpeisik/price-tracker/issues/136",
+    "published_date": "2026-06-28",
+    "language": "en",
+    "score": 70,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Budget detected (+15)",
+      "Recent request (+15)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 20,
+    "recommended_action": "monitor",
+    "id": "lead_20260628_071624_009",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-06-28T07:16:24.161932",
+    "updated_at": "2026-06-28T07:16:24.161940",
+    "keywords_detected": [
+      "budget",
+      "available",
+      "need"
+    ],
+    "service_type": "PYTHON_AUTOMATION",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "cheap / low budget",
+    "recommended_price": "200 - 600 USD",
+    "questions_to_ask": [
+      "What is the input data format (Excel sheets, CSV, website, database)?",
+      "What are the step-by-step logic rules for processing the data?",
+      "Where should the output be saved (merged sheet, email, database)?",
+      "Does this script need to run on a schedule (cron, Windows Scheduler) or manually?",
+      "Can you share sample data files for testing?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260628_071624_009.md"
+  },
+  {
     "id": "lead_2026_005",
     "title": "Need python automation script for Excel data",
     "description": "Looking for a quick python task. I have 50 excel sheets containing product prices. I need a python script to merge them into a single master sheet, clean duplicates, and highlight price changes. Need this done today. Cheap price please.",
