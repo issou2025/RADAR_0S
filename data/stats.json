@@ -1,7 +1,7 @@
 {
-  "total_leads": 57,
-  "qualified_leads": 26,
-  "very_hot_leads": 14,
+  "total_leads": 61,
+  "qualified_leads": 28,
+  "very_hot_leads": 16,
   "contacted": 0,
   "won": 0,
   "lost": 0,
@@ -15,8 +15,8 @@
     "need",
     "project",
     "available",
-    "job",
-    "proposal"
+    "proposal",
+    "job"
   ],
   "best_service_types": [
     "STRUCTURAL_DRAWINGS",
@@ -24,7 +24,7 @@
     "PYTHON_AUTOMATION"
   ],
   "conversion_rate": 0.0,
-  "average_score": 73.02,
-  "average_risk": 4.07,
-  "weekly_report_summary": "Rapport généré le 2026-06-30.\nOpportunités totales : 57\nPistes qualifiées : 26 (Score >= 75)\nTrès chaudes : 14 (Score >= 90)\nContactées : 0\nProjets Gagnés : 0\nTaux de conversion : 0.0%\n\nMeilleure source : GitHub Search\nMeilleur service : STRUCTURAL_DRAWINGS\nRecommandation : Focalisez-vous sur le service STRUCTURAL DRAWINGS avec le mot-clé 'need' pour maximiser vos conversions cette semaine."
+  "average_score": 73.31,
+  "average_risk": 3.8,
+  "weekly_report_summary": "Rapport généré le 2026-07-01.\nOpportunités totales : 61\nPistes qualifiées : 28 (Score >= 75)\nTrès chaudes : 16 (Score >= 90)\nContactées : 0\nProjets Gagnés : 0\nTaux de conversion : 0.0%\n\nMeilleure source : GitHub Search\nMeilleur service : STRUCTURAL_DRAWINGS\nRecommandation : Focalisez-vous sur le service STRUCTURAL DRAWINGS avec le mot-clé 'need' pour maximiser vos conversions cette semaine."
 }

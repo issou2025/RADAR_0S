@@ -495,6 +495,67 @@
     "proposal_path": "/proposals/lead_20260630_183632_009.md"
   },
   {
+    "title": "📈 AI Open Source Trends 2026-07-01",
+    "description": "# AI Open Source Trends 2026-07-01\n\n> Sources: GitHub Trending + GitHub Search API | Generated: 2026-06-30 23:13 UTC\n\n---\n\n# AI Open Source Trends Report (2026-07-01)\n## 1. Today's Highlights\nToday’s GitHub AI trending chart is dominated by end-to-end agent ecosystem projects, with multiple niche AI tools crossing 1000+ new daily stars as the open source community shifts focus from generic LLM releases to production-ready agent deployment stacks. Big tech projects from Google, Meta, and Microsoft all ranked in today’s top trending AI repos, signaling official enterprise backing for open, interoperable AI agent standards. A new category of AI gateway and token optimization tools also saw explosive growth, directly addressing the widespread pain point of high inference costs that has slowed mass agent rollout for small teams. Vertical use case specific AI agents for high-value niche workflows including value investing and cybersecurity are now getting far more community traction than broad, generalist AI applications.\n\n## 2. Top Projects by Category\n### 🔧 AI Infrastructure\n1. [diegosouzapw/OmniRoute](https://github​.com/diegosouzapw/OmniRoute) | ⭐0 (+459 today) — Free unified AI gateway supporting 231+ LLM providers, 15-95% token compression, and native integration with all mainstream coding assistants, eliminating fragmented LLM access and unnecessary inference costs for developers.\n2. [google/agents-cli](https://github​.com/google/agents-cli) | ⭐0 (+433 today) — Official Google CLI toolkit that converts any coding assistant into a purpose-built tool for building, testing, and deploying AI agents natively on Google Cloud, filling a critical gap for enterprise production agent workflows.\n3. [ogulcancelik/herdr](https://github​.com/ogulcancelik/herdr) | ⭐0 (+485 today) — Rust-built terminal agent multiplexer that lets users manage and route multiple concurrent agent instances directly from the command line, delivering 2-3x lower latency than legacy Python-based agent management tools.\n4. [affaan-m/ECC](https://github​.com/affaan-m/ECC) | ⭐224,054 — Top-performing agent harness optimization system that adds security checks, instinct tuning, and memory management for all leading coding assistants including Claude Code and Codex, now the most starred project in the agent optimization niche.\n5. [vllm-project/vllm](https://github​.com/vllm-project/vllm) | ⭐84,924 — Industry standard high-throughput LLM inference engine, with recent updates adding native support for long-context agent workloads.\n\n### 🤖 AI Agents / Workflows\n1. [msitarzewski/agency-agents](https://github​.com/msitarzewski/agency-agents) | ⭐0 (+1793 today) — Full pre-built multi-agent AI agency system with specialized, personality-defined agents for frontend development, community management, and content creation, one of the fastest growing agent repos of 2026.\n2. [obra/superpowers](https://github​.com/obra/superpowers) | ⭐0 (+884 today) — Standardized agentic skills framework and coding methodology that reduces agent hallucination rates for production software projects by over 60% per early community benchmarks.\n3. [NousResearch/hermes-agent](https://github​.com/NousResearch/hermes-agent) | ⭐206,457 — Leading open source generalist AI agent framework that supports incremental capability expansion as users interact with it, with 100k+ community forks in the last 7 days.\n4. [browser-use/video-use](https://github​.com/browser-use/video-use) | ⭐0 (+722 today) — Code agent toolkit built on the popular browser-use web automation framework that lets users edit and process full videos using natural language code instructions without manual editing workflows.\n5. [shareAI-lab/learn-claude-code](https://github​.com/shareAI-lab/learn-claude-code) | ⭐69,243 — Zero-to-one nano agent harness built purely with Bash, lowering the barrier for new developers to learn agent implementation without heavy dependency stacks.\n\n### 📦 AI Applications\n1. [altic-dev/FluidVoice](https://github​.com/altic-dev/FluidVoice) | ⭐0 (+586 today) — macOS-native on-device STT dictation app that outperforms closed-source alternatives like Wispr Flow, with promised cross-platform support for Windows, Linux and iOS in upcoming releases.\n2. [usestrix/strix](https://github​.com/usestrix/strix) | ⭐0 (+395 today) — Open source AI penetration testing tool that automatically scans for and prioritizes application vulnerabilities, eliminating manual security testing bottlenecks for small dev teams.\n3. [xbtlin/ai-berkshire](https://github​.com/xbtlin/ai-berkshire) | ⭐0 (+966 today) — Value investing research multi-agent framework that encodes the methodologies of 4 legendary value investors (Buffett, Munger, Duan Yongping, Li Lu) to run adversarial analysis of public company investment opportunities.\n4. [HKUDS/Vibe-Trading](https://github​.com/HKUDS/Vibe-Trading) | ⭐0 (+719 today) — Personalized trading AI agent that combines market sentiment analysis and technical indicators to generate tailored trading recommendations for retail investors.\n5. [facebook/astryx](https://github​.com/facebook/astryx) | ⭐0 (+399 today) — Fully customizable open source agent-ready design system that lets AI agents natively generate and modify design assets for frontend products without human designer intervention.\n\n### 🧠 LLMs / Training\n1. [ollama/ollama](https://github​.com/ollama/ollama) | ⭐175,196 — Leading local LLM deployment toolkit, with latest updates adding first-class support for all new Chinese frontier models including Kimi-K2.6 and GLM-5.1.\n2. [hiyouga/LlamaFactory](https://github​.com/hiyouga/LlamaFactory) | ⭐72,839 — Unified fine-tuning framework that supports over 100 LLMs and VLMs, the de facto standard open source tool for small teams to fine-tune custom domain models.\n3. [jingyaogong/minimind](https://github​.com/jingyaogong/minimind) | ⭐52,395 — Popular educational resource that walks users through training a full 64M parameter LLM from scratch in just 2 hours, the most accessed LLM learning project in the last 7 days.\n4. [Robbyant/lingbot-map](https://github​.com/Robbyant/lingbot-map) | ⭐0 (+210 today) — Open source feed-forward 3D foundation model that reconstructs full spatial scenes from streaming sensor data, a new breakthrough in lightweight multimodal foundation models.\n5. [microsoft/AI-For-Beginners](https://github​.com/microsoft/AI-For-Beginners) | ⭐0 (+180 today) — 12-week structured introductory AI learning curriculum from Microsoft, the most widely adopted free AI education resource for new learners globally.\n\n### 🔍 RAG / Knowledge\n1. [thedotmack/claude-mem](https://github​.com/thedotmack/claude-mem) | ⭐85,229 — Universal persistent context system that automatically stores and compresses agent session history, injecting relevant past context into new sessions across all leading agent platforms, eliminating practical context window limits for long-running agents.\n2. [infiniflow/ragflow](https://github​.com/infiniflow/ragflow) | ⭐83,971 — Leading open source RAG engine with native agent integration, that delivers 30% higher retrieval accuracy for unstructured enterprise documents than legacy RAG systems.\n3. [mem0ai/mem0](https://github​.com/mem0ai/mem0) | ⭐59,779 — Universal open source memory layer for AI agents, that has become the standard integration for 60% of newly deployed production agent projects in Q2 2026.\n4. [topoteretes/cognee](https://github​.com/topoteretes/cognee) | ⭐26,100 — Open source AI memory platform built on knowledge graphs, that gives agents persistent long-term cross-session memory without expensive vector storage overhead.\n5. [roboflow/supervision](https://github​.com/roboflow/supervision) | ⭐0 (+336 today) — Popular reusable computer vision tooling library that adds new retrieval capabilities for multimodal RAG use cases targeting image and video content.\n\n## 3. Trend Signal Analysis\nToday’s trending data confirms that agent ecosystem tooling is the fastest growing segment in open source AI, with 70% of the top 10 AI trending repos focused on agent interoperability, performance optimization, or vertical use cases. Previously niche subcategories including agent harnesses, terminal multiplexers for agents, and agent-specific token compression tools are seeing explosive adoption, following recent releases of Claude Code, OpenAI Codex and other native coding agent products that lowered the barrier for building agent-led development workflows. A notable new emerging stack is the Rust-based CLI agent management layer, which delivers 2-3x faster response latency than older Python-based agent frameworks, filling the gap for power users to run multiple agent instances locally on consumer hardware. The open source community is clearly pivoting away from generic LLM model releases to end-to-end vertical agent solutions for use cases including financial investment, penetration testing, and video editing, as developers move beyond proving LLM capability to building practical, revenue-generating AI products. This shift aligns with public 2026 open source priorities announced by Google, Meta and Microsoft that all name open, interoperable agent ecosystems as their top focus for the year.\n\n## 4. Community Hot Spots\n- [msitarzewski/agency-agents](https://github​.com/msitarzewski/agency-agents): The pre-built full AI agency multi-agent stack cuts 80% of setup work for teams looking to deploy agent-driven operations teams, and is expected to become a standard template for small AI service teams in the next 3 months.\n- [diegosouzapw/OmniRoute](https://github​.com/diegosouzapw/OmniRoute): The zero-cost LLM gateway with extreme token compression is a game-changer for indie developers running agent workloads on tight budgets, eliminating up to 90% of their inference costs.\n- [ogulcancelik/herdr](https://github​.com/ogulcancelik/herdr): The first Rust-based terminal agent multiplexer fills a major unmet need for power users who prefer CLI workflows to manage multiple concurrent agent instances, and will likely spawn a new generation of high-performance local agent tooling.\n- [xbtlin/ai-berkshire](https://github​.com/xbtlin/ai-berkshire): The vertical value investing multi-agent framework demonstrates that specialized agents focused on niche high-value use cases can achieve far higher user retention than generic generalist agents.\n\n---\n*This digest is auto-generated by [agents-radar](https://github​.com/kakapez/agents-radar).*",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/kakapez/agents-radar/issues/572",
+    "published_date": "2026-06-30",
+    "language": "en",
+    "score": 100,
+    "score_reasons": [
+      "Contains structural drawings (+20)",
+      "Contains buying intent keywords (+20)",
+      "Budget detected (+15)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20260701_002843_007",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-01T00:28:43.102178",
+    "updated_at": "2026-07-01T00:28:43.102183",
+    "keywords_detected": [
+      "budget",
+      "hire",
+      "need",
+      "training",
+      "project"
+    ],
+    "service_type": "STRUCTURAL_DRAWINGS",
+    "offer_page": "/offers/structural-drawings.html",
+    "budget_detected": "not specified",
+    "recommended_price": "800 - 2000 EUR",
+    "questions_to_ask": [
+      "Avez-vous déjà réalisé l'étude de sol géotechnique pour les fondations ?",
+      "Quelles sont les charges d'exploitation particulières (machines, toiture végétalisée) ?",
+      "Fournissez-vous les plans d'architecte définitifs au format DWG ?",
+      "Quels sont les détails d'exécution attendus (nomenclatures d'acier, détails de ferraillage) ?",
+      "Quel est votre calendrier souhaité pour la validation des plans ?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260701_002843_007.md"
+  },
+  {
     "id": "lead_2026_001",
     "title": "Need Revit freelancer to convert PDF house plans",
     "description": "Looking for someone to convert PDF house plans into a clean Revit model. The house is a standard 2-story family home. Standard LOD 200 is sufficient. I need the RVT file plus exported DWG plans and PDF sheets.",
@@ -821,6 +882,65 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260626_071221_012.md"
+  },
+  {
+    "title": "Feature Request / Proposal: Account Switcher Utility for Kiro IDE",
+    "description": "Hi there,\n\nI hope you are doing well.\n\nI have been using Kiro IDE and found myself frequently needing to switch between multiple AWS SSO / Kiro accounts. Since Kiro is an Electron-based application, it locks session details inside the AppData\\Roaming\\Kiro cache and keeps the active token in C:\\Users\\<User>\\.aws\\sso\\cache\\kiro-auth-token.json. Switching accounts manually requires killing tasks, clearing specific directories, and swapping token files every single time.\n\nTo solve this, I've put together a prototype automation logic in Python using pywebview and shutil that successfully handles this process. It gracefully:\n\nCloses Kiro IDE and all its sub-processes completely (taskkill /F /T).\n\nClears session/cookie directories (like Local Storage, Session Storage, Cache, Network, etc.) to prevent account conflicts.\n\nSwaps/backs up the kiro-auth-token.json file.\n\nRestarts the IDE either with a selected account or in a clean \"Guest/Add Account\" mode.\n\nI was wondering if you would be interested in creating a dedicated, polished utility tool or a desktop app for this purpose, or perhaps integrating such a mechanism if you have a relevant repository? I can share the current Python script logic, HTML/CSS UI structure, and folder targets with you to speed up the process.\n\nLooking forward to hearing your thoughts!",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/lbjlaq/Antigravity-Manager/issues/3217",
+    "published_date": "2026-06-30",
+    "language": "en",
+    "score": 90,
+    "score_reasons": [
+      "Contains structural drawings (+20)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)",
+      "Contains deadline/quote keyword (+5)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20260701_002843_008",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-01T00:28:43.103848",
+    "updated_at": "2026-07-01T00:28:43.103852",
+    "keywords_detected": [
+      "proposal",
+      "need",
+      "looking for"
+    ],
+    "service_type": "STRUCTURAL_DRAWINGS",
+    "offer_page": "/offers/structural-drawings.html",
+    "budget_detected": "not specified",
+    "recommended_price": "800 - 2000 EUR",
+    "questions_to_ask": [
+      "Avez-vous déjà réalisé l'étude de sol géotechnique pour les fondations ?",
+      "Quelles sont les charges d'exploitation particulières (machines, toiture végétalisée) ?",
+      "Fournissez-vous les plans d'architecte définitifs au format DWG ?",
+      "Quels sont les détails d'exécution attendus (nomenclatures d'acier, détails de ferraillage) ?",
+      "Quel est votre calendrier souhaité pour la validation des plans ?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260701_002843_008.md"
   },
   {
     "id": "lead_2026_002",
@@ -2371,6 +2491,61 @@
     "proposal_path": "/proposals/lead_20260629_183711_012.md"
   },
   {
+    "title": "Post-rename identity check (sameFileIdentity) always fails on rclone FUSE mounts, even with zero concurrency",
+    "description": "## Summary\n\n`runPinnedWriteFallback`'s post-rename identity check (`sameFileIdentity` comparing `(dev, ino)`) always fails on rclone FUSE mounts, even with a single process and zero concurrency. The filesystem creates a fresh inode number on every path lookup, including a lookup that happens right after we renamed a file we wrote ourselves. Any overwrite-write through `writeFileInRoot`/`runPinnedWriteFallback` against a root on this kind of mount doesn't work.\n\nI hit this through `openclaw wiki status`, which throws `FsSafeError: fallback target changed during write` on every run against a `memory-wiki` vault stored on an rclone-mounted Google Drive workspace.\n\n## How this differs from #92134 / #85876 / #83740\n\nThose are intermittent `path-mismatch` failures from a real concurrent rename racing a read, and they go away on retry. This doesn't match that pattern since it is one process without concurrency that fails every time. There's no race window to retry past, because the filesystem's `rename(2)` doesn't preserve inode identity the way `sameFileIdentity` expects.\n\n## Root cause\n\n`src/pinned-write.ts`, `runPinnedWriteFallback`:\n\n```ts\ntempStat = await handle.stat();                 // identity via held fd, before rename\n...\nawait fs.rename(tempPath, targetPath);\ntargetStat = await fs.lstat(targetPath);         // fresh path lookup, after rename\nif (targetStat.isSymbolicLink() || !sameFileIdentity(targetStat, expectedTempStat)) {\n  throw new FsSafeError(\"path-mismatch\", \"fallback target changed during write\");\n}\n```\n\n`sameFileIdentity` (`src/file-identity.ts`) requires `left.ino === right.ino` plus matching `dev`. That only holds if `rename(2)` preserves the source's inode at the destination which is true on POSIX filesystems but not guaranteed elsewhere.\n\n### Reproduction (rclone mount, `--vfs-cache-mode writes --dir-cache-time 1m`, Google Drive remote)\n\nPlain `mv` inside the mounted directory, run 5 times in a row, nothing else touching the file:\n\n```\nrun 1: pre-rename ino=16151710212077576736  post-rename ino=3761490782177196776\nrun 2: pre-rename ino=16151713510612461369  post-rename ino=3761494080712081409\nrun 3: pre-rename ino=16151712411100833158  post-rename ino=3761492981200453198\nrun 4: pre-rename ino=16151715709635717791  post-rename ino=3761496279735337831\nrun 5: pre-rename ino=16151714610124089580  post-rename ino=3761495180223709620\n```\n\nAs a control, I ran the same `mv` test on the container's `overlay` root filesystem, which isn't FUSE:\n\n```\npre-rename ino=186377  post-rename ino=186377   (matches)\n```\n\nI also checked whether this was general cache churn unrelated to rename. Stat'ing an unrenamed, unchanged file twice, 2 seconds apart, on the same rclone mount gives the same inode both times. The instability is specific to rename, not the mount being flaky in general.\n\n## I looked for a way to keep the same TOCTOU protection on this kind of filesystem, and couldn't find one\n\nBefore reporting this I wanted to check whether there's some inode-independent way to get the same guarantee on a mount like this. One obvious idea was to keep the file descriptor open across the rename instead of closing it first, which is what the code does today, and compare `fstat()` on that same fd before and after, but that didn't address the check's goal.\n\n```\nfd9 identity before rename (held fd):          ino=17015438226736127255\nfd9 identity after rename  (same held fd):     ino=17015438226736127255   (matches)\nfresh lookup of target by path after rename:   ino=7749167912470427203    (different)\n```\n\nA held fd does stay stable across the rename. But that doesn't actually buy you anything. To check whether `targetPath` still points at what you wrote, you have to look it up by name again, and on this mount every fresh lookup gets a new inode no matter what. Comparing the held fd against itself would always pass, even in the exact attacker-swap scenario the check is meant to catch. As far as I can tell, this filesystem doesn't have any way to ask whether a name currently points at the same object as a given fd.\n\nI also checked whether rclone has a flag for stable inodes. `rclone mount --help` has nothing for this. Rclone creates inode numbers from a process-local counter (`vfs.newInode()`), not anything tied to a stable remote file ID, so I doubt rclone could fix this on its end.\n\n## Previous context on the check\n\nThis is not an ask to weaken or drop the intent behind `sameFileIdentity`. From `docs/security-model.md` and the `66bf772` commit (\"harden deepsec-reported filesystem races\"), this check catches a same-UID racer swapping the rename target between `rename()` and the verifying `lstat()`.\n\nInstead I'm suggesting using hashing to compare that the written content matches the expectation.\n\n## Environment\n\n- `openclaw` 2026.6.10 (aa69b12), bundling `@openclaw/fs-safe` 0.3.0\n- Filesystem: `rclone mount <remote>: /data --vfs-cache-mode writes --dir-cache-time 1m --poll-interval 15s` (Google Drive remote), `fuse.rclone`\n- Linux, Docker container, single process accessing the mount the whole time\n\n## Suggested next step\n\nAt minimum this seems worth a line in `docs/security-model.md` / `docs/root.md` saying the overwrite path in `runPinnedWriteFallback` needs rename to preserve inode identity, and that it won't work at all, not just be more race-prone, on FUSE mounts that don't do that. Rclone is a confirmed example. Happy to dig up more detail if it helps.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/openclaw/fs-safe/issues/32",
+    "published_date": "2026-06-30",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260701_002843_010",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-01T00:28:43.105179",
+    "updated_at": "2026-07-01T00:28:43.105184",
+    "keywords_detected": [
+      "need"
+    ],
+    "service_type": "UNKNOWN",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260701_002843_010.md"
+  },
+  {
     "title": "[ENHANCEMENT] Add support for Jupiter v6 API quote routing to optimize cross-dex trade legs",
     "description": "### Is your feature request related to a problem?\nCurrently, the capital funding rate arbitrage module and standard spatial loops on Solana map liquidity directly across specific isolated pools (Raydium, Orca). While the sub-45ms latency architecture is incredibly fast, we miss out on complex multi-hop trade routes that could yield higher spread percentages.\n\n### Describe the solution you'd like\nIt would be awesome to integrate Jupiter v6 API or their local routing SDK directly into the Cortex AI automation core. This would allow the execution engine to automatically find optimized multi-hop routes (e.g., USDT -> SOL -> Jupiter Pool -> Token) for the arbitrage legs while still utilizing the local flash loan bot mechanics for safety.\n\n### Describe alternatives you've considered\nI tried writing a custom Python script wrapper to pipe Jupiter quotes into the engine telemetry layer, but the retail python overhead completely kills the structural latency advantage of the native Cortex infrastructure, pushing execution loops way past 150ms.\n\n### Additional context\nIntegrating this directly into the native C++ / optimized pipeline of the `Cortex_AI_v3.4` binary would make this the ultimate tool for Solana MEV and latency arbitrage.",
     "source": "GitHub Search",
@@ -2872,6 +3047,61 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260629_132200_008.md"
+  },
+  {
+    "title": "Looking for 3 design partners for Agent Black Box v0.1.0 local alpha",
+    "description": "Agent Black Box v0.1.0 is live as a public local alpha, and I am looking for the first three design partners.\n\nRelease:\n\nhttps://github.com/RaziStuff/agent-black-box/releases/tag/v0.1.0\n\nRecommended download:\n\nhttps://github.com/RaziStuff/agent-black-box/releases/download/v0.1.0/agent-black-box-0.1.0-design-partner.zip\n\nChecksum:\n\n```text\nSHA-256: 20e3f38638c03fd24a94199ef2d058313214055c1a05a7fb67f678f5cc91db62\n```\n\n## Who this is for\n\nYou are probably a good fit if you are:\n\n- building an AI agent product and debugging real agent behavior weekly,\n- working on agent infra, evals, observability, support, local tooling, or handoff,\n- or using local Python, CLI, notebook, or script-based automations for real workflows.\n\nYou should be comfortable running local terminal commands and able to spend 20 to 40 minutes trying the alpha.\n\n## What I need tested\n\nThe core path is:\n\n```bash\nunzip agent-black-box-0.1.0-design-partner.zip\ncd agent-black-box-0.1.0-design-partner\nsh install.sh\n. .venv/bin/activate\nabb doctor\n```\n\nThen follow `docs/FIRST_USER_WORKFLOW.md`.\n\nThe highest-signal feedback:\n\n- Did install and `abb doctor` work without live help?\n- Did `abb show RUN_ID` make a run easier to understand?\n- Did the Debug Path point to the first useful thing?\n- Did support and handoff packets feel useful and safe?\n- Was `abb delete RUN_ID --yes` clear as the local cleanup path?\n- Was the local-first privacy boundary clear?\n\n## Apply or share feedback\n\nApply to be one of the first three design partners:\n\nhttps://github.com/RaziStuff/agent-black-box/issues/new?template=design_partner_application.yml\n\nIf you already tried it, share alpha feedback:\n\nhttps://github.com/RaziStuff/agent-black-box/issues/new?template=alpha_feedback.yml\n\nPublic design-partner call:\n\nhttps://github.com/RaziStuff/agent-black-box/blob/main/docs/PUBLIC_DESIGN_PARTNER_CALL.md\n\n## Privacy note\n\nPlease do not paste secrets, customer data, private trace payloads, API keys, or full `.abb` bundles into public issues.\n\nThe safest first artifacts are:\n\n```bash\nabb doctor --json\nabb support RUN_ID\nabb handoff RUN_ID\n```\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/RaziStuff/agent-black-box/issues/1",
+    "published_date": "2026-06-30",
+    "language": "en",
+    "score": 55,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260701_002843_009",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-01T00:28:43.104385",
+    "updated_at": "2026-07-01T00:28:43.104390",
+    "keywords_detected": [
+      "need",
+      "looking for"
+    ],
+    "service_type": "PYTHON_AUTOMATION",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "200 - 600 USD",
+    "questions_to_ask": [
+      "What is the input data format (Excel sheets, CSV, website, database)?",
+      "What are the step-by-step logic rules for processing the data?",
+      "Where should the output be saved (merged sheet, email, database)?",
+      "Does this script need to run on a schedule (cron, Windows Scheduler) or manually?",
+      "Can you share sample data files for testing?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260701_002843_009.md"
   },
   {
     "title": "Mission: AI-Native Unified Work Triage & Automated Action Proposals",
