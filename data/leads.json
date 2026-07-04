@@ -4914,6 +4914,61 @@
     "proposal_path": "/proposals/lead_20260626_183200_006.md"
   },
   {
+    "title": "Infra tests fail on macOS main: quoted host python breaks Windows-render regex; late-SQLite guard test misses realpathed state dir",
+    "description": "## What happened\n\nTwo `test/vitest/vitest.infra.config.ts` tests fail deterministically on a pristine macOS checkout of latest `main` while Linux CI is green on the same SHA. This breaks the `scripts/pr prepare-run` local `pnpm test` gate for every PR landed from a Mac.\n\nRepro (macOS, clean clone of `main`, sanitized env, Node 24 or 25):\n\n```\nnode scripts/run-vitest.mjs run --config test/vitest/vitest.infra.config.ts src/infra/exec-approvals-analysis.test.ts src/infra/backup-create.test.ts\n```\n\n1. `src/infra/exec-approvals-analysis.test.ts` > \"Windows enforced shell command rendering > builds enforced command for simple Windows command\": the test resolves the host `python3`. On macOS/Homebrew that is `/opt/homebrew/Cellar/python@3.14/.../bin/python3.14` — the `@` makes the renderer (correctly) quote the executable, and the assertion regex `/^& .+python3(?:\\.\\d+)? a\\.py$/` does not allow the closing quote before ` a.py`.\n\n2. `src/infra/backup-create.test.ts` > \"fails when SQLite-looking state appears after snapshot discovery: late.sqlite(-wal)\": the `fs.readdir` spy injects the late file only when the scanned dir equals `path.resolve(state.stateDir)`. Snapshot discovery scans the realpathed state dir; on macOS the tmpdir-based `stateDir` goes through the `/var -> /private/var` symlink, so the comparison never matches, the late file is never injected, and the archive resolves instead of rejecting.\n\nBoth are test-environment bugs, not product bugs: the quoting behavior is correct, and the appears-after-snapshot guard works when it actually sees the late file.\n\n## Impact\n\n`pnpm test` cannot go green on a clean macOS checkout of `main`, so `scripts/pr prepare-run`/`merge-run` cannot produce gate stamps on maintainer Macs. Found while landing #99935.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/openclaw/openclaw/issues/100025",
+    "published_date": "2026-07-04",
+    "language": "en",
+    "score": 50,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)",
+      "Contains deadline/quote keyword (+5)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260704_181836_015",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-04T18:18:36.190385",
+    "updated_at": "2026-07-04T18:18:36.190392",
+    "keywords_detected": [
+      "quote"
+    ],
+    "service_type": "UNKNOWN",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260704_181836_015.md"
+  },
+  {
     "title": "[SEC-17] Reputación del Bazaar inflable: accept acredita swap completado con payer falsificable",
     "description": "## `[SEC-17]` La reputación del Bazaar es inflable: `accept` acredita \"swap completado\" sin completarse, con payer falsificable\n\n**Archivo:** `apps/api/src/routes/bazaar.ts:120-124, 354` (+ `getAgentTier` 57-61)\n\n### Contexto\n\nLa reputación de agente (`tier`, `completion_rate`, `swaps_completed`) se deriva del historial que el propio API incrementa:\n\n- `recordBroadcast(agentAddress)` en `/intent` (`:122`)\n- `recordCompletion(intent.agent_address, amountUsdc)` en `/accept` (`:354`) — **se ejecuta al solo aceptar/lock, no cuando el swap realmente se liquida**.\n\nDos problemas combinados:\n1. `agentAddress`/`payerAddress` viene del header x402, **falsificable** (ver SEC-12 `mock:` y SEC-13). Un atacante elige qué dirección recibe el crédito.\n2. `swaps_completed` sube por cada `/accept` pagado, sin que exista un swap cross-chain liquidado. El `volume_usdc` también lo controla el atacante vía `amount_usdc` del body.\n\nResultado: por unos centavos (o gratis con SEC-12) se puede **fabricar un agente \"maestro\" 🍄 con 95%+ de completitud**, justo lo que la UI muestra como señal de confianza. El propio endpoint afirma *\"reputation … not transferable, not buyable\"* (`:285`), afirmación que esto contradice.\n\n### Pasos para reproducir\n\n1. Elegir una dirección objetivo `G_ATACANTE`\n2. Repetir N veces: `POST /api/v1/bazaar/intent` y luego `POST /api/v1/bazaar/accept` usando `X-PAYMENT: mock:G_ATACANTE:0` (SEC-12) con `amount_usdc` alto\n3. Consultar `GET /api/v1/bazaar/reputation/G_ATACANTE`\n4. Verificar si `tier`, `swaps_completed`, `completion_rate` y `volume_usdc` reflejan la inflación artificial\n\n### Lo que reportar\n\n- ¿Se puede subir el tier sin completar swaps reales?\n- ¿El crédito de reputación se asigna a una dirección controlada por el atacante?\n- ¿`recordCompletion` se dispara antes de la liquidación real del swap?\n\n**Severidad estimada:** Media — corrompe la señal de confianza central del Bazaar\n\n---\n**Plantilla de respuesta:** `Resultado:` · `Evidencia:` · `Reproducible en testnet:` sí/no · `Sugerencia de fix:` (opcional)\n\n---\n\n## Cómo entregar\nCompleta la plantilla [`docs/security-reports/SEC-17-bazaar-reputacion-inflable.md`](docs/security-reports/SEC-17-bazaar-reputacion-inflable.md) con tu resultado, evidencia y entorno, y **envíala como PR** (el bot de Drips rastrea PRs) o como comentario en este issue. Un asignado por issue.",
     "source": "GitHub Search",
