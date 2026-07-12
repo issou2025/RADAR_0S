@@ -4043,6 +4043,64 @@
     "proposal_path": "/proposals/lead_20260712_002128_007.md"
   },
   {
+    "title": "Phase 4: PowerSync integration (optional, self-hosted sync)",
+    "description": "Phase 4 of the sync program (PRD #189). Integrate **PowerSync** as an **optional, self-hosted** sync layer, targeting the developer self-hosting on a **tailnet** for personal trial use. Phases 1–3 (export/import, UUIDv7 PKs + timestamps + soft-delete, DB-backed timer) are all merged; the schema (v15) is sync-ready.\n\n## Guiding constraint — sync is ADDITIVE and OPTIONAL\n\nThe app MUST keep working exactly as today with no sync present and with the sync toggle off (plain drift, single local file). Sync is an opt-in layer, off by default. This is groundwork the developer self-hosts and trials locally — not yet a shipped end-user feature. The same code path later becomes the paid, managed offering (Phase 5).\n\n## Architecture (from research, verified against live PowerSync docs 2026)\n\nPowerSync **owns its own SQLite file** — content tables become views over its internal `ps_data` store; the schema is declared in a PowerSync `Schema`, not by drift migrations. There is **no in-place** \"convert my existing local DB\" path. But drift sits on top either way, so the opt-in is a runtime **connection swap**:\n\n- sync **off** → today's `drift_flutter` (native) / WASM (web) connection.\n- sync **on** → `PowerSyncDatabase` (own file + `Schema`), wrapped in `SqliteAsyncDriftConnection`, handed to the unchanged `AppDatabase`.\n\nSame table names both ways → **every DAO is untouched**. Enabling sync **seeds the PowerSync DB from the Phase-1 backup snapshot** (`exportBackupBytes` → `restoreBackup`), since there is no in-place conversion.\n\n- Backend: PowerSync ships **no** CRUD/write endpoint — host one (adapt `powersync-ja/self-host-demo` Node backend). It writes uploaded ops to Postgres.\n- Auth: **HS256 shared-secret dev token** — sufficient behind the tailnet perimeter; real JWKS deferred to Phase 5.\n- **active_timer + app_settings are NOT synced** — device-local by design.\n- **Web is deferred** — needs a second WASM/worker set on top of drift's and is SDK-beta. Native (Linux/Android) only for the trial.\n\n## Slices\n\n- **4a — Self-host stack** (infra): docker-compose (Postgres `wal_level=logical` + `journeyapps/powersync-service`), server Postgres schema mirroring the 6 content tables + publication, `service.yaml`, single global-bucket `sync_rules.yaml`. Runs on the tailnet host. Scaffolding drafted in scratchpad `phase4-powersync/`.\n- **4b — Backend upload/auth endpoint**: adapt the self-host-demo Node backend to timedart's Postgres + a dev-token endpoint; add as a compose service.\n- **4c — App connection factory + connector** (native, flag off by default): connection-swap seam in `database.dart`, PowerSync `Schema` mirroring the 6 tables, `PowerSyncBackendConnector` (`fetchCredentials`/`uploadData`). Sync-off path byte-for-byte unchanged.\n- **4d — Enable-sync flow**: Settings toggle (\"Enable sync (experimental)\") behind a flag + seed-from-snapshot on enable (reuse Phase 1 backup/restore). End-to-end desktop⇄phone round-trip over tailnet.\n- **4e — Web support** (deferred / Draft): second WASM/worker set; revisit once native trial is proven.\n\n## Definition of done (trial)\n\nDeveloper runs the stack on the tailnet host, enables sync on desktop + phone, and a client/project/task/entry created on one device appears on the other; turning the toggle off returns the app to pure-local behaviour with no data loss. No public exposure; no real auth.\n\n## Non-goals (this phase)\n\nMulti-tenant auth, per-account isolation, managed ops, real JWKS, web, syncing the live timer. All Phase 5 / later.\n\nResearch summary + rationale in memory (sync-program). Scaffolding: scratchpad `phase4-powersync/` (docker-compose, init SQL, service.yaml, sync_rules.yaml, README, .env.example).\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/craftox-labs/timedart/issues/207",
+    "published_date": "2026-07-12",
+    "language": "en",
+    "score": 80,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Budget detected (+15)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20260712_181621_007",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-12T18:16:21.349846",
+    "updated_at": "2026-07-12T18:16:21.349850",
+    "keywords_detected": [
+      "need",
+      "project",
+      "paid"
+    ],
+    "service_type": "FLUTTER_APP",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "1500 - 4000 USD",
+    "questions_to_ask": [
+      "Do you have UI designs ready (Figma, Adobe XD) or should we design the screens?",
+      "Which backend service will the app connect to (REST API, Firebase)?",
+      "Do you require integration with app stores (App Store, Play Store)?",
+      "What state management solution do you prefer (Bloc, Riverpod, Provider)?",
+      "What is your target launch date?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260712_181621_007.md"
+  },
+  {
     "id": "lead_2026_004",
     "title": "Recherche développeur Flutter pour application mobile",
     "description": "Recherche développeur indépendant pour finaliser une application mobile Flutter de e-commerce. Code existant propre, il reste à intégrer la passerelle de paiement Stripe et corriger quelques bugs de navigation.",
@@ -6899,6 +6957,61 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260711_181555_008.md"
+  },
+  {
+    "title": "Hermes is forgetful?!",
+    "description": "Hi, this is not a bug, but a very bad, terrible, design decision making!\n\nimagine I sit back and work with hermes and llm, I find loopholes, I add rules and even I \"enforce\" rules into hermes memory, I even \"enforce\" rules in a prompt.\n\nNow, I open a new session, I ask hermes to remember his rules from memory explicitly, then I ask hermes to read the prompt and execute it 10 times.\n\nguess what will happen?! from 3rd or 4th iteration, hermes starts \"ignoring\" rules or \"ignoring\" memory! even the \"enforced\" onea!\n\nit looks like there is a \"terrible\" designing decision making that tells the agent \"find the shortcut, use the shortcut and ignore anything else to achive faster result\"!!!!\n\nin case of a simple chat, that maybe a perfect design. But.... in situations like coding?\nLet me tell you what did happen, hermes was supposed to add a simple unit test at the end of a python script, instead, it used \"complete\" \"search\" and \"replace\" on a whole file effectively screwing many different things from method names, to running orders, and even some code in the method body! why? BECAUSE IT WAS FASTE! (not yelling but emphesizing here)\n\nthis is terrible design. funny thing? i \"ENFORCE\" a rule into hermes's MEMORY, \"never use full find and replace in code or any other document\"... what happens? after few chat messages, or even a new session, it starts ignoring this rule!\n\nThis can be disastrous in coding environment. even for text documents, wiki maintenance, brainstorming, and many other situations, being forgetful, ignoring rules, ignoring memory, always looking for faster procedure and shortcuts...\n\nIf this will not be solved, I assume sooner or later people have to ignore hermes for coding, and lets face it, coding is one of the big sectors for agent automation. hell, even writing articles or any other documents will not be trustable because the result will not be deterministic any more!",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/NousResearch/hermes-agent/issues/63278",
+    "published_date": "2026-07-12",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260712_181621_012",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-12T18:16:21.351846",
+    "updated_at": "2026-07-12T18:16:21.351850",
+    "keywords_detected": [
+      "looking for"
+    ],
+    "service_type": "PYTHON_AUTOMATION",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "200 - 600 USD",
+    "questions_to_ask": [
+      "What is the input data format (Excel sheets, CSV, website, database)?",
+      "What are the step-by-step logic rules for processing the data?",
+      "Where should the output be saved (merged sheet, email, database)?",
+      "Does this script need to run on a schedule (cron, Windows Scheduler) or manually?",
+      "Can you share sample data files for testing?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260712_181621_012.md"
   },
   {
     "title": "[ENHANCEMENT] Add support for Jupiter v6 API quote routing to optimize cross-dex trade legs",
