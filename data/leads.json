@@ -10930,6 +10930,61 @@
     "proposal_path": "/proposals/lead_20260724_182729_019.md"
   },
   {
+    "title": "[in_app_purchase] App-facing package unconditionally overrides a registered platform implementation",
+    "description": "\n## Summary\n\n`InAppPurchase._getOrCreateInstance()` selects a platform implementation from `defaultTargetPlatform` and assigns it unconditionally, discarding whatever the Dart plugin registrant already installed:\n\n```dart\n// packages/in_app_purchase/in_app_purchase/lib/in_app_purchase.dart\nstatic InAppPurchase _getOrCreateInstance() {\n  if (_instance != null) {\n    return _instance!;\n  }\n\n  if (defaultTargetPlatform == TargetPlatform.android) {\n    InAppPurchaseAndroidPlatform.registerPlatform();\n  } else if (defaultTargetPlatform == TargetPlatform.iOS ||\n      defaultTargetPlatform == TargetPlatform.macOS) {\n    InAppPurchaseStoreKitPlatform.registerPlatform();\n  }\n\n  _instance = InAppPurchase._();\n  return _instance!;\n}\n```\n\nA third-party platform implementation that registers itself the supported way — `dartPluginClass:` in `pubspec.yaml`, which the Flutter tool wires into the generated registrant — is installed correctly at startup and then **silently replaced** the first time application code touches `InAppPurchase.instance`.\n\nThe result is not a clean failure. The wrong implementation answers, and calls fail later with `PlatformException(channel-error, ...)` from a method channel that does not exist on that platform, with a stack that points into `in_app_purchase_storekit` rather than anything the app or the third-party package did.\n\n## Evidence\n\nObserved on a custom embedder (watchOS) whose `defaultTargetPlatform` resolves to `TargetPlatform.iOS`, with a federated FFI implementation registered via `dartPluginClass`:\n\n```\ndefaultTargetPlatform            = TargetPlatform.iOS\nInAppPurchasePlatform.instance   = InAppPurchaseWatchos            // after the registrant\n<touch InAppPurchase.instance>\nInAppPurchasePlatform.instance   = InAppPurchaseStoreKitPlatform   // overridden\n```\n\nEvery subsequent call fails:\n\n```\nPlatformException(channel-error, Unable to establish connection on channel: \"[flutter:flutter]\")\n  #0  _extractReplyValueOrThrow (package:in_app_purchase_storekit/src/sk2_pigeon.g.dart:20:5)\n  #1  InAppPurchase2API.canMakePayments (package:in_app_purchase_storekit/src/sk2_pigeon.g.dart:796:41)\n```\n\nObserved with `in_app_purchase` 3.2.3 / `in_app_purchase_platform_interface` 1.4.1.\n\n## Why this happens (and why it is reasonable today)\n\nNeither endorsed implementation declares `dartPluginClass`:\n\n```yaml\n# in_app_purchase_storekit          # in_app_purchase_android\nplatforms:                          platforms:\n  ios:                                android:\n    pluginClass: InAppPurchasePlugin    package: io.flutter.plugins.inapppurchase\n    sharedDarwinSource: true            pluginClass: InAppPurchasePlugin\n  macos:\n    pluginClass: InAppPurchasePlugin\n    sharedDarwinSource: true\n```\n\nSo the hard-coded `registerPlatform()` calls are standing in for Dart-side registration that the endorsed packages do not perform. That is a sensible arrangement for the three supported platforms. The problem is only that the assignment is **unconditional**, so it also overrides implementations that *did* register themselves.\n\n## Impact\n\nThis affects any platform implementation that is not one of the three endorsed ones but whose `defaultTargetPlatform` maps to `android`, `iOS`, or `macOS` — i.e. community embedders that present as an existing `TargetPlatform`. The failure is quiet at registration time and only surfaces as a confusing channel error at the first call, in a package the developer never imported.\n\nThis is not a request to support watchOS in this repo. The request is that a platform implementation which registers itself should not be silently discarded.\n\n## What working around it currently costs\n\nFor completeness, here is what a third-party implementation has to do today to coexist with this. It works, but it is not something an implementation author should have to derive:\n\n```dart\nstatic void registerWith() {\n  _preempt();  // read InAppPurchase.instance *first*, so its selection memoises\n}\n\nstatic void _preempt() {\n  if (_preempted) return;\n  try {\n    InAppPurchase.instance;   // runs upstream's one-time selection now\n    _preempted = true;\n  } on Object {\n    // The plugin registrant runs before main() creates the binding, and the\n    // selection installs a pigeon handler that needs one — so this throws and\n    // memoises nothing. Retry on later event-loop turns (a microtask loop would\n    // starve the loop before main() ever runs).\n    if (_attempts++ < _maxAttempts) Timer.run(_preempt);\n  } finally {\n    // The selection assigns its own instance before it can throw, so re-assert.\n    InAppPurchasePlatform.instance = MyPlatform();\n  }\n}\n```\n\nThe essential trick is that the selection is memoised, so triggering it *before* the app does makes it harmless. Everything else is working around the fact that the override exists at all.\n\n## Possible fixes\n\n**1. Do not overwrite an existing registration** (smallest behaviour change):\n\n```dart\nif (!InAppPurchasePlatform.isRegistered) {\n  if (defaultTargetPlatform == TargetPlatform.android) {\n    InAppPurchaseAndroidPlatform.registerPlatform();\n  } else if (defaultTargetPlatform == TargetPlatform.iOS ||\n      defaultTargetPlatform == TargetPlatform.macOS) {\n    InAppPurchaseStoreKitPlatform.registerPlatform();\n  }\n}\n```\n\nThis needs a way to ask whether an instance exists. `InAppPurchasePlatform` currently stores it as:\n\n```dart\nstatic late InAppPurchasePlatform _instance;\n```\n\nso reading it before assignment throws `LateInitializationError` and there is no non-throwing probe. A minimal addition to `in_app_purchase_platform_interface` would be needed, e.g.:\n\n```dart\nstatic bool get isRegistered => _isRegistered;\n```\n\nset inside the existing `instance` setter. That is additive and does not change existing behaviour.\n\n**2. Have the endorsed implementations declare `dartPluginClass`** and drop the hard-coded selection entirely. Cleaner and more in line with the federated model, but a larger change across three packages.\n\n**3. Documentation only.** If neither is desirable, documenting that `InAppPurchase.instance` always installs an endorsed implementation — so third-party implementations must re-register after the first touch — would at least make the behaviour discoverable. The workaround today is:\n\n```dart\nInAppPurchase.instance;               // runs the one-time selection\nMyPlatformImpl.registerWith();        // ...then take it back\n```\n\nThis works reliably because the selection runs only once and every `InAppPurchase` method reads `InAppPurchasePlatform.instance` at call time — but it is not discoverable without reading the source.\n\nHappy to send a PR for option 1 (plus the `isRegistered` addition) if that direction is acceptable.",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/flutter/flutter/issues/189999",
+    "published_date": "2026-07-24",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260725_002250_013",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-25T00:22:50.855839",
+    "updated_at": "2026-07-25T00:22:50.855843",
+    "keywords_detected": [
+      "need"
+    ],
+    "service_type": "FLUTTER_APP",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "1500 - 4000 USD",
+    "questions_to_ask": [
+      "Do you have UI designs ready (Figma, Adobe XD) or should we design the screens?",
+      "Which backend service will the app connect to (REST API, Firebase)?",
+      "Do you require integration with app stores (App Store, Play Store)?",
+      "What state management solution do you prefer (Bloc, Riverpod, Provider)?",
+      "What is your target launch date?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260725_002250_013.md"
+  },
+  {
     "title": "[ENHANCEMENT] Add support for Jupiter v6 API quote routing to optimize cross-dex trade legs",
     "description": "### Is your feature request related to a problem?\nCurrently, the capital funding rate arbitrage module and standard spatial loops on Solana map liquidity directly across specific isolated pools (Raydium, Orca). While the sub-45ms latency architecture is incredibly fast, we miss out on complex multi-hop trade routes that could yield higher spread percentages.\n\n### Describe the solution you'd like\nIt would be awesome to integrate Jupiter v6 API or their local routing SDK directly into the Cortex AI automation core. This would allow the execution engine to automatically find optimized multi-hop routes (e.g., USDT -> SOL -> Jupiter Pool -> Token) for the arbitrage legs while still utilizing the local flash loan bot mechanics for safety.\n\n### Describe alternatives you've considered\nI tried writing a custom Python script wrapper to pipe Jupiter quotes into the engine telemetry layer, but the retail python overhead completely kills the structural latency advantage of the native Cortex infrastructure, pushing execution loops way past 150ms.\n\n### Additional context\nIntegrating this directly into the native C++ / optimized pipeline of the `Cortex_AI_v3.4` binary would make this the ultimate tool for Solana MEV and latency arbitrage.",
     "source": "GitHub Search",
@@ -15813,6 +15868,60 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260724_182729_017.md"
+  },
+  {
+    "title": "[SPRINT] 120 Parallel Digital Twins — Company-Wide Sprint",
+    "description": "# 120 Parallel Digital Twins Sprint\n\n## Meta\n- **Date:** 25 July 2026\n- **Goal:** Entire company (120 roles) works in parallel, each producing visible evidence\n- **COO:** Roman\n- **Coordinator:** Clark (COO Twin)\n\n## Departments (10)\n\n| # | Department | Roles | Status |\n|---|---|---|---|\n| 1 | SEDO (Software Engineering) | 20 | IN PROGRESS |\n| 2 | QAO (Quality Assurance) | 15 | IN PROGRESS |\n| 3 | DevOps | 10 | IN PROGRESS |\n| 4 | SecO (Security) | 10 | IN PROGRESS |\n| 5 | ResearchO (Research) | 10 | IN PROGRESS |\n| 6 | SalesO (Sales) | 15 | IN PROGRESS |\n| 7 | PMO (Project Management) | 10 | IN PROGRESS |\n| 8 | DesignO (Design) | 10 | IN PROGRESS |\n| 9 | LegalO (Legal) | 10 | IN PROGRESS |\n| 10 | FinanceO (Finance) | 10 | IN PROGRESS |\n\n## Rules\n- Each role posts a comment on this issue with their work\n- Each comment is role-prefixed\n- Each comment contains real work (code, test results, analysis, documents)\n- Evidence: commit hash, test output, file path, or URL\n\nRole: chief-operating-officer",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/jagmstar/letta-features-company/issues/110",
+    "published_date": "2026-07-24",
+    "language": "en",
+    "score": 45,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "cold",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260725_002250_012",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-25T00:22:50.854405",
+    "updated_at": "2026-07-25T00:22:50.854410",
+    "keywords_detected": [
+      "project"
+    ],
+    "service_type": "UNKNOWN",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260725_002250_012.md"
   },
   {
     "title": "[BUG] Claude Code 2.1.170 ÔÇö all sessions return no_response immediately on Windows 11, query iterator completes in 0s",
