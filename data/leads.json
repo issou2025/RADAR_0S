@@ -3518,6 +3518,64 @@
     "proposal_path": "/proposals/lead_20260727_002243_001.md"
   },
   {
+    "title": "[design] Decouple model integration from the engine",
+    "description": "## Problem\n\nIntegrating a model into the engine, or adjusting how an already-integrated\nmodel is driven, requires cutting an engine release even when the change\ncontains **no engine code**.\n\n## The two kinds of model change\n\nModel integration work falls into two buckets:\n\n**Bucket A: data and certification.** Preset routing that composes *existing*\npolicy classes (schema sanitizer, prompt/content/response policy, reasoning\ncodec, cache policy), a price-table entry, and a capability certificate\nasserting what the model actually supports on the wire. All of this is\ndeclarative. None of it changes engine behaviour for any other model.\n\n**Bucket B: engine code.** A genuinely new policy, codec or sanitizer class,\nbecause no existing class expresses the model's wire contract.\n\nBucket B belongs in the engine and should ride an engine release. Bucket A is\nthe common case, and it should not. Today both do.\n\n## Cost of the current coupling\n\n- **Release cadence is driven by model onboarding rather than by engine\n  change.** Releases carry no engine delta, which makes the version line a poor\n  signal of what actually changed.\n- **Version drift downstream.** Consumers that pin the engine by tag end up\n  spread across engine versions purely as a side effect of when each model was\n  onboarded. For any consumer that compares results across models, \"which\n  engine version did this run on\" becomes a per-model question instead of a\n  constant, and every difference then needs its own justification.\n- **Often two releases per model**, as ADR 0002 already records: integration\n  tests pass, release, a live run surfaces a model-specific failure pattern,\n  the fix is to re-route to a policy class *already in tree*, release again.\n  Both releases ship zero engine code.\n\n## What already exists\n\nThis is not a from-scratch request. The seam is half open:\n\n- **Preset overlay.** `--presets-file` / `RunConfig.engine.presets_file`, loaded\n  and validated at `tolokaforge/core/llm/presets.py:176`, failing loud on\n  unknown policy names. Documented in `docs/ADD_NEW_MODEL.md` under \"Adding a\n  model without an engine release\".\n- **Pricing overlay.** `observability.pricing_overlay_path`, applied at\n  `tolokaforge/dx/cli/main.py:655` via `pricing.reload_pricing()`.\n- **Report-side pricing override.** The results collector accepts an explicit\n  pricing file instead of the bundled table.\n- **ADR 0002** (`docs/adr/0002-external-model-registry.md`) diagnosed exactly\n  this problem and chose the overlay as the mechanism.\n\nSo the run path can already consume an out-of-tree model registration. In\npractice it is not used, and the reasons are structural.\n\n## What still couples model integration to the engine\n\n1. **Certification lives inside the engine test suite.**\n   `tests/integration/llm/registry.py` is engine-repo code, and\n   `docs/ADD_NEW_MODEL.md` makes it a mandatory gate (\"No PR merges a model\n   change without all six passing\"). A model therefore cannot be certified\n   without an engine-repo PR, and that PR is what drags the release along. This\n   is the load-bearing coupling: the overlay removes the *preset* dependency but\n   not this one, so the release happens anyway.\n\n2. **The documented default points at `main`.** The pre-flight table in\n   `docs/ADD_NEW_MODEL.md` routes the price table, the certificate registry and\n   the preset file to `main`, justified as \"shared\". The overlay appears further\n   down as an alternative. The release path is the documented happy path and the\n   seam is the exception, so integrators reasonably take the former.\n\n3. **The auto-integration workflow emits engine commits.**\n   `.github/workflows/integrate-model.yml` checks out an engine-repo branch,\n   fills the in-tree price table during the probe stage, and commits the\n   integration back to that branch. Its output shape is an engine commit, so\n   automation reinforces the coupling rather than relieving it.\n\n4. **No packaged, pinnable form.** An overlay is a loose file path each operator\n   carries and keeps in sync by hand. Nothing bundles preset routing, pricing\n   and certificate into a single installable, versioned artifact, so there is no\n   way to pin \"model data vN\" the way an adapter can be pinned.\n\n5. **Overlay runs are not reproducible from the run record.**\n   `write_engine_run_state()` (`tolokaforge/core/engine_run_state.py:33`)\n   persists the overlay **path**, not its content or a fingerprint. The\n   effective model data of a completed run cannot be reconstructed from the\n   pinned wheel plus the run state.\n\n6. **The bucket boundary is undeclared.** Nothing tells an integrator up front\n   whether a candidate falls in bucket A or B, so the safe default is to open an\n   engine PR regardless.\n\n## Proposal\n\nComplete the split along the boundary ADR 0002 already drew, and finish what it\ndeferred.\n\n- **Promote ADR 0002 from Proposed to Accepted.** Its Option 2 shipped, yet the\n  ADR still reads `Status: Proposed`, which leaves the seam looking\n  experimental and discourages use.\n- **Implement ADR 0002 Option 3: an entry-point group for model data**, mirroring\n  `tolokaforge.adapters`. Model data becomes an installable package consumers\n  pin, not a path they pass. Avoid the failure mode already open against the\n  adapter registry in #544 (silent last-wins on duplicate names): a model-data\n  registry must fail loud on collision rather than silently shadow.\n- **Move certification out of the engine test suite**, or give it an out-of-tree\n  entry point, so certifying a model does not require an engine-repo PR. This is\n  the single change that decides whether the rest of the seam is usable.\n- **Fold pricing into the same artifact**, so one pin covers preset routing,\n  pricing and certificate instead of three separately-overridden files.\n- **Invert the `docs/ADD_NEW_MODEL.md` pre-flight table**: out-of-tree is the\n  documented default, `main` only for bucket B. Add an explicit \"which bucket am\n  I in\" pre-flight check so the answer is known before any work starts.\n- **Record the resolved model-data fingerprint in `engine_run_state.json`**, not\n  just the overlay path, so out-of-tree runs stay auditable.\n- **Teach the auto-integration workflow to emit a model-data artifact** instead\n  of an engine commit whenever the candidate is bucket A.\n\nExplicitly **not** in scope: policy, codec and sanitizer *classes* stay engine\ncode. ADR 0002 deferred the sidecar-Python-module escape hatch (its Option 4)\nand that deferral still looks right. The goal is narrower: a model that needs no\nnew class should need no new engine version.\n\n## Relationship to other work\n\n- **#622** (Milestone 15, runner wheel split / `tolokaforge-core` extraction) is\n  a different axis and **not** a prerequisite. That issue is about the import\n  graph and lists `core.llm.*` among the shared subsystems to untangle. This\n  issue needs no import-graph refactor: `core.llm.*` stays exactly where it is\n  and only data plus certification move out. The two can proceed independently.\n- **#353** (pricing table location alignment) overlaps on the price file and\n  should land with or before the pricing part of this.\n- **#544** (adapter entry-point silent last-wins) is the pitfall to avoid when\n  introducing a second entry-point registry.\n- **#633** touches the same auto-integration workflow.\n\n## Acceptance criteria\n\n- [ ] A bucket-A model change can be registered, certified, priced and evaluated\n      **without any commit to this repo and without a new engine version**.\n- [ ] That model data is installable and pinnable as one versioned artifact, and\n      collides loudly rather than silently.\n- [ ] `engine_run_state.json` lets a reader reconstruct which model data a\n      completed run resolved.\n- [ ] `docs/ADD_NEW_MODEL.md` documents the out-of-tree path as the default and\n      states the bucket boundary as a pre-flight decision.\n- [ ] A bucket-B change still fails the out-of-tree path loudly and is routed to\n      an engine PR, as today.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/Toloka/tolokaforge/issues/645",
+    "published_date": "2026-07-28",
+    "language": "en",
+    "score": 90,
+    "score_reasons": [
+      "Contains structural drawings (+20)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)",
+      "Contains deadline/quote keyword (+5)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20260728_182623_014",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-28T18:26:23.833853",
+    "updated_at": "2026-07-28T18:26:23.833856",
+    "keywords_detected": [
+      "proposal",
+      "need"
+    ],
+    "service_type": "STRUCTURAL_DRAWINGS",
+    "offer_page": "/offers/structural-drawings.html",
+    "budget_detected": "not specified",
+    "recommended_price": "800 - 2000 EUR",
+    "questions_to_ask": [
+      "Avez-vous déjà réalisé l'étude de sol géotechnique pour les fondations ?",
+      "Quelles sont les charges d'exploitation particulières (machines, toiture végétalisée) ?",
+      "Fournissez-vous les plans d'architecte définitifs au format DWG ?",
+      "Quels sont les détails d'exécution attendus (nomenclatures d'acier, détails de ferraillage) ?",
+      "Quel est votre calendrier souhaité pour la validation des plans ?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260728_182623_014.md"
+  },
+  {
     "id": "lead_2026_002",
     "title": "Besoin de plans de structure béton armé pour villa R+1",
     "description": "Je recherche un projeteur structure indépendant pour réaliser les plans d'exécution béton armé (fondations, poutres, dalles, colonnes) d'une villa individuelle R+1 de 180m². Les plans d'architecte DWG sont fournis.",
@@ -5930,6 +5988,63 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260728_064859_016.md"
+  },
+  {
+    "title": "feat(skills): vendor-neutral secrets access layer",
+    "description": "## Why this exists\n\nProvisioning a real GTM automation stack surfaced a class of failure that no Lisa skill currently prevents: **the same credential existing in more than one store.**\n\nConcretely, across two days of work on a downstream project:\n\n- An API key lived in both a secrets manager and the OS keychain. A sync that would have reconciled them was flagged once as `would update` and never applied, so the two silently diverged.\n- Both values authenticated. They were **two live credentials**, not one stale copy — and the difference is not visible from either side.\n- Pruning \"duplicates\" then deleted the one that differed, leaving a working credential recorded nowhere until it was tracked down and revoked.\n\nEvery one of those steps looked reasonable in isolation. The failure was structural: nothing owned the rule that a secret lives in exactly one place, so nine scripts each grew their own env-then-keychain resolver and drift became inevitable.\n\n## What good looks like\n\n**For the person operating a project:** one place to put a credential, and an error that tells them what is actually wrong when resolution fails — not a silent empty value.\n\n**For an agent working in a repo:** a single call to obtain a secret, with no decision to make about where to look, and metadata describing what the secret is for so it can orient without guessing.\n\n**For whoever owns the vendor relationship:** confidence that a leaked or rotated credential has exactly one home to fix, and a check that reports when that stops being true.\n\n## Scope\n\nAdd `lisa-secrets-access`, a vendor-neutral access layer following the established `lisa-atlassian-access` pattern. Every skill or script needing a credential delegates through it rather than reading a keychain, an `.env`, or a provider CLI directly.\n\nConfig in `.lisa.config.json`:\n\n```json\n{\n  \"secrets\": {\n    \"provider\": \"bitwarden\",\n    \"bootstrap\": { \"sources\": [\"env\", \"keychain\"], \"key\": \"BWS_ACCESS_TOKEN\" },\n    \"require\": [\"ATTIO_API_KEY\"]\n  }\n}\n```\n\nFour design choices, each of which had an obvious-looking alternative that was rejected:\n\n- **No map of secret IDs.** Copying a UUID per secret is the same duplication in a smaller costume. Lookup is by name.\n- **No list of expected names by default.** The provider already scopes what a machine account may see, so that set *is* the permitted set; restating it duplicates a boundary already enforced. `require` is optional and, when present, asserts rather than merely filters.\n- **Environment resolves first**, so CI injection wins and a scheduled run never touches a local store.\n- **Never writes.** Writing secrets or their notes needs an authority a CI credential should not hold.\n\nUsage metadata is read from the provider's own description field — Bitwarden `note`, 1Password notes, AWS `Description` — because a note travels with the secret and therefore cannot drift from it, which is the property a config file lacks. When empty, infer purpose from the name, **mark it inferred, and report the gap**: a silent fallback that works well enough guarantees the notes stay empty forever.\n\n## Acceptance criteria\n\n```gherkin\nScenario: the environment wins over the provider\n  Given a secret exists in the configured provider\n  And the same name is set in the environment\n  When a caller resolves that name\n  Then the environment value is returned\n  And the provider is never contacted\n\nScenario: a missing name fails usefully\n  Given a caller requests a name the provider does not hold\n  When resolution runs\n  Then the error names which secrets are visible\n  And states that a key must be the exact environment variable name\n\nScenario: require asserts rather than filters\n  Given secrets.require lists a name\n  And that name does not resolve\n  When verification runs\n  Then it fails at startup rather than at point of use\n\nScenario: describe never leaks a value\n  When a caller describes a secret\n  Then the usage note is returned\n  And no part of the secret value appears in the output\n\nScenario: doctor reports a credential in two stores\n  Given a secret is readable from both the provider and a local cache\n  When doctor runs\n  Then it reports two live credentials rather than a duplicate\n```\n\n## Out of scope\n\n- Writing, creating or rotating secrets. Read-only by design.\n- Managing the rotating-credential writer. An OAuth refresh token that the issuer replaces on each use needs a separately scoped writer and exactly one process holding that loop; that is its own concern.\n- Implementations for 1Password, AWS Secrets Manager and Vault. The dispatch table documents them and the resolver fails with a clear message naming where to add one.\n\n## Technical approach\n\n- `plugins/src/base/skills/lisa-secrets-access/SKILL.md` — the contract, following `lisa-atlassian-access`.\n- `plugins/src/base/skills/lisa-secrets-access/scripts/resolve-secret.mjs` — the resolver, as a **CLI rather than a library** because callers are polyglot: Python scripts, shell and TypeScript all need the same answer, and a subprocess is the only interface all three share without triplicating the logic.\n- Operations: `get`, `list`, `describe`, `verify`. `list` and `describe` can never emit a value.\n- In-process caching only. A disk cache would recreate the problem this exists to remove.\n\n## Validation journey\n\nVerified against a live Bitwarden Secrets Manager project holding ten secrets:\n\n1. `list` returns ten names, no values.\n2. `get ATTIO_API_KEY` returns a value whose hash matches the one CI injects.\n3. `ATTIO_API_KEY=x get ATTIO_API_KEY` returns `x`, confirming environment precedence.\n4. `describe HANDWRYTTEN_API_KEY` returns the stored note including its API gotchas.\n5. `get NOPE` lists the visible names and explains the naming rule.\n6. `verify` reports resolves / name-shape / note-present per secret.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/CodySwannGT/lisa/issues/2126",
+    "published_date": "2026-07-28",
+    "language": "en",
+    "score": 85,
+    "score_reasons": [
+      "Contains structural drawings (+20)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20260728_182623_010",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-28T18:26:23.829459",
+    "updated_at": "2026-07-28T18:26:23.829468",
+    "keywords_detected": [
+      "project",
+      "need"
+    ],
+    "service_type": "STRUCTURAL_DRAWINGS",
+    "offer_page": "/offers/structural-drawings.html",
+    "budget_detected": "not specified",
+    "recommended_price": "800 - 2000 EUR",
+    "questions_to_ask": [
+      "Avez-vous déjà réalisé l'étude de sol géotechnique pour les fondations ?",
+      "Quelles sont les charges d'exploitation particulières (machines, toiture végétalisée) ?",
+      "Fournissez-vous les plans d'architecte définitifs au format DWG ?",
+      "Quels sont les détails d'exécution attendus (nomenclatures d'acier, détails de ferraillage) ?",
+      "Quel est votre calendrier souhaité pour la validation des plans ?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260728_182623_010.md"
   },
   {
     "title": "CAD Course in Dehradun – Build a Successful Career in Design & Engineering with Craft",
@@ -12418,6 +12533,175 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260728_064859_010.md"
+  },
+  {
+    "title": "R1: SDK manifest dependency — 5 open design questions (blocks all of Stage 8)",
+    "description": "## In plain terms\n\n`polygres-wizard` already automates one part of setting up Polygres: installing the CLI/SDK and logging you in, so you don't do that by hand. `analyze` is the next automation layer this roadmap builds — it's meant to do the *database and retrieval-config* work a developer would otherwise do manually through the Polygres CLI and docs: looking at your schema, figuring out which tables need graph search (relationships), semantic/vector search, or keyword search, and turning that into real Polygres configuration — plus, eventually, the application code that uses it.\n\nWe haven't yet decided *how* the wizard should register \"this project now depends on the Polygres SDK\" in your project files — which manifest format, what version to pin, whether it needs its own confirmation screen. Nothing in the \"write code\" stage (I17/I18 above) can ship until this is actually decided.\n\n---\n\n## This is a design decision, not a build task\n\n`docs/design/sdk-manifest-dependency.md` documents that `bin/wizard.cjs` installs `polygres-sdk` into whatever Python environment is active, but never records it as a dependency of the *target repo*. This is harmless today (nothing generates code that imports it), but becomes load-bearing the moment any Stage 8 variant ships — generated code that imports an untracked dependency works on the machine that ran the wizard and silently breaks for a teammate, a CI build, or a fresh clone.\n\n**The design doc explicitly states this must close before any Stage 8 variant ships — not \"nice to resolve eventually.\"**\n\n## Open questions (5, none answered yet)\n\n1. **Hook point** — extend Stage 0's `installSdk` to also write the manifest entry (if a target repo happens to already be known), or add it as a Stage 8 pre-check right before any variant generates SDK-importing code? The doc leans toward the latter as more correct (first point where \"target repo\" is unambiguous) but this isn't decided.\n2. **Version pinning** — pin to the currently-installed `polygres-sdk` version, unpinned latest, or a range? Should probably match whatever convention the target repo's manifest already uses rather than imposing one.\n3. **Poetry/lockfile consistency** — hand-editing `pyproject.toml` under `[tool.poetry.dependencies]` without running `poetry lock` leaves `poetry.lock` stale. Likely needs to shell out to `poetry add polygres-sdk` rather than editing TOML directly.\n4. **Approval shape** — does a manifest edit need its own confirm step (consistent with \"show target + reversibility before mutating,\" used everywhere else in this design), or is it low-stakes enough to bundle into Stage 6/8's general approval?\n5. **Multi-manifest disambiguation** — a monorepo with multiple Python subprojects may have more than one manifest; which one is \"the\" target for code Stage 8 is about to generate? (Note: #27/I16 already handles *repo-root* disambiguation — this question is specifically about manifest-file disambiguation within a resolved root, which may or may not be the same problem.)\n\n## What resolving this looks like\n\nA decision recorded in `docs/design/sdk-manifest-dependency.md` for each of the 5 questions above (even \"defer to a follow-up\" is a valid recorded answer for a lower-priority one). Once recorded, this issue can be closed and #28 (I17) and #29 (I18) — currently blocked — can be scoped and started.\n\n## Blocks\n\n- #28 (I17) — SDK manifest writer\n- #29 (I18) — Stage 8a task-file emission\n- By extension, all of Stage 8\n\n## Built from\n\n`docs/design/sdk-manifest-dependency.md` (entire document, \"Design questions to resolve\" section)\n\n---\nFiled from `docs/design/implementation-roadmap.md` (resolve-design-first, R1).\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/MRCORD/polygres-wizard/issues/30",
+    "published_date": "2026-07-28",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260728_182623_011",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-28T18:26:23.831171",
+    "updated_at": "2026-07-28T18:26:23.831175",
+    "keywords_detected": [
+      "project",
+      "need"
+    ],
+    "service_type": "PYTHON_AUTOMATION",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "200 - 600 USD",
+    "questions_to_ask": [
+      "What is the input data format (Excel sheets, CSV, website, database)?",
+      "What are the step-by-step logic rules for processing the data?",
+      "Where should the output be saved (merged sheet, email, database)?",
+      "Does this script need to run on a schedule (cron, Windows Scheduler) or manually?",
+      "Can you share sample data files for testing?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260728_182623_011.md"
+  },
+  {
+    "title": "I17: SDK manifest writer",
+    "description": "## In plain terms\n\n`polygres-wizard` already automates one part of setting up Polygres: installing the CLI/SDK and logging you in, so you don't do that by hand. `analyze` is the next automation layer this roadmap builds — it's meant to do the *database and retrieval-config* work a developer would otherwise do manually through the Polygres CLI and docs: looking at your schema, figuring out which tables need graph search (relationships), semantic/vector search, or keyword search, and turning that into real Polygres configuration — plus, eventually, the application code that uses it.\n\nIf the wizard writes code that uses the Polygres SDK, your project needs to actually list that SDK as a dependency (like adding a line to `requirements.txt`) — otherwise the generated code works on your machine and silently breaks for a teammate or in CI. This issue is what edits your project's dependency file to add it — intentionally blocked until we've decided exactly how (see R1 below).\n\n---\n\n## Summary\n\n🔒 **Gated on #30 (R1) — do not start this issue until R1 is resolved.**\n\nThe SDK manifest writer: detects the target repo's Python dependency manifest format and adds `polygres-sdk` to it, per whatever answers R1 settles on for hook point, version-pin policy, Poetry/lockfile handling, and approval shape. This closes the gap tracked in `docs/design/sdk-manifest-dependency.md`, where the wizard currently installs `polygres-sdk` into a Python environment but never records it as a dependency of the target repo — meaning generated code that imports it (Stage 8) works on the machine that ran the wizard and breaks for anyone else (a teammate, CI, a fresh clone).\n\n## Scope (cannot be fully specified until R1 closes — outline only)\n\n- Detect `requirements.txt` / PEP 621 `pyproject.toml` / Poetry `pyproject.toml` / `Pipfile` at the #27 (I16)-resolved repo root.\n- Add `polygres-sdk` per R1's resolved answers to:\n  1. Where does this hook in — Stage 0 (if a target repo is already known) or as a Stage 8 pre-check?\n  2. Version pinning convention — match whatever the rest of the target manifest already does, per R1.\n  3. Poetry/lockfile consistency — likely `poetry add polygres-sdk` rather than hand-editing TOML, to avoid a stale `poetry.lock`.\n  4. Approval — its own confirm step, or bundled into Stage 6/8 consent.\n  5. Multi-manifest disambiguation — already handled by #27 (I16), but this issue must actually consume that resolution rather than re-deriving it.\n\n## Acceptance criteria\n\n- [ ] Not started until #30 (R1) is closed and its answers are recorded in `docs/design/sdk-manifest-dependency.md`.\n- [ ] Supports at minimum `requirements.txt` and PEP 621 `pyproject.toml`; Poetry and `Pipfile` per R1's prioritization.\n- [ ] Manifest edit is shown to the user with the same target + reversibility framing used elsewhere in this design before it's applied.\n- [ ] A dry-run/fresh-clone check (e.g. a fresh `pip install -r requirements.txt`) can succeed and find `polygres-sdk` after this step runs.\n\n## Depends on\n\n- #30 (R1), #27 (I16)\n\n## Complexity\n\n**M** (logic + wrapper) once R1 is resolved — unsizable before that.\n\n## Built from\n\n- `docs/design/sdk-manifest-dependency.md` (entire document)\n\n---\nFiled from `docs/design/implementation-roadmap.md` (Phase 6, issue I17).\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/MRCORD/polygres-wizard/issues/28",
+    "published_date": "2026-07-28",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260728_182623_012",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-28T18:26:23.832076",
+    "updated_at": "2026-07-28T18:26:23.832079",
+    "keywords_detected": [
+      "project",
+      "need"
+    ],
+    "service_type": "PYTHON_AUTOMATION",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "200 - 600 USD",
+    "questions_to_ask": [
+      "What is the input data format (Excel sheets, CSV, website, database)?",
+      "What are the step-by-step logic rules for processing the data?",
+      "Where should the output be saved (merged sheet, email, database)?",
+      "Does this script need to run on a schedule (cron, Windows Scheduler) or manually?",
+      "Can you share sample data files for testing?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260728_182623_012.md"
+  },
+  {
+    "title": "I16: Stage 8 target-repo resolution",
+    "description": "## In plain terms\n\n`polygres-wizard` already automates one part of setting up Polygres: installing the CLI/SDK and logging you in, so you don't do that by hand. `analyze` is the next automation layer this roadmap builds — it's meant to do the *database and retrieval-config* work a developer would otherwise do manually through the Polygres CLI and docs: looking at your schema, figuring out which tables need graph search (relationships), semantic/vector search, or keyword search, and turning that into real Polygres configuration — plus, eventually, the application code that uses it.\n\nIf a later step is going to write code into your actual project repo (see I18 below), the wizard first needs to know *which* folder that is. This issue is that \"where do I put this\" logic — default to the folder you're standing in, look for a real project root, and ask if it's ambiguous.\n\n---\n\n## Summary\n\nStage 8's target-repo resolution — pure filesystem logic to establish, unambiguously, which repo/directory Stage 8's generated code and manifest edits should target. This part of Stage 8 is fully designed (the doc specifies the algorithm); only the manifest *editing* that follows it (#28/I17) is design-blocked.\n\n## Scope\n\n- Default to the current working directory.\n- Walk up the directory tree looking for a `.git` root; warn (don't hard-fail) if none is found.\n- Enumerate Python dependency manifests (`requirements.txt`, `pyproject.toml`, `Pipfile`) under the resolved root.\n- On ambiguity (e.g. a monorepo with multiple Python subprojects/manifests), ask the user rather than guessing — consistent with this design's \"ask when ambiguous, don't infer\" posture used everywhere else.\n- Record exactly one resolved repo path in session state for #28 (I17) and #29 (I18) to consume.\n\n## Acceptance criteria\n\n- [ ] Correctly resolves a single-manifest repo with zero prompts.\n- [ ] Warns (not fails) when no `.git` root is found, and still proceeds with cwd.\n- [ ] Prompts the user to disambiguate when more than one Python manifest is found under the root.\n- [ ] Resolved path is stored once in session state and reused by downstream Stage 8 steps rather than re-resolved.\n\n## Depends on\n\n- #12 (I1)\n\n## Complexity\n\n**M** — logic.\n\n## Built from\n\n- `docs/design/schema-aware-retrieval.md` — \"Target repo resolution\" subsection\n- `docs/design/sdk-manifest-dependency.md` — design question 5\n\n---\nFiled from `docs/design/implementation-roadmap.md` (Phase 6, issue I16).\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/MRCORD/polygres-wizard/issues/27",
+    "published_date": "2026-07-28",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260728_182623_013",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-28T18:26:23.832878",
+    "updated_at": "2026-07-28T18:26:23.832882",
+    "keywords_detected": [
+      "project",
+      "looking for",
+      "need"
+    ],
+    "service_type": "PYTHON_AUTOMATION",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "200 - 600 USD",
+    "questions_to_ask": [
+      "What is the input data format (Excel sheets, CSV, website, database)?",
+      "What are the step-by-step logic rules for processing the data?",
+      "Where should the output be saved (merged sheet, email, database)?",
+      "Does this script need to run on a schedule (cron, Windows Scheduler) or manually?",
+      "Can you share sample data files for testing?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260728_182623_013.md"
   },
   {
     "title": "[ENHANCEMENT] Add support for Jupiter v6 API quote routing to optimize cross-dex trade legs",
