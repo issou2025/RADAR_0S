@@ -13127,6 +13127,61 @@
     "proposal_path": "/proposals/lead_20260729_065034_012.md"
   },
   {
+    "title": "PrivacyInfo.xcprivacy declares NSPrivacyCollectedDataTypePhotosOrVideos instead of the correct NSPrivacyCollectedDataTypePhotosorVideos",
+    "description": "**Description of the new feature**\n\nThe bundled iOS privacy manifest (`ios/background_downloader/Sources/background_downloader/PrivacyInfo.xcprivacy`) declares a data-collection type as `NSPrivacyCollectedDataTypePhotosOrVideos` (capital \"O\", capital \"V\" in \"Or\"/\"Videos\"). Apple's actual enum value is `NSPrivacyCollectedDataTypePhotosorVideos` (lowercase \"or\"). Because the declared string doesn't match Apple's recognized constant, Xcode's Privacy Report tool (Product > Archive > Distribute App > Generate Privacy Report) can't map it to its proper category — it falls through to an \"Additional Data\" bucket as a raw, unresolved string instead of appearing under \"User Content → Photos or Videos\" alongside the app's own declarations.\n\n**Describe how you'd implement it**\n\nFix the casing of the key in `PrivacyInfo.xcprivacy`:\n\n```diff\n- <string>NSPrivacyCollectedDataTypePhotosOrVideos</string>\n+ <string>NSPrivacyCollectedDataTypePhotosorVideos</string>\n```\n\nThat's the only change needed — the surrounding purpose (`NSPrivacyCollectedDataTypePurposeAppFunctionality`), tracking (`false`), and linked (`false`) values are already correct.\n\n**Describe alternatives you've considered**\n\n- **Leave it as-is** — rejected; consuming apps' aggregate Privacy Reports will keep showing this entry unresolved under \"Additional Data,\" which makes it harder for app developers to reconcile their App Store Connect \"App Privacy\" answers against what's actually declared in the binary.\n- **Have consuming apps override/patch the manifest locally** — rejected as a workaround; it's not persisted across `pod install`/`flutter pub get`, so every consumer would have to reapply it, whereas fixing it once upstream fixes it for everyone.\n\n**Additional context**\n\nFound while integrating `background_downloader` 9.5.2 into an iOS app and reviewing Xcode's Generate Privacy Report output against the package's other declared data types. Apple's full list of recognized `NSPrivacyCollectedDataType*` values is documented at https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_data_use_in_privacy_manifests — `PhotosorVideos` is the listed casing under \"User Content.\"\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/781flyingdutchman/background_downloader/issues/694",
+    "published_date": "2026-07-29",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260729_181820_009",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-29T18:18:20.346611",
+    "updated_at": "2026-07-29T18:18:20.346621",
+    "keywords_detected": [
+      "need"
+    ],
+    "service_type": "FLUTTER_APP",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "1500 - 4000 USD",
+    "questions_to_ask": [
+      "Do you have UI designs ready (Figma, Adobe XD) or should we design the screens?",
+      "Which backend service will the app connect to (REST API, Firebase)?",
+      "Do you require integration with app stores (App Store, Play Store)?",
+      "What state management solution do you prefer (Bloc, Riverpod, Provider)?",
+      "What is your target launch date?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260729_181820_009.md"
+  },
+  {
     "title": "[ENHANCEMENT] Add support for Jupiter v6 API quote routing to optimize cross-dex trade legs",
     "description": "### Is your feature request related to a problem?\nCurrently, the capital funding rate arbitrage module and standard spatial loops on Solana map liquidity directly across specific isolated pools (Raydium, Orca). While the sub-45ms latency architecture is incredibly fast, we miss out on complex multi-hop trade routes that could yield higher spread percentages.\n\n### Describe the solution you'd like\nIt would be awesome to integrate Jupiter v6 API or their local routing SDK directly into the Cortex AI automation core. This would allow the execution engine to automatically find optimized multi-hop routes (e.g., USDT -> SOL -> Jupiter Pool -> Token) for the arbitrage legs while still utilizing the local flash loan bot mechanics for safety.\n\n### Describe alternatives you've considered\nI tried writing a custom Python script wrapper to pipe Jupiter quotes into the engine telemetry layer, but the retail python overhead completely kills the structural latency advantage of the native Cortex infrastructure, pushing execution loops way past 150ms.\n\n### Additional context\nIntegrating this directly into the native C++ / optimized pipeline of the `Cortex_AI_v3.4` binary would make this the ultimate tool for Solana MEV and latency arbitrage.",
     "source": "GitHub Search",
@@ -18532,6 +18587,58 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260728_123249_015.md"
+  },
+  {
+    "title": "[Bug]: fs-safe reports EACCES as \"path is not a regular file under root\" (normalizePinnedWriteError catch-all, cf #72362)",
+    "description": "### Bug type\n\nBehavior bug (incorrect output/state without crash)\n\n### Summary\n\n`normalizePinnedWriteError` in `@openclaw/fs-safe` turns **every** unrecognized write error into one fixed message:\n\n```js\nfunction normalizePinnedWriteError(error) {\n\tif (error instanceof FsSafeError) return error;\n\treturn new FsSafeError(\"invalid-path\", \"path is not a regular file under root\", { cause: error instanceof Error ? error : void 0 });\n}\n```\n\nThat message is an assertion about the *path*, so a permission error is reported as a path error. An `EACCES` on a perfectly ordinary, regular, in-root file surfaces to the agent as `path is not a regular file under root`, which is false in every clause: the path is regular, it is a file, and it is under root.\n\nThis is the same masking mechanism reported in #72362 (closed 2026-05-01). That fix removed one *cause* (the `python3` dependency). The catch-all that made it undiagnosable is still present, and it now hides a different and more common errno class.\n\n### Version\n\nOpenClaw 2026.7.1-2 (0790d9f). Observed in the bundled `dist/secure-temp-dir-DMUMnweR.js`, region `node_modules/@openclaw/fs-safe/dist/root-errors.js`, called from two sites in the pinned-write path (`throw normalizePinnedWriteError(error)`).\n\n### Reproduction\n\n1. Point an agent at a workspace root.\n2. Make one regular file in it unwritable by the agent's uid, e.g. `chown root:root file.txt && chmod 644 file.txt` while the agent runs as another user.\n3. Ask the agent to edit that file.\n\nExpected: something naming the permission problem, e.g. `permission denied`.\nActual: `path is not a regular file under root`.\n\n### Why it costs real time\n\nWe hit this in production on 2026-07-24. A copy step had left workspace files group-unwritable, so every `edit` and `write` returned `path is not a regular file under root`. The message sent us to look for symlinks, path traversal, a mangled workspace root, and a corrupted file type. It was none of those, and the one word that would have ended it in seconds (`EACCES`) was already sitting in `error.cause`, discarded before the agent ever saw it.\n\nThe failure is also **self-inflicted-looking**: an agent told its path is invalid will usually try a *different path*, which is the wrong recovery. An agent told \"permission denied\" can say so and stop.\n\n### Suggested fix\n\nThe `openForWrite` path a few hundred lines below already does exactly the right thing, mapping specific errnos to specific `FsSafeError` kinds and rethrowing what it does not recognize:\n\n```js\nif (isNotFoundPathError(err)) throw new FsSafeError(\"not-found\", \"file not found\");\nif (isSymlinkOpenError(err)) throw new FsSafeError(\"symlink\", \"symlink open blocked\", { cause: err });\nif (hasNodeErrorCode(err, \"EISDIR\")) throw new FsSafeError(\"not-file\", \"not a file\", { cause: err });\nthrow err;\n```\n\n`normalizePinnedWriteError` could follow the same shape rather than collapsing everything:\n\n- `EACCES` / `EPERM` → a `permission` kind, message `permission denied`\n- `EROFS` → `read-only filesystem`\n- `ENOSPC` → `no space left on device`\n- anything still unrecognized → keep the current fallback, but include the underlying `code` in the message so the next person is not guessing\n\nEven the minimal version, appending `error.code` to the existing message when present, would have turned our multi-hour diagnosis into a single glance. Happy to send a PR if the shape above looks right.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/openclaw/openclaw/issues/115920",
+    "published_date": "2026-07-29",
+    "language": "en",
+    "score": 45,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "cold",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260729_181820_014",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-07-29T18:18:20.349586",
+    "updated_at": "2026-07-29T18:18:20.349590",
+    "keywords_detected": [],
+    "service_type": "UNKNOWN",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260729_181820_014.md"
   },
   {
     "title": "[BUG] Claude Code 2.1.170 ÔÇö all sessions return no_response immediately on Windows 11, query iterator completes in 0s",
