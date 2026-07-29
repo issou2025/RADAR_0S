@@ -1,19 +1,19 @@
 # Rapport Client Radar OS - Semaine du 2026-07-29
 
 ## Résumé Commercial
-- **Total Opportunités trouvées :** 336
-- **Pistes Qualifiées (Score >= 75) :** 125
+- **Total Opportunités trouvées :** 337
+- **Pistes Qualifiées (Score >= 75) :** 126
 - **Pistes Très Chaudes (Score >= 90) :** 63
 - **Clients Contactés :** 0
 - **Contrats Gagnés :** 0
 - **Taux de Conversion Actuel :** 0.00%
 
 ## Analyse des Sources
-- **Sources Principales :** GitHub Search (332), Google Search (1), RSS Feeds (2), Reddit (1)
+- **Sources Principales :** GitHub Search (333), Google Search (1), RSS Feeds (2), Reddit (1)
 - **Meilleure Source :** **GitHub Search**
 
 ## Analyse de l'Intérêt Client
-- **Services Demandés :** STRUCTURAL_DRAWINGS (150), SCAN_TO_BIM (2), PDF_TO_REVIT (7), BIM_MODELING (22), FLUTTER_APP (60), UNKNOWN (35), PERMIT_DRAWINGS (6), PYTHON_AUTOMATION (43), QUANTITY_TAKEOFF (9), DWG_TO_REVIT (1), STATIC_WEBSITE (1)
+- **Services Demandés :** STRUCTURAL_DRAWINGS (151), SCAN_TO_BIM (2), PDF_TO_REVIT (7), BIM_MODELING (22), FLUTTER_APP (60), UNKNOWN (35), PERMIT_DRAWINGS (6), PYTHON_AUTOMATION (43), QUANTITY_TAKEOFF (9), DWG_TO_REVIT (1), STATIC_WEBSITE (1)
 - **Meilleur Service :** **STRUCTURAL_DRAWINGS**
 - **Mots-clés Détectés :** need, project, available, job, proposal
 
