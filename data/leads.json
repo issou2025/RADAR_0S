@@ -4656,6 +4656,62 @@
     "proposal_path": "/proposals/lead_20260802_185254_004.md"
   },
   {
+    "title": "Rebuild Revit local adapter boundary without generation naming",
+    "description": "The historical branch `agent/revit-local-adapter-v0` contains useful Revit boundary work but must not be merged as-is. It is behind current `main` and uses generation-named active artifacts.\n\nRebuild from current `main` under neutral responsibility-based names:\n\n```text\ndocs/governance/REVIT_LOCAL_ADAPTER.md\n```\n\nPreserve only the useful boundaries:\n\n- Pantheon governs scope, claims, ChangeCandidates, status and consequential review;\n- Hermes or another admitted external runtime orchestrates bounded tasks when required;\n- the Revit add-in owns Revit API execution and named transactions;\n- Cockpit/OpenWebUI exposes preflight, warnings, proposed changes and results;\n- the human decides consequential mutations;\n- preflight pass, transaction success and runtime success do not constitute authorization or Evidence.\n\nReconcile the former warning levels, blocked-action lifecycle and transaction discipline with current Capability Slot, adapter, Evidence, Claim and ChangeCandidate doctrine. Do not add a new semantic layer where existing concepts already cover the need.\n\nDo not retain `V0`, `v1`, `v2` or other generation labels in filenames, headings, schema identities, routes or active architecture names.\n\nAfter the neutral reconstruction is merged, delete `agent/revit-local-adapter-v0`.",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/ifanjuang/Pantheon-Next/issues/501",
+    "published_date": "2026-08-02",
+    "language": "en",
+    "score": 90,
+    "score_reasons": [
+      "Contains Revit (+25)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20260803_014704_001",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-03T01:47:04.044917",
+    "updated_at": "2026-08-03T01:47:04.044923",
+    "keywords_detected": [
+      "need"
+    ],
+    "service_type": "BIM_MODELING",
+    "offer_page": "/offers/bim-modeling.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260803_014704_001.md"
+  },
+  {
     "id": "lead_2026_002",
     "title": "Besoin de plans de structure béton armé pour villa R+1",
     "description": "Je recherche un projeteur structure indépendant pour réaliser les plans d'exécution béton armé (fondations, poutres, dalles, colonnes) d'une villa individuelle R+1 de 180m². Les plans d'architecte DWG sont fournis.",
@@ -21654,6 +21710,66 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260802_185254_014.md"
+  },
+  {
+    "title": "[Bug]: heal_bloated_telemetry_fields never fires for realistically-corrupted configs (8192-char threshold, follow-up to #3334)",
+    "description": "### ✈ Pre-Flight checks\n\n- [x] I **don't have SentinelOne** antivirus installed\n- [x] I have **searched in the issues** (open and closed) but couldn't find a similar issue\n- [x] I have **searched in the [pyRevit Forum](https://discourse.pyrevitlabs.io)** for similar issues\n- [x] I already **followed the [installation troubleshooting guide](https://pyrevitlabs.notion.site/Installation-issues-f6495adb56254e9e8021f8a68e3b2ab7) thoroughly**\n- [x] I am using the **latest pyRevit Version** (`6.5.3.26176+2017`)\n\n### 🐞 Describe the bug\n\nFollow-up to #3334 / PR #3337. The escape-doubling itself is fixed and I can confirm it no longer grows — thank you. This is about the **repair path** shipped alongside it: `heal_bloated_telemetry_fields()` only resets a field when it exceeds `TELEMETRY_FIELD_MAX_LEN = 8192` characters, so configs corrupted by the original bug are left corrupted unless they happened to reach the extreme size from the original report.\n\n`pyrevitlib/pyrevit/versionmgr/upgrade.py`:\n\n```python\nTELEMETRY_FIELD_MAX_LEN = 8192\n...\nif len(raw_value) > TELEMETRY_FIELD_MAX_LEN:\n    bloated.append((field_name, len(raw_value)))\n```\n\nBecause the growth is doubling, a value spends almost its entire life *well under* that threshold — #3334 needed ~22 reload cycles to reach 8 MB. Anyone who upgraded before hitting that many cycles keeps a permanently malformed value, and the heal never fires.\n\n### 🔎 What I actually found\n\nReal values from a machine running `6.5.3.26176+2017` (which includes the #3337 fix), taken from the config as-found:\n\n```ini\n[telemetry]\ntelemetry_file_dir = \"\\\"\\\\\\\"\\\\\\\"\\\"\"\ntelemetry_server_url = \"\\\"\\\\\\\"\\\\\\\"/\\\"/\"\napptelemetry_server_url = \"\\\"\\\\\\\"\\\\\\\"/\\\"/\"\n```\n\n| field | length | `> 8192`? | healed? |\n|---|---|---|---|\n| `telemetry_file_dir` | 14 | no | **no** |\n| `telemetry_server_url` | 16 | no | **no** |\n| `apptelemetry_server_url` | 16 | no | **no** |\n\nThese are all *conceptually empty* values that were never configured — they should be `\"\"`. Instead each is a non-empty garbage string, so the telemetry paths/URLs read back as configured-but-nonsense rather than unset. (Note the URL fields also picked up a stray `/` per cycle, presumably from a trailing-slash normalization on the write path, so they are not purely quote-escapes.)\n\nThe doubling has stopped, so these are now frozen in this state indefinitely.\n\n### 💡 Suggested fix\n\nDetect the corruption by **shape** rather than by size. Any of these would catch it:\n\n1. A value that round-trips to a shorter string — i.e. decoding it yields something different from the stored form — is bloated regardless of length.\n2. A value matching an escaped-empty pattern (`^\"(\\\\+\")*\\\\*\"*$` and friends) is a corrupted empty and should reset to `\"\"`.\n3. Simplest and probably sufficient: for these three fields specifically, if the decoded value is not a valid path / not a valid absolute URL and is not empty, reset it to `\"\"` — none of the three has a legitimate value that looks like `\"\\\"\\\\\\\"\\\\\\\"\\\"\"`.\n\nLowering the threshold alone wouldn't be enough, since a corrupted-empty is only ~14 characters and a legitimate URL can easily be longer than that.\n\nI'd be glad to send a PR if you'd like — happy to follow whichever of the above you prefer.\n\n### ⚙ Environment\n\n- pyRevit: `6.5.3.26176+2017` (includes #3337)\n- Revit: 2022–2027\n- OS: Windows 11 (26200)\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/pyrevitlabs/pyRevit/issues/3534",
+    "published_date": "2026-08-02",
+    "language": "en",
+    "score": 45,
+    "score_reasons": [
+      "Contains Revit (+25)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)",
+      "Contains deadline/quote keyword (+5)",
+      "Identified as training/course (-50)"
+    ],
+    "client_temperature": "cold",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260803_014704_000",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-03T01:47:04.043465",
+    "updated_at": "2026-08-03T01:47:04.043473",
+    "keywords_detected": [
+      "course",
+      "quote",
+      "need"
+    ],
+    "service_type": "BIM_MODELING",
+    "offer_page": "/offers/bim-modeling.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260803_014704_000.md"
   },
   {
     "title": "[BUG] Claude Code 2.1.170 ÔÇö all sessions return no_response immediately on Windows 11, query iterator completes in 0s",
