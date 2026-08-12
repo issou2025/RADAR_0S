@@ -21221,6 +21221,62 @@
     "proposal_path": "/proposals/lead_20260812_005945_016.md"
   },
   {
+    "title": "HIT-009 – Configure Firebase Project (Android + iOS)",
+    "description": "> **Correction:** Firebase configuration must follow package/bundle identifier decision (HIT-078). Do not register production Firebase apps against unapproved temporary IDs without documenting the consequence.\n>\n> See also: `docs/development/ISSUE_EXECUTION_ORDER.md`\n\n> **Backlog ID:** `HIT-009`  \n> **Milestone:** M0\n\n## Objective\n\nInitialize Firebase in the Flutter app for Android and iOS with Auth, Firestore, Analytics, Crashlytics ready to enable.\n\n## Context\n\nFirebase is the only managed backend. No Cloud Functions. No custom API server.\n\n## Scope\n\nSet up Firebase project linkage (FlutterFire CLI or manual), add config files correctly gitignored where needed, initialize Firebase in bootstrap, document setup steps for other developers. Enable planned products conceptually; wire Analytics/Crashlytics fully in later issues.\n\n## Technical Requirements\n\n- firebase_core initialization before runApp\n- Android + iOS config\n- Never commit service account private keys\n- Document difference between client config vs secrets\n- No Cloud Functions\n- Environment strategy placeholder (dev/prod) if feasible without over-engineering\n\n## UI / UX Requirements\n\n- N/A for this issue\n\n## Data Requirements\n\n- N/A for this issue\n\n## Dependencies\n\n- Depends on #1 (HIT-001)\n- Depends on #9 (HIT-078) — package/bundle identifiers must be decided or explicitly approved before Firebase app registration\n- Depends on #4 (HIT-004)\n\n## Out of Scope\n\n- No Auth UI yet\n- No Firestore writes yet\n- No Cloud Functions\n- No custom backend\n\n## Acceptance Criteria\n\n- [ ] App initializes Firebase without crash on Android\n- [ ] App initializes Firebase without crash on iOS (where testable)\n- [ ] Setup documented in README\n- [ ] No admin credentials in repo\n\n## Definition of Done\n\n- [ ] Implementation is complete per Scope and Acceptance Criteria\n- [ ] Code is formatted (`dart format`)\n- [ ] `flutter analyze` passes with no analyzer errors\n- [ ] Relevant tests pass (or documented why none apply)\n- [ ] No credentials/secrets committed\n- [ ] Error/loading states handled where relevant\n- [ ] Tested on relevant platform(s) (Android and/or iOS simulator/device as applicable)\n- [ ] Documentation updated where required\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/Posinowa/HitUp/issues/10",
+    "published_date": "2026-08-12",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260812_124146_011",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-12T12:41:46.073663",
+    "updated_at": "2026-08-12T12:41:46.073668",
+    "keywords_detected": [
+      "project",
+      "need"
+    ],
+    "service_type": "FLUTTER_APP",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "1500 - 4000 USD",
+    "questions_to_ask": [
+      "Do you have UI designs ready (Figma, Adobe XD) or should we design the screens?",
+      "Which backend service will the app connect to (REST API, Firebase)?",
+      "Do you require integration with app stores (App Store, Play Store)?",
+      "What state management solution do you prefer (Bloc, Riverpod, Provider)?",
+      "What is your target launch date?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260812_124146_011.md"
+  },
+  {
     "title": "[ENHANCEMENT] Add support for Jupiter v6 API quote routing to optimize cross-dex trade legs",
     "description": "### Is your feature request related to a problem?\nCurrently, the capital funding rate arbitrage module and standard spatial loops on Solana map liquidity directly across specific isolated pools (Raydium, Orca). While the sub-45ms latency architecture is incredibly fast, we miss out on complex multi-hop trade routes that could yield higher spread percentages.\n\n### Describe the solution you'd like\nIt would be awesome to integrate Jupiter v6 API or their local routing SDK directly into the Cortex AI automation core. This would allow the execution engine to automatically find optimized multi-hop routes (e.g., USDT -> SOL -> Jupiter Pool -> Token) for the arbitrage legs while still utilizing the local flash loan bot mechanics for safety.\n\n### Describe alternatives you've considered\nI tried writing a custom Python script wrapper to pipe Jupiter quotes into the engine telemetry layer, but the retail python overhead completely kills the structural latency advantage of the native Cortex infrastructure, pushing execution loops way past 150ms.\n\n### Additional context\nIntegrating this directly into the native C++ / optimized pipeline of the `Cortex_AI_v3.4` binary would make this the ultimate tool for Solana MEV and latency arbitrage.",
     "source": "GitHub Search",
@@ -25936,6 +25992,63 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260811_184447_007.md"
+  },
+  {
+    "title": "BIM: Arch_PipeConnector reports error when opened in 26.3dev",
+    "description": "### Problem description\n\n`Arch_PipeConnector` object reports error when opened in 26.3dev. in specific file\n\nWhen opening the same file in FC 1.1.3, only warning shows up, no error.\n\n### Workbench affected?\n\nBIM\n\n### Steps to reproduce\n\n- open sample file (remove the .txt extension)\n\n[FC-MEP-piping-tutorial.FCStd.txt](https://github.com/user-attachments/files/30972918/FC-MEP-piping-tutorial.FCStd.txt)\n\n### Expected behavior\n\nNo errors should show up.\n\n### Actual behavior\n\nError shows up:\n\n```\n10:21:35  Common vertex not found\n10:21:35  pyException: Traceback (most recent call last):\n  File \"/tmp/.mount_FreeCAhdbpjN/usr/Mod/BIM/ArchPipe.py\", line 563, in execute\n    if order[2] == \"start\":\n       ~~~~~^^^\n<class 'IndexError'>: list index out of range\n10:21:35  Connector002: list index out of range\n```\n\n### Development version About Info (in Safe Mode)\n\n```shell\nOS: Debian GNU/Linux 13 (trixie) (GNOME/gnome-xorg/xcb)\nArchitecture: x86_64\nVersion: 26.3.0dev.20260804 (Git shallow) AppImage\nBuild date: 2026/08/04 21:26:11\nBuild type: Release\nBranch: (HEAD detached at 80923ab1b)\nHash: 80923ab1be1f31fff0a54db956177d582a658bab\nPython 3.11.14, Qt 6.8.3, Coin 4.0.10 (bundled), Pivy 0.6.11 (bundled), Vtk 9.3.1, boost 1_86, Eigen3 3.4.0, PySide 6.8.3\nshiboken 6.8.3, xerces-c 3.3.0, Clipper2 , IfcOpenShell 0.8.0, OCC 7.8.1\nLocale: English/Ireland (en_IE)\nStylesheet/Theme/QtStyle: FreeCAD.qss/FreeCAD Light/\nQPA/File dialog/Color dialog: xcb/via Qt/via Qt\nNavigation Style/Orbit Style/Rotation Mode: Revit/Rounded Arcball/Window center\nLogical DPI/Physical DPI/Pixel Ratio: 96/158.196/1\nOpenGL version/vendor/renderer: 4.6 (Compatibility Profile) Mesa 25.0.7-2+deb13u1/Intel/Mesa Intel(R) HD Graphics 4600 (HSW GT2)\n```\n\n### Last known good version (optional)\n\n```shell\n\n```",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/FreeCAD/FreeCAD/issues/31903",
+    "published_date": "2026-08-12",
+    "language": "en",
+    "score": 50,
+    "score_reasons": [
+      "Contains Revit (+25)",
+      "Contains BIM (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)",
+      "Identified as tutorial (-40)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260812_124146_000",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-12T12:41:46.069607",
+    "updated_at": "2026-08-12T12:41:46.069614",
+    "keywords_detected": [
+      "tutorial"
+    ],
+    "service_type": "BIM_MODELING",
+    "offer_page": "/offers/bim-modeling.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260812_124146_000.md"
   },
   {
     "title": "[SEC-17] Reputación del Bazaar inflable: accept acredita swap completado con payer falsificable",
