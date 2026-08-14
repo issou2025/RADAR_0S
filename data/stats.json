@@ -1,7 +1,7 @@
 {
-  "total_leads": 561,
-  "qualified_leads": 208,
-  "very_hot_leads": 107,
+  "total_leads": 567,
+  "qualified_leads": 211,
+  "very_hot_leads": 109,
   "contacted": 0,
   "won": 0,
   "lost": 0,
@@ -20,11 +20,11 @@
   ],
   "best_service_types": [
     "STRUCTURAL_DRAWINGS",
-    "UNKNOWN",
-    "FLUTTER_APP"
+    "FLUTTER_APP",
+    "UNKNOWN"
   ],
   "conversion_rate": 0.0,
-  "average_score": 69.19,
-  "average_risk": 1.59,
-  "weekly_report_summary": "Rapport généré le 2026-08-13.\nOpportunités totales : 561\nPistes qualifiées : 208 (Score >= 75)\nTrès chaudes : 107 (Score >= 90)\nContactées : 0\nProjets Gagnés : 0\nTaux de conversion : 0.0%\n\nMeilleure source : GitHub Search\nMeilleur service : STRUCTURAL_DRAWINGS\nRecommandation : Focalisez-vous sur le service STRUCTURAL DRAWINGS avec le mot-clé 'need' pour maximiser vos conversions cette semaine."
+  "average_score": 69.25,
+  "average_risk": 1.64,
+  "weekly_report_summary": "Rapport généré le 2026-08-14.\nOpportunités totales : 567\nPistes qualifiées : 211 (Score >= 75)\nTrès chaudes : 109 (Score >= 90)\nContactées : 0\nProjets Gagnés : 0\nTaux de conversion : 0.0%\n\nMeilleure source : GitHub Search\nMeilleur service : STRUCTURAL_DRAWINGS\nRecommandation : Focalisez-vous sur le service STRUCTURAL DRAWINGS avec le mot-clé 'need' pour maximiser vos conversions cette semaine."
 }
