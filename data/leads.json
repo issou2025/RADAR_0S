@@ -24602,6 +24602,116 @@
     "proposal_path": "/proposals/lead_20260818_122150_013.md"
   },
   {
+    "title": "Associated Domains entitlement points at a placeholder domain that can never resolve",
+    "description": "Found while producing the first TestFlight build.\n\nBoth entitlements files declare:\n\n```\ncom.apple.developer.associated-domains = [\"applinks:tideandseek.invalid\"]\n```\n\n`.invalid` is a **reserved TLD** (RFC 2606) guaranteed never to resolve. So universal links cannot work, and the entitlement is inherited scaffolding rather than a feature.\n\nFiles: `apps/mobile/ios/Runner/Release.entitlements`, `apps/mobile/ios/Runner/DebugProfile.entitlements`\n\n## Why it matters beyond tidiness\n\nIt is a capability the App ID must carry and the provisioning profile must match. It contributed to the first `flutter build ipa` failing with *\"requires a provisioning profile with the Associated Domains and Push Notifications features\"* — the capability is enabled on the Bundle ID, so the build works, but the app is claiming an entitlement it cannot use.\n\nIt also affects App Review: an app declaring associated domains that resolve to nothing is a question waiting to be asked.\n\n## Decide which\n\n**If universal links are wanted** — a shared voyage code opening the app from a link is the obvious use, and would be a genuinely nice way to join a voyage — then a real domain is needed, plus an `apple-app-site-association` file served from it.\n\n**If not**, remove the entitlement from both files and drop the capability from the Bundle ID (`34RUABFBY4`).\n\nNote that the voyage-join flow currently works by six-digit code and QR, neither of which needs associated domains, so removal is the smaller change and loses nothing today.\n\n## Acceptance\n\n- [ ] Either a real domain with a valid AASA file, or the entitlement removed from both files\n- [ ] The Bundle ID's capabilities match what the app actually declares\n- [ ] A release build exports without needing that capability, if removed",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/osholt/knot-alone/issues/40",
+    "published_date": "2026-08-18",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260818_182023_008",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-18T18:20:23.293137",
+    "updated_at": "2026-08-18T18:20:23.293145",
+    "keywords_detected": [
+      "need"
+    ],
+    "service_type": "FLUTTER_APP",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "1500 - 4000 USD",
+    "questions_to_ask": [
+      "Do you have UI designs ready (Figma, Adobe XD) or should we design the screens?",
+      "Which backend service will the app connect to (REST API, Firebase)?",
+      "Do you require integration with app stores (App Store, Play Store)?",
+      "What state management solution do you prefer (Bloc, Riverpod, Provider)?",
+      "What is your target launch date?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260818_182023_008.md"
+  },
+  {
+    "title": "ci: system packages ansible installs on hosts are absent from CI runners, so their tests skip silently",
+    "description": "## Summary\n\n`setup-python-suite` installs Python dependencies only. The **system** packages ansible installs on every backend host are not installed on CI runners, so any test needing one either skips or fails for the wrong reason — and a skip is indistinguishable from a pass.\n\nFound while landing #13896: `pytesseract` was installed from `requirements.txt`, the `tesseract` binary was not, `ocr_availability()` returned false, and **every end-to-end OCR test skipped**. The visible symptom was an unrelated-looking assertion, `assert (1, 2, 3, 4) == (3, 4)`.\n\nThat is #13885's exact shape reproduced in CI: the binding present, the binary absent, and a green run that proved nothing.\n\n## The general gap\n\n`autobot-slm-backend/ansible/roles/backend/tasks/main.yml` installs these on hosts, each because some feature does not work without it:\n\n```\nxvfb, x11-utils, x11-apps        GUI / VNC automation\nffmpeg, libsndfile1, portaudio   audio / voice / Whisper\nespeak-ng, espeak-ng-data        TTS (#10566: \"no speech voices installed\" without it)\ntesseract-ocr, libtesseract-dev  OCR / CAPTCHA (#206)\npython3-tk                       matplotlib GUI backend\npostgresql-client                pg_dump for pre-migration backup\n```\n\n#13896 adds `tesseract-ocr` to the runner. **The others are unaudited** — for each, either its tests are skipping in CI today, or nothing tests it at all. Both are worth knowing, and neither is currently visible.\n\n## Why a skip is worse than a failure here\n\nEvery one of these features is guarded by an optional import that degrades to a message. That is correct at runtime and blinding in a test suite: the gate is always closed, the tests never run, and the suite is green. #13885 survived months on exactly that.\n\n## Scope\n\n- [ ] Audit each system package above: does a test need it, and does that test currently run or skip in CI?\n- [ ] Install the ones with real test coverage on the runner (cheap; `tesseract-ocr` added in #13896 as the first)\n- [ ] For each capability whose tests are `skipif`-gated on a system dependency, add the counterpart guard #13896 introduces — assert the provisioning when `CI` is set, so an always-closed gate fails loudly instead of passing quietly\n- [ ] Where a capability genuinely cannot be exercised in CI, record that explicitly rather than leaving a permanently-skipping test that reads as coverage\n\n## Note\n\nThe pattern worth copying is the guard, not the apt line: `test_ci_actually_has_the_ocr_toolchain` in `autobot-backend/tests/test_ocr_fallback_13896.py`. It turns \"these tests skipped\" from an invisible non-event into a failing assertion.\n\n## Related\n\n- #13885 — the binding/binary split that started this\n- #13896 — adds the tesseract install and the provisioning guard\n- #14353 — making the Python suite gate anything at all",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/mrveiss/AutoBot-AI/issues/14550",
+    "published_date": "2026-08-18",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 20,
+    "recommended_action": "monitor",
+    "id": "lead_20260818_182023_015",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-18T18:20:23.298523",
+    "updated_at": "2026-08-18T18:20:23.298527",
+    "keywords_detected": [
+      "need"
+    ],
+    "service_type": "PYTHON_AUTOMATION",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "cheap / low budget",
+    "recommended_price": "200 - 600 USD",
+    "questions_to_ask": [
+      "What is the input data format (Excel sheets, CSV, website, database)?",
+      "What are the step-by-step logic rules for processing the data?",
+      "Where should the output be saved (merged sheet, email, database)?",
+      "Does this script need to run on a schedule (cron, Windows Scheduler) or manually?",
+      "Can you share sample data files for testing?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260818_182023_015.md"
+  },
+  {
     "title": "[ENHANCEMENT] Add support for Jupiter v6 API quote routing to optimize cross-dex trade legs",
     "description": "### Is your feature request related to a problem?\nCurrently, the capital funding rate arbitrage module and standard spatial loops on Solana map liquidity directly across specific isolated pools (Raydium, Orca). While the sub-45ms latency architecture is incredibly fast, we miss out on complex multi-hop trade routes that could yield higher spread percentages.\n\n### Describe the solution you'd like\nIt would be awesome to integrate Jupiter v6 API or their local routing SDK directly into the Cortex AI automation core. This would allow the execution engine to automatically find optimized multi-hop routes (e.g., USDT -> SOL -> Jupiter Pool -> Token) for the arbitrage legs while still utilizing the local flash loan bot mechanics for safety.\n\n### Describe alternatives you've considered\nI tried writing a custom Python script wrapper to pipe Jupiter quotes into the engine telemetry layer, but the retail python overhead completely kills the structural latency advantage of the native Cortex infrastructure, pushing execution loops way past 150ms.\n\n### Additional context\nIntegrating this directly into the native C++ / optimized pipeline of the `Cortex_AI_v3.4` binary would make this the ultimate tool for Solana MEV and latency arbitrage.",
     "source": "GitHub Search",
