@@ -5980,6 +5980,64 @@
     "proposal_path": "/proposals/lead_20260828_015224_018.md"
   },
   {
+    "title": "Make extension documentation self-describing",
+    "description": "## Parent\n\n[AEC-AB/tools#571](https://github.com/AEC-AB/tools/issues/571)\n\n## Goal\n\nMake the extension documentation package the source of truth for shared and platform-specific extension guidance. Each Markdown file should describe how agents can discover and route to it without a hard-coded catalog in the Assistant server.\n\n## Work\n\n- Move the current extension workflow, runtime, project metadata, and tooling guidance into canonical Markdown in this repository.\n- Separate instructions that apply to every Assistant extension from Revit-specific guidance.\n- Add platform documents for Revit first. Keep the structure ready for AutoCAD and Navisworks without copying shared instructions.\n- Add YAML frontmatter to every packaged document.\n- Require these fields:\n  - `id`\n  - `title`\n  - `summary`\n  - `applies-to`\n  - `tasks`\n- Support `recommended: true` for documents that agents should read early when their platform and task match.\n- Validate the complete document set during package creation.\n- Reject missing fields, duplicate IDs, invalid values, and unreadable Markdown.\n- Continue publishing the documents through `CW.Assistant.ExtensionDocs.Bundle`.\n\nSemantic search is outside this issue. The metadata and document structure should support it later without changing document IDs.\n\n## Initial document structure\n\n```text\nassistant/how-assistant-works\nextensions/development-workflow\nextensions/project-metadata\nextensions/runtime-rules\nplatforms/revit/development\nplatforms/autocad/development\nplatforms/navisworks/development\n```\n\nOnly documents with real content need to ship in the first change. Revit is the first platform implementation.\n\n## Acceptance criteria\n\n- Shared documents contain no Revit-specific instructions.\n- Revit documents contain only host-specific guidance and refer to shared documents by ID when needed.\n- Every packaged Markdown file has valid YAML frontmatter.\n- Package validation fails for duplicate IDs, missing required metadata, invalid platform or task values, and unreadable files.\n- Recommended documents can be identified from metadata without reading their full content.\n- The NuGet package contains the validated Markdown and preserves its document paths.\n- Tests inspect the packed artifact rather than only the source directory.\n\n## Related work\n\n- [AEC-AB/tools#484](https://github.com/AEC-AB/tools/issues/484) and [AEC-AB/tools#521](https://github.com/AEC-AB/tools/issues/521) cover earlier package-content delivery fixes.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/AEC-AB/tools-extensions-public/issues/44",
+    "published_date": "2026-08-28",
+    "language": "en",
+    "score": 100,
+    "score_reasons": [
+      "Contains Revit (+25)",
+      "Contains structural drawings (+20)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20260828_175045_001",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-28T17:50:45.059176",
+    "updated_at": "2026-08-28T17:50:45.059182",
+    "keywords_detected": [
+      "project",
+      "need"
+    ],
+    "service_type": "STRUCTURAL_DRAWINGS",
+    "offer_page": "/offers/structural-drawings.html",
+    "budget_detected": "not specified",
+    "recommended_price": "800 - 2000 EUR",
+    "questions_to_ask": [
+      "Avez-vous déjà réalisé l'étude de sol géotechnique pour les fondations ?",
+      "Quelles sont les charges d'exploitation particulières (machines, toiture végétalisée) ?",
+      "Fournissez-vous les plans d'architecte définitifs au format DWG ?",
+      "Quels sont les détails d'exécution attendus (nomenclatures d'acier, détails de ferraillage) ?",
+      "Quel est votre calendrier souhaité pour la validation des plans ?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260828_175045_001.md"
+  },
+  {
     "id": "lead_2026_001",
     "title": "Need Revit freelancer to convert PDF house plans",
     "description": "Looking for someone to convert PDF house plans into a clean Revit model. The house is a standard 2-story family home. Standard LOD 200 is sufficient. I need the RVT file plus exported DWG plans and PDF sheets.",
@@ -16779,6 +16837,64 @@
     "proposal_path": "/proposals/lead_20260828_015224_009.md"
   },
   {
+    "title": "Explore Blender-rendered photoreal UI components (knobs/faders/switches) for the plugin family, via the existing BlenderMCP integration",
+    "description": "## The idea\n\nUser-submitted concept: use Blender (via the BlenderMCP integration already available in this environment) to generate real, photorealistic-looking UI components — 3D-shaded knobs, faders, textured panel surfaces, real lighting/reflections — for the plugin family (MURMUR, Undertow, Fathom, Splay, Quasar, Drum), instead of (or alongside) the current flat/vector UI. Reddit and other plugin-dev communities have real, visible examples of exactly this technique (baking 3D-rendered hardware-style controls into plugin UIs) — this isn't a novel idea, it's an established, real technique in the commercial plugin space (this is roughly how many hardware-emulation-style plugins from Native Instruments, Arturia, u-he, Softube, etc. get their \"real metal knob\" look).\n\n## Real current state (so this is scoped against reality, not assumption)\n\nEvery plugin's UI today is **procedural, vector-drawn JUCE graphics** — confirmed directly:\n- A shared base (`plugin/src/ui/theme/ObsidianLookAndFeel.cpp`) implements `drawRotarySlider()` etc. entirely via `juce::Graphics` calls (rectangles, gradients, computed angles) — no raster/baked imagery anywhere in a knob.\n- Each plugin subclasses it (`FathomLookAndFeel`, `SplayLookAndFeel`, etc.) for its own knob styles, but the *technique* is the same: everything is drawn live, every frame, from geometry + color.\n- Each plugin already has a real, distinct, **Figma-sourced** brand palette (e.g. `FathomPalette.h`: \"a weathered olive-steel/brass 'sonar station' instrument panel,\" sourced from real Figma fill/stroke data, not eyeballed) — real art direction already exists per plugin, this issue is about *rendering technique*, not needing new brand identity work.\n\nThis vector-first approach is very likely a deliberate choice, not an oversight — see \"real tradeoffs\" below for why.\n\n## The real proposed technique\n\nThe proven industry pattern for \"photoreal 3D knob in a 2D plugin UI\" is **not** real-time 3D rendering inside the plugin (JUCE has no game-engine-grade real-time 3D renderer, and shipping one would be a real performance/compatibility risk across every DAW/OS this targets). It's:\n\n1. Model the control once in Blender (parametric — same knob rig, different material/color per plugin brand).\n2. Light it with a real, consistent rig (HDRI environment + key/fill, matching each plugin's real palette — e.g. Fathom's brass/olive-steel, per its Figma spec).\n3. Render a **sprite filmstrip**: e.g. 128 frames sweeping the knob's full rotation range, each a transparent PNG.\n4. On the JUCE side, a filmstrip-aware `LookAndFeel::drawRotarySlider()` picks the correct frame by `sliderPosProportional` instead of drawing procedurally — a real, well-understood JUCE pattern (`juce::Image` + frame indexing), not exotic.\n\n## What's genuinely already available to build this\n\nThis environment already has a real Blender MCP integration wired up: `execute_blender_code` (arbitrary Python — real parametric rig-building, material setup, batch rendering), `get_viewport_screenshot`, `download_polyhaven_asset` (real PBR material/HDRI library), `generate_hyper3d_model_via_text/images`. The scripting/automation half of this is not hypothetical — it's callable today. What doesn't exist yet is the actual rig (the knob/fader models), the per-brand material setup, the batch-render-to-filmstrip script, and the JUCE-side filmstrip `LookAndFeel`.\n\n## Real tradeoffs to weigh honestly before committing\n\n- **Resolution independence.** The current vector approach looks crisp at any window size/DPI/host scaling with zero extra work. A raster filmstrip needs either multiple baked resolutions or accepts blur/pixelation when a user resizes the plugin window larger than the baked resolution — this is very likely *why* the current UI is vector-first, and is the single biggest real design tension with this idea.\n- **Binary/installer size.** Photoreal sprite strips are not small — 128 frames × several component types × per-plugin brand variants, even PNG-compressed, adds real, possibly-significant megabytes per plugin. Worth a real size budget before committing broadly.\n- **Lighting consistency.** Every component in one plugin's UI needs the *same* light rig/angle, or the \"photoreal\" look reads as fake/inconsistent the moment two components are on screen together — a real production discipline requirement (a shared, reused Blender lighting setup per brand, not ad-hoc per-asset renders).\n- **Live theming.** The current system drives knob color live off `juce::Slider::rotarySliderFillColourId` etc. — real, cheap, host-automatable color theming. Baked photoreal renders lose that unless variants are pre-rendered per state (e.g. active/inactive, or per accent color) — likely fine for a single fixed brand look per plugin, worth being explicit that per-parameter dynamic recoloring goes away.\n\nNone of these are reasons not to try it — they're the real, concrete design questions worth answering before scaling this \"to all VSTs.\"\n\n## Suggested real next step\n\nA single, small proof-of-concept: pick **one** component (a rotary knob) on **one** plugin (Fathom is the strongest fit — its real \"weathered brass sonar console\" theme is exactly the kind of tactile, material-rich look this technique sells hardest) and build the real, full pipeline end to end — Blender rig → batch-rendered filmstrip → a working JUCE `LookAndFeel` override loading it — before deciding whether to invest in doing this \"for all the VSTs.\" That answers the resolution/size/lighting questions with a real artifact instead of a guess.",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/cbackstrom80/murmur-app/issues/19",
+    "published_date": "2026-08-28",
+    "language": "en",
+    "score": 80,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Budget detected (+15)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "hot",
+    "risk_score": 20,
+    "recommended_action": "reply_now",
+    "id": "lead_20260828_175045_015",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-28T17:50:45.065788",
+    "updated_at": "2026-08-28T17:50:45.065791",
+    "keywords_detected": [
+      "budget",
+      "available",
+      "need"
+    ],
+    "service_type": "PYTHON_AUTOMATION",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "cheap / low budget",
+    "recommended_price": "200 - 600 USD",
+    "questions_to_ask": [
+      "What is the input data format (Excel sheets, CSV, website, database)?",
+      "What are the step-by-step logic rules for processing the data?",
+      "Where should the output be saved (merged sheet, email, database)?",
+      "Does this script need to run on a schedule (cron, Windows Scheduler) or manually?",
+      "Can you share sample data files for testing?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260828_175045_015.md"
+  },
+  {
     "id": "lead_2026_004",
     "title": "Recherche développeur Flutter pour application mobile",
     "description": "Recherche développeur indépendant pour finaliser une application mobile Flutter de e-commerce. Code existant propre, il reste à intégrer la passerelle de paiement Stripe et corriger quelques bugs de navigation.",
@@ -20110,6 +20226,65 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260827_053607_018.md"
+  },
+  {
+    "title": "The CLI command names came from a sketch, not a design",
+    "description": "These command names were never designed. They come from a rough example — a\nsketch written to illustrate what a pipeline would roughly look like, using\nwhatever words made the sentence readable at the time. That sketch got\nimplemented literally, and the words became an API.\n\nSo the names are not wrong because someone chose badly. They are wrong because\nnobody chose at all, and an illustration was promoted to a specification by\nbeing built.\n\nIt is worth fixing before the bundle package lands, because that work fixes the\nshape in place: once generated output has a home and commands write to it, every\nname here is one more thing a project depends on.\n\n## What ships today\n\n```\ngood create\ngood generate            Write lib/good.generated/ from the assets the pubspec declares.\ngood assets compact      Convert source art into the one canonical format per kind.\ngood assets pack         Chunk, compress and encrypt the assets a build ships.\ngood build <platform>    windows | linux | android | ios\n```\n\nFour problems, in rising order of how much they cost.\n\n**`generate` does not say what it generates.** It writes typed asset keys. The\nname would fit code generation of any kind, and there is going to be more than\none kind.\n\n**`compact` is not compaction.** It converts jpg-beside-png-beside-webp into one\nformat per kind, so the runtime carries one decoder instead of six. That is\nnormalisation. \"Compact\" reads as size reduction, which is `pack`'s job.\n\n**`pack` does three things**, and one of them belongs to a different phase.\nCompress, encrypt, chunk. Encryption is a release concern that has nothing to do\nwith chunking, and the code already knows it — `pack` takes `--encryption` with\nan `aes` default and a debug mode that skips compression and encryption\nentirely. So the coupling is already conditional; the name just does not admit\nit.\n\n**Nothing says which order to run them in.** The real order is compact, pack,\ngenerate, build. Nothing in the help text implies it.\n\n## Not a proposal — a second sketch\n\n```\n# ILLUSTRATION ONLY. No name below is decided. Do not implement this block.\ngood create\ngood assets pack         # source art -> bundle package assets\ngood assets <verb>       # write the typed asset keys\ngood build <platform>    # compile, encrypt, package\n```\n\nThis is where the previous names came from too, so it is worth saying plainly:\n**the block above is the same kind of artifact that caused this issue.** It\nexists to make the shape of the discussion visible, not to be built. The design\nbelow it is about the *phases* and what belongs in each; the words are\nplaceholders until the phase model is settled, and then the names follow from\nit.\n\nWhat is genuinely being argued, independent of any name:\n\n**Encryption belongs in the build phase.** Three things fall out of it, and they\nare the argument:\n\n- **A key never has to sit anywhere a repo can see it.** Encryption at pack time\n  means the key is present whenever assets are packed, which is every iteration.\n  At build time it is needed once, by the thing that already handles signing.\n- **Development stops paying for it.** Re-chunking after an art change currently\n  re-encrypts. The debug mode exists precisely to avoid that, which is the\n  design telling us where the seam belongs.\n- **Chunks in the bundle package become inspectable.** A developer can look at\n  what was packed. Today the release path produces opaque bytes at the one point\n  someone might want to check them.\n\nThe cost is a build-order constraint: the chunks the bundle package declares\nmust be encrypted **before** the Flutter build bundles them, so `good build` has\nto rewrite them in place and then invoke the platform build. That ordering has\nto be explicit, because getting it wrong ships plaintext assets and nothing\nfails.\n\n**Normalisation and chunking may be one step or two.** They are always run in\nsequence today and neither is independently useful, which argues for one.\n\nThe counter-argument is iteration speed: normalisation is ffmpeg over every\ntexture and is slow, chunking is fast, and folding them means paying for ffmpeg\nwhenever you want to re-chunk. So folding needs the normalisation step to be\ncached on content hash, or it makes the common case worse. If that cache is not\nworth building yet, the two stay separate and only get renamed.\n\n## \"key\" is already taken, and this is the trap\n\n`good assets key generate` reads well until you notice the codebase already has\n`good_cli/lib/src/assets/key_material.dart`, and `pack` takes an encryption key.\n\nSo `good assets key` would mean two different things depending on who is\nreading: the typed Dart identifiers that name assets, or the AES key material\nthat encrypts them. Those are different objects with different lifetimes and\ndifferent secrecy, and one of them is about to become `good build`'s\nresponsibility.\n\nOptions, none chosen:\n\n- **`good assets bind`** — writes the bindings. Leaves \"key\" free for encryption.\n- **`good assets keys`** (plural, no sub-verb) — shorter, still collides.\n- **`good generate keys`** — keeps generation as the verb and asset keys as the\n  object, at the cost of splitting asset work across two top-level commands.\n\nWhatever it becomes, **the encryption key and the asset keys must not share a\nnoun in the command tree.**\n\n## Also open\n\n- **Does `good build` still take a platform subcommand**, or a `--target` flag?\n  Four subcommands that differ only in target is a lot of surface for one axis.\n- **Should any of this run automatically?** The bundle package work already\n  established that `good generate` has to run `flutter pub get` itself, because\n  every off-path state fails silently. The same question applies to whether\n  `good build` should pack first rather than trusting that someone did.\n- **What `good create` scaffolds** changes with the answer, since it writes the\n  first version of every generated artifact.\n\n## Done when\n\nThe tree describes what each step does, the encryption phase is stated rather\nthan implied by a flag default, and no two commands share a noun that means\ndifferent things.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/sunarya-thito/good/issues/238",
+    "published_date": "2026-08-28",
+    "language": "en",
+    "score": 70,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)",
+      "Contains deadline/quote keyword (+5)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260828_175045_012",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-28T17:50:45.064300",
+    "updated_at": "2026-08-28T17:50:45.064303",
+    "keywords_detected": [
+      "project",
+      "job",
+      "proposal",
+      "need"
+    ],
+    "service_type": "FLUTTER_APP",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "1500 - 4000 USD",
+    "questions_to_ask": [
+      "Do you have UI designs ready (Figma, Adobe XD) or should we design the screens?",
+      "Which backend service will the app connect to (REST API, Firebase)?",
+      "Do you require integration with app stores (App Store, Play Store)?",
+      "What state management solution do you prefer (Bloc, Riverpod, Provider)?",
+      "What is your target launch date?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260828_175045_012.md"
   },
   {
     "id": "lead_2026_005",
@@ -30121,6 +30296,59 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260828_015224_021.md"
+  },
+  {
+    "title": "ENA v0.3.7 field validation: Operational Architecture on heterogeneous Hosts",
+    "description": "## Status\n\n`ACTIVE_FIELD_VALIDATION_STREAM / V0.3.7_CURRENT / FIELD_VALIDATION`\n\nActivated after governed release promotion and post-merge readback:\n\n- release PR: #144\n- exact reviewed release head: `3ef3605228ed427b2d25d7d586e4ffc378b7369e`\n- release merge commit: `50a4bb06b98dc0dd719230f71ed1d47e42e1fad9`\n- immutable Current tree at release: `f33e73ed997c1b66a4572685ab5474182e136e97`\n- deterministic 118-file Current package SHA-256: `40d4dde277d54ce8252e0402e32f900fa7ab4fb0aeaa638b898073d0f02f848c`\n- Exact Release Gate: `33162550145` — PASS\n- post-merge Main Gate: `33163171275` — PASS\n- post-merge Current validate/package: `33163171328` — PASS\n- post-merge CodeQL: `33163171289` — PASS\n\nThis issue is the post-release field-evidence stream for ENA v0.3.7. It does not make v0.3.7 Current by itself and must not be used to retroactively strengthen the release evidence. Current authority remains `releases/current/CURRENT-BASELINE.yaml` on `main`.\n\nPredecessor v0.3.6 field-validation issue #70 remains occurrence evidence with its original scope.\n\n## High-value evidence\n\nCollect heterogeneous fresh-Host/model/language evidence where reality can change a conclusion, especially for:\n\n- natural cue -> cold-HOW discovery -> selection -> application without permanently loading the full HOW library;\n- false-BLOCK behavior: `NOT_REQUIRED`, `NOT_APPLICABLE`, `WAIT`, and `UNKNOWN` remaining practically usable rather than collapsing into forced governance;\n- Purpose-Relative Continuity only when a real purpose boundary changes a decision;\n- Standing Input without authority/sovereignty creep;\n- Control Retirement when a control no longer pays rent;\n- Evolution Commons publication/import/local reselection without source-proof laundering;\n- Host Mapping: property equivalence versus implementation equivalence and Host-relative fitness;\n- optional/default-off reference organs being useful when applicable without becoming de facto normative requirements;\n- Authority / Effect / Recovery composition under real external consequence;\n- the primary `tools/ena_evolve_v2.py` path versus the explicitly legacy v1.2 compatibility path;\n- English / zh-CN operational route reachability and natural decision-semantic behavior;\n- operational economics: adaptation/retrieval value versus context, maintenance, governance, and storage burden;\n- unexpected counterexamples, new variations, and failure shapes not represented by release fixtures.\n\n## Evidence boundaries that remain open\n\nDo not silently relabel these solved merely because the release gates passed:\n\n- attack cardinality remains open;\n- represented Authority/credential/mandate fields do not prove external authenticity;\n- represented Effect receipts do not establish external authenticity or exactly-once execution;\n- source consistency/import validation does not authenticate source evidence or mint receiver-local proof;\n- cross-environment `candidate_id` uniqueness is not universalized absent a governing contract;\n- natural fresh-session cue salience/application remains field evidence;\n- structural/paired zh-CN fixtures do not prove universal behavioral equivalence;\n- Host applicability and operational fitness remain environment-relative;\n- bundled optional references remain optional/default-off and non-normative by package inclusion alone.\n\n## v0.3.7 immutable-package erratum to observe honestly\n\nThe released `CURRENT-BASELINE.yaml` contains one pre-promotion snapshot sentence under `accepted_residuals` stating that v0.3.6 remains the only adopter-facing baseline until explicit promotion. Explicit promotion has now occurred; the top-level baseline identity and governed main merge establish v0.3.7 as Current.\n\nBecause v0.3.7 release identity is immutable (`same ena_version -> same effective content`), do **not** silently edit the released 118-file Current package merely to rewrite that historical precondition. Treat it as a release-metadata erratum and remove/correct it only under a future governed release identity. Field reports should not infer that v0.3.6 is still Current from that stale residual sentence.\n\n## Evidence hygiene\n\nSeparate:\n\n`WRITTEN | LOADED | INTERPRETED | SALIENT | APPLIED`\n\nand:\n\n`PROSE_PRESENT | STRUCTURALLY_REPRESENTED | MACHINE_GUARDED | EXECUTED | EXTERNALLY_OBSERVED | INDEPENDENTLY_SUPPORTED`\n\nDo not upgrade one level into another.\n\nRun another model/Host/language only when it can plausibly expose a different mechanism, applicability boundary, failure shape, or decision—not merely to accumulate diverse-looking outputs.\n\n> Variation first; selection by reality.\n>\n> Governance must pay rent.",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/guytogay/evolution-native-agent-architecture/issues/150",
+    "published_date": "2026-08-28",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains structural drawings (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260828_175045_017",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-28T17:50:45.068749",
+    "updated_at": "2026-08-28T17:50:45.068752",
+    "keywords_detected": [],
+    "service_type": "STRUCTURAL_DRAWINGS",
+    "offer_page": "/offers/structural-drawings.html",
+    "budget_detected": "not specified",
+    "recommended_price": "800 - 2000 EUR",
+    "questions_to_ask": [
+      "Avez-vous déjà réalisé l'étude de sol géotechnique pour les fondations ?",
+      "Quelles sont les charges d'exploitation particulières (machines, toiture végétalisée) ?",
+      "Fournissez-vous les plans d'architecte définitifs au format DWG ?",
+      "Quels sont les détails d'exécution attendus (nomenclatures d'acier, détails de ferraillage) ?",
+      "Quel est votre calendrier souhaité pour la validation des plans ?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260828_175045_017.md"
   },
   {
     "title": "[ENHANCEMENT] Add support for Jupiter v6 API quote routing to optimize cross-dex trade legs",
@@ -42097,6 +42325,112 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260827_053607_010.md"
+  },
+  {
+    "title": "OCR 原始问题清单（429 条，未经人工确认）",
+    "description": "## 说明\n\n这是 OCR 会话 `fb07be1c-da9b-474b-b18c-72bdd87970ab` 生成的 **429 条原始问题输出**，保持原始顺序，未经人工确认、去重或误报过滤。\n\n- 原始分布：34 High / 211 Medium / 184 Low\n- 审查覆盖：118/201 个文件（58.7%）\n- 未完成：83 个文件，原因是 Token Plan 配额耗尽\n- 已人工确认的问题见 #79（11 High / 8 Medium）\n\n由于 GitHub 单条正文长度限制，完整清单分为 8 条评论。这里只保留每条 OCR comment 的路径、行号、严重级别、分类和原始 `content`；不包含内部 `thinking`、`existing_code` 与 `suggestion_code`。\n\n> 此清单用于审计和后续复核，不能直接视为 429 个真实缺陷。",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/zhangheng2022/meet_trace/issues/80",
+    "published_date": "2026-08-28",
+    "language": "en",
+    "score": 45,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "cold",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260828_175045_010",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-28T17:50:45.061944",
+    "updated_at": "2026-08-28T17:50:45.061947",
+    "keywords_detected": [],
+    "service_type": "UNKNOWN",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260828_175045_010.md"
+  },
+  {
+    "title": "The generated readiness check prints a literal instead of the missing asset's name",
+    "description": "The readiness check `good generate` emits names no asset. It prints the literal\ntext `${k.source.description}`, once per missing asset.\n\n`packages/good_cli/lib/src/generate/templates.dart:197`:\n\n```dart\n'\\${missing.map((k) => '  \\\\\\${k.source.description}').join('\\\\n')}\\\\n'\n```\n\nThe inner interpolation is escaped one level too far. `\\\\` emits a backslash and\n`\\$` emits a dollar, so the generated file receives `\\${k.source.description}` —\nand in the generated Dart that backslash-dollar is an escaped dollar, which\nmeans no interpolation happens at all.\n\nThe emitted line, from a generated project:\n\n```dart\n'${missing.map((k) => '  \\${k.source.description}').join('\\n')}\\n'\n```\n\nThe outer interpolation over `missing` is correct and does run. So the message\ngets one line per missing asset — the count is right — and every line reads\n`${k.source.description}` instead of naming the file.\n\n## Why it matters more than a cosmetic slip\n\nThis string only ever renders when something is already wrong: an asset is\ndeclared and will not be there at run time. The name is the entire payload. A\nlist of three identical placeholder lines tells you how many are missing and\ngives you no way to find out which, at the one moment the answer is wanted.\n\nIt is also invisible to every existing check. The generated file analyzes clean,\nbecause a literal string is perfectly valid Dart, and no test asserts on the\nmessage body.\n\nAnd it survives `good generate`. Fixing it in a project is pointless — the next\nregeneration writes it back.\n\n## Fix\n\nReduce the escaping so the inner interpolation reaches the generated file\nunescaped. Then assert on it: generate a project with a declared-but-absent\nasset, run the readiness check, and require the asset's own name in the output.\nA test that only counts lines passes today.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/sunarya-thito/good/issues/235",
+    "published_date": "2026-08-28",
+    "language": "en",
+    "score": 45,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "cold",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260828_175045_013",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-08-28T17:50:45.065127",
+    "updated_at": "2026-08-28T17:50:45.065130",
+    "keywords_detected": [
+      "project"
+    ],
+    "service_type": "FLUTTER_APP",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "1500 - 4000 USD",
+    "questions_to_ask": [
+      "Do you have UI designs ready (Figma, Adobe XD) or should we design the screens?",
+      "Which backend service will the app connect to (REST API, Firebase)?",
+      "Do you require integration with app stores (App Store, Play Store)?",
+      "What state management solution do you prefer (Bloc, Riverpod, Provider)?",
+      "What is your target launch date?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260828_175045_013.md"
   },
   {
     "title": "[BUG] Claude Code 2.1.170 ÔÇö all sessions return no_response immediately on Windows 11, query iterator completes in 0s",
