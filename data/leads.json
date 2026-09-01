@@ -9938,6 +9938,62 @@
     "proposal_path": "/proposals/lead_20260901_022928_015.md"
   },
   {
+    "title": "Load Document: .rvf offered in file filter but rejected; spurious 'file has changed' warning in release builds",
+    "description": "Two small independent defects in `Load Document` (new in 1.36), both in `DocumentLoad.cs`.\n\n**1. `.rvf` is offered in the file dialog and then rejected**\n\nThe component's own `Param_FilePath` filter advertises it (`DocumentLoad.cs:38`):\n\n```csharp\nFileFilter = \"Files (*.rte, *.rvt, *.rfa, *.rvf, *.ifc, *.ifczip)|*.rte;*.rvt;*.rfa;*.rvf;*.ifc;*.ifczip\"\n```\n\nbut the accepted set omits `.rvf` (`:80`):\n\n```csharp\nstatic readonly ISet<string> FileExtensions = new HashSet<string>(PathExtension.Comparer){ \".rte\", \".rvt\", \".rfa\", \".ifc\", \".ifczip\" };\n```\n\nSo a file picked through the component's own browser fails with *\"'.rvf' is not a supported extension.\"* The extension check runs before `File.Exists` (`:114-119`), so the path need not even resolve to see it.\n\nEither add `.rvf` to `FileExtensions` (and a `LoadDocument` branch for it) or drop it from the filter.\n\n**2. \"File has changed\" warning fires when the file has not changed**\n\nThe unchanged-file fast path sits inside `#if DEBUG` (`DocumentLoad.cs:157-163`):\n\n```csharp\n#if DEBUG\n    if (File.GetLastWriteTimeUtc(uri) == document.File.LastWriteTimeUtc)\n    {\n      _currentDocs[uri] = document;\n      return true;\n    }\n#endif\n\n    if (load != true)\n      AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $\"File '{uri}' has changed since last time it was loaded.\");\n```\n\nIn a release build that early return is compiled out, so any re-solve served from `_cachedDocs` while `Load` is not currently `true` emits the warning regardless of the file's timestamp. The timestamp comparison only ever runs in debug builds.\n\n**Environment**\n\nRevit 2025.4 · Rhino.Inside.Revit 1.37.9698 · Rhino 8.36.26243 · Windows 11\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/mcneel/rhino.inside-revit/issues/1540",
+    "published_date": "2026-09-01",
+    "language": "en",
+    "score": 90,
+    "score_reasons": [
+      "Contains Revit (+25)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20260901_201608_001",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-09-01T20:16:08.064889",
+    "updated_at": "2026-09-01T20:16:08.064896",
+    "keywords_detected": [
+      "need"
+    ],
+    "service_type": "BIM_MODELING",
+    "offer_page": "/offers/bim-modeling.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260901_201608_001.md"
+  },
+  {
     "id": "lead_2026_002",
     "title": "Besoin de plans de structure béton armé pour villa R+1",
     "description": "Je recherche un projeteur structure indépendant pour réaliser les plans d'exécution béton armé (fondations, poutres, dalles, colonnes) d'une villa individuelle R+1 de 180m². Les plans d'architecte DWG sont fournis.",
@@ -16048,6 +16104,64 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260831_120422_014.md"
+  },
+  {
+    "title": "PRD: MARVIN Activity Board + mac-mini primary host migration",
+    "description": "## Parent\n\nG-Eskayo/marvin#1\n\n## Problem Statement\n\nGil can't currently see what MARVIN's automation is actually doing, or trust that it's running\nreliably. Two coupled gaps: (1) once a ticket is claimed, its progress is invisible until a PR\nshows up — no visibility into whether it's planning, executing, or stuck; (2) the pipeline\ncurrently runs primarily on his laptop, which sleeps/closes between naps, silently breaking\ncontinuity with no visible signal that it happened.\n\n## Solution\n\nTwo coupled changes:\n\n1. Relocate the pipeline's own entrypoints (`ticket_pipeline.py`'s launchd cron, `dashboard-webhook`)\n   to run primarily on mac-mini (already always-on, already hosting several other MARVIN launchd\n   jobs), with macbook-pro remaining an opportunistic worker `task_dispatch.py` can still route\n   ticket execution to whenever it's up — no change to `task_dispatch.py`'s own machine-selection\n   logic, which is already machine-agnostic (\"self\" vs. \"remote\" falls out of which machine's own\n   launchd job invokes it).\n2. Add a new \"Activity\" tab to the dashboard (already anticipated in CONTEXT.md's \"Dashboard\n   hosting, revised\" note) showing a per-device board: each known machine (mac-mini, macbook-pro,\n   future nodes) as a column with its live status (idle / current ticket + stage / unreachable),\n   plus a shared backlog list of unclaimed `ready-for-agent` tickets underneath. The dashboard GUI\n   itself keeps running wherever Gil is sitting; its data sources (webhook/refresh URLs) point at\n   mac-mini's Tailscale hostname instead of `localhost` for the pieces that now live there.\n\n## User Stories\n\n1. As Gil, I want to see which machine (if any) is currently executing a ticket, so that I know the automation is actually alive without checking terminal logs.\n2. As Gil, I want to see which ticket a machine is working on and roughly what stage it's in (planning / implementing / verifying), so that a stuck or slow run is visible instead of silent.\n3. As Gil, I want to see the backlog of unclaimed ready-for-agent tickets in the dashboard, so that I don't have to run `gh issue list` to know what's queued.\n4. As Gil, I want the automation to keep running even when my laptop is closed, so that I don't lose progress between naps.\n5. As Gil, I want the dashboard to work the same whether I'm looking at it on my laptop or on mac-mini, so that I don't need to change my workflow based on which machine I happen to be using.\n6. As Gil, I want to know if a machine has gone offline or unreachable, so that I don't mistake \"can't reach it\" for \"it's idle.\"\n7. As Gil, I want a PR's dashboard entry to show which machine produced it, so that I can tell where a given implementation actually ran.\n8. As Gil, I want the per-machine status to update without me needing to manually refresh, so that the board reflects reality.\n9. As Gil, I want the board to degrade gracefully if a machine is unreachable (SSH/Tailscale down) rather than hang the whole dashboard, so that one offline machine doesn't break visibility into the other.\n10. As Gil, I want the primary-host migration to not require me to manually babysit two sets of cron jobs, so that I'm not the one keeping mac-mini and macbook-pro in sync by hand.\n11. As Gil, I want a machine's \"idle\" status to be unambiguous from \"unreachable,\" so red/gray/green-type states don't get confused.\n12. As Gil, I want the existing single-machine status badge (built earlier this session) to become the mac-mini column in the new board rather than being thrown away, so prior work isn't wasted.\n\n## Implementation Decisions\n\n- **Primary-host relocation** (ops, not new code): install `com.marvin.ticket-pipeline.plist` and\n  `com.marvin.dashboard-webhook.plist` on mac-mini (already has the repo/venv via existing\n  cross-machine code-sync). Decide whether macbook-pro's copies are removed or kept-but-disabled as\n  a manual fallback. `task_dispatch.py`'s `select_machine()` needs no code changes. Document this as\n  its own ADR (which machine is authoritative for which job is an architecture decision, not just a\n  deploy step), matching this repo's existing practice (ADR 0013, 0026) for this class of decision.\n- **Webhook/refresh URL configuration**: the already-overridable env vars\n  (`MARVIN_MR_WEBHOOK_URL`, `MARVIN_MR_DENY_WEBHOOK_URL`, `MARVIN_DASHBOARD_REFRESH_URL`,\n  `MARVIN_DASHBOARD_REFRESH_PORT`) get pointed at mac-mini's Tailscale hostname (`gils-mac-mini`)\n  instead of `localhost` when the GUI runs on macbook-pro; they stay `localhost` when it runs on\n  mac-mini itself. Requires a Node-side way to tell which machine the app is currently running on\n  (Python side already has `machine_profile.registry_id()`; needs an equivalent, or a simpler\n  hostname-based check, on the Electron side).\n- **Cross-machine dispatch-status reader** (new module, Node, tested): extends\n  `dispatch_status.js`'s existing local-file read with a remote counterpart — SSHes to the other\n  known device's `dispatch-state.json` over Tailscale, mirroring `task_dispatch.py`'s already-proven\n  `_read_remote_dispatch_state()` pattern (same SSH options, same timeout-bounded behavior).\n  Distinguishes three states per machine: idle, busy (with task), unreachable — unreachable must\n  never collapse into idle (user story 11).\n- **Per-ticket progress-stage module** (new instrumentation, Python, tested): `execute_ticket`\n  (or `run_ticket.py` wrapping it) writes a small structured file per in-flight ticket (e.g.\n  `~/.claude/ticket-progress/<issue_number>.json`: `{stage, iteration, max_iterations, subsystem,\n  updated_at}`) at each real phase transition (claimed → planning → executing iteration N →\n  verifying → raised/failed), removed on completion. This is the concrete instrumentation GitHub\n  #82 itself flagged as missing (\"no running process to poll/subscribe to for real-time state\") —\n  now buildable since the autonomous trigger (#95, already shipped) exists. Stages come directly\n  from `execute_ticket`'s actual loop, not invented.\n- **Activity tab** (new UI, not unit-tested per this codebase's existing convention): third\n  dashboard tab. One column per known device from `marvin-network.json`'s registry — each shows\n  reachability (idle / busy+stage / unreachable) — plus a shared backlog section listing unclaimed\n  `ready-for-agent` tickets (plain `gh issue list`, mirrors `mr_review.js`'s existing `listOpenPrs`\n  pattern, no new mechanism). The existing single-machine status badge (`DispatchStatusBadge.jsx`,\n  built this session) becomes this tab's \"self\" column rather than being replaced.\n- **MR-origin display**: each PR row already knows its ticket number; resolving which *machine*\n  produced it needs either (a) stamping the device id into the PR body/branch name at raise time,\n  or (b) inferring it from the `claimed:<machine>` label history. Left as an open decision for\n  whichever implementation issue picks this up, not resolved here.\n\n## Testing Decisions\n\n- Only test external behavior, not implementation details, matching this session's established\n  convention (`mr_seen.js`, `dispatch_status.js`, `merge.js`'s real-git-fixture tests).\n- **Cross-machine status reader**: injected `exec` function (same DI pattern as `merge.js`/\n  `mr_review.js`), asserting the idle/busy/unreachable three-state contract. Prior art:\n  `dashboard/test/dispatch_status.test.js`.\n- **Per-ticket progress file**: pure read/write logic tested via tmp files, same pattern as\n  `dashboard/test/mr_seen.test.js` / `lib/tests/test_ticket_coordination.py`; a stage-transition\n  test using a fake executor, same pattern as `lib/tests/test_sandbox_orchestration.py`'s existing\n  `_noop_executor` fixture.\n- **Activity tab UI**: no tests — consistent with the rest of this dashboard's components (App.jsx,\n  MrReview.jsx, MrDetail.jsx have none either). Confirmed explicitly for this PRD.\n- **Primary-host relocation**: not code, no automated tests — verified by observation (mac-mini's\n  launchd job actually claims and completes a real ticket end-to-end), same verification style\n  already used for #95's live-fire testing.\n\n## Out of Scope\n\n- Fan-out+merge or exo-scheduled dispatch modes (ADR 0013 already deferred these).\n- A non-macOS node (e.g. the deferred Kali/Hackintosh third node) — registry/board design shouldn't\n  preclude it, but no Linux-specific launchd-equivalent handling is being built now.\n- Automatic failover if mac-mini itself goes down (e.g. auto-promoting macbook-pro back to\n  primary) — a human re-pointing things by hand is acceptable for now.\n- Historical/timeline view of past ticket runs — this is live \"what's happening now,\" not an audit\n  log. CONTEXT.md's note that the Activity tab may grow into a \"general health-check monitor over\n  time\" is a future direction, not this pass.\n- Device-targeted approve (choosing which machine executes a merge/build action) — separable from\n  MR-origin display per #74's own text (\"may split on its own PRD\"); this PRD covers origin display\n  only, not device-targeted routing.\n\n## Further Notes\n\n- This PRD combines three previously-separate threads (GitHub #82, #74, and this session's new\n  mac-mini-primary-host intent — see memory `project-mac-mini-primary-host-migration.md`) because\n  they're mutually dependent: the board's main value (trustworthy visibility) is weak without the\n  reliability fix, and the reliability fix benefits from the board (a way to confirm it's actually\n  working).\n- #82 and #74 should be closed/superseded by whichever implementation issue(s) this PRD generates\n  via `to-issues`, referencing this PRD as `## Parent`, rather than left open as separate\n  undesigned placeholders once real implementation issues exist.\n- The primary-host relocation ADR should be written before/alongside its first implementation\n  issue, not after.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/G-Eskayo/marvin/issues/109",
+    "published_date": "2026-09-01",
+    "language": "en",
+    "score": 85,
+    "score_reasons": [
+      "Contains structural drawings (+20)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20260901_201608_013",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-09-01T20:16:08.066782",
+    "updated_at": "2026-09-01T20:16:08.066786",
+    "keywords_detected": [
+      "project",
+      "need",
+      "job"
+    ],
+    "service_type": "STRUCTURAL_DRAWINGS",
+    "offer_page": "/offers/structural-drawings.html",
+    "budget_detected": "not specified",
+    "recommended_price": "800 - 2000 EUR",
+    "questions_to_ask": [
+      "Avez-vous déjà réalisé l'étude de sol géotechnique pour les fondations ?",
+      "Quelles sont les charges d'exploitation particulières (machines, toiture végétalisée) ?",
+      "Fournissez-vous les plans d'architecte définitifs au format DWG ?",
+      "Quels sont les détails d'exécution attendus (nomenclatures d'acier, détails de ferraillage) ?",
+      "Quel est votre calendrier souhaité pour la validation des plans ?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260901_201608_013.md"
   },
   {
     "title": "CAD Course in Dehradun – Build a Successful Career in Design & Engineering with Craft",
@@ -40441,6 +40555,61 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20260901_154300_011.md"
+  },
+  {
+    "title": "[enhancement] Expose bounded realtime action timing and input-lease handoff semantics",
+    "description": "## Problem\n\nRuntime integration profiles can truthfully declare `realtime`, `bounded-input`, and `input-lease`, but `StepRequest` currently carries only the action and lifecycle cursor. There is no portable way for a provider to advertise the action hold/settle window, report that a command was consumed before the deadline, cancel an obsolete command, or hand the input lease to a supervised operator/CUA path.\n\nFor movement and combat actions, a command that is shorter than the game\\'s input sampling window can produce no movement while still looking like a successful step. Supervisors then compensate with repeated turns, dodges, or jumps instead of switching to a different route or a bounded manual handoff.\n\n## Proposal\n\nAdd an opt-in, versioned realtime-control capability with:\n\n- descriptor-level timing contract: minimum/maximum hold, settle deadline, simulation quantum and clock source;\n- per-step bounded deadline/quantum and a typed consumed/expired result;\n- cancellation/preemption fencing for commands that are no longer valid;\n- explicit input-lease acquire, renew, release and preempt operations bound to the same target/session identity;\n- post-action readback linked to the timing receipt.\n\nThe contract must remain learner-neutral and must not expose generic OS automation. Providers that do not support realtime timing keep the current schema.\n\n## Acceptance criteria\n\n- Synthetic realtime fixtures cover short-window expiry, normal consumption, cancellation and lease preemption.\n- A stale lease or deadline cannot mutate the target.\n- The host returns a typed outcome when the action was not consumed and never retries it implicitly.\n- Python, Rust, C# and C++ SDKs validate identical timing/lease fields.",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/loonghao/GameLearningRuntime/issues/45",
+    "published_date": "2026-09-01",
+    "language": "en",
+    "score": 50,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)",
+      "Contains deadline/quote keyword (+5)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20260901_201608_014",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-09-01T20:16:08.067984",
+    "updated_at": "2026-09-01T20:16:08.067989",
+    "keywords_detected": [
+      "proposal"
+    ],
+    "service_type": "PYTHON_AUTOMATION",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "200 - 600 USD",
+    "questions_to_ask": [
+      "What is the input data format (Excel sheets, CSV, website, database)?",
+      "What are the step-by-step logic rules for processing the data?",
+      "Where should the output be saved (merged sheet, email, database)?",
+      "Does this script need to run on a schedule (cron, Windows Scheduler) or manually?",
+      "Can you share sample data files for testing?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20260901_201608_014.md"
   },
   {
     "title": "[SEC-17] Reputación del Bazaar inflable: accept acredita swap completado con payer falsificable",
