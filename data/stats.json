@@ -1,7 +1,7 @@
 {
-  "total_leads": 1313,
-  "qualified_leads": 598,
-  "very_hot_leads": 257,
+  "total_leads": 1321,
+  "qualified_leads": 604,
+  "very_hot_leads": 259,
   "contacted": 0,
   "won": 0,
   "lost": 0,
@@ -24,7 +24,7 @@
     "PERMIT_DRAWINGS"
   ],
   "conversion_rate": 0.0,
-  "average_score": 71.53,
-  "average_risk": 2.07,
-  "weekly_report_summary": "Rapport généré le 2026-09-24.\nOpportunités totales : 1313\nPistes qualifiées : 598 (Score >= 75)\nTrès chaudes : 257 (Score >= 90)\nContactées : 0\nProjets Gagnés : 0\nTaux de conversion : 0.0%\n\nMeilleure source : GitHub Search\nMeilleur service : STRUCTURAL_DRAWINGS\nRecommandation : Focalisez-vous sur le service STRUCTURAL DRAWINGS avec le mot-clé 'need' pour maximiser vos conversions cette semaine."
+  "average_score": 71.61,
+  "average_risk": 2.05,
+  "weekly_report_summary": "Rapport généré le 2026-09-24.\nOpportunités totales : 1321\nPistes qualifiées : 604 (Score >= 75)\nTrès chaudes : 259 (Score >= 90)\nContactées : 0\nProjets Gagnés : 0\nTaux de conversion : 0.0%\n\nMeilleure source : GitHub Search\nMeilleur service : STRUCTURAL_DRAWINGS\nRecommandation : Focalisez-vous sur le service STRUCTURAL DRAWINGS avec le mot-clé 'need' pour maximiser vos conversions cette semaine."
 }
