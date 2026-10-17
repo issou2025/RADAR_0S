@@ -14416,6 +14416,65 @@
     "proposal_path": "/proposals/lead_20261017_095144_015.md"
   },
   {
+    "title": "File size and speed budgets, checked on real projects",
+    "description": "As the project owner, I want file size and speed budgets checked automatically against real projects, so that `.hito` files stay comparable to the same project's `.rvt` while HITO keeps full history (ADR 0024, spike #156).\n\n### What the check does\n1. Imports each corpus project's IFC export into a new `.hito` file.\n2. Measures the state's size, the time to open, and the time to undo.\n3. Simulates a standard year of realistic edits, using the workload from the #156 prototype (PR #170).\n4. Measures the whole file again, plus the history's share of it and the open time.\n5. Compares every number with its budget and reports pass or fail, with the numbers.\n\n### Budgets\nIn `benchmarks/budgets.toml`, so changing a budget means a reviewed PR. The values are set from the first measurements on real projects:\n- the HITO state is at most N× the size of the same project's `.rvt`\n- a year of history is at most N% of the state\n- opening a 100k-element model takes at most N s\n- undoing the largest action takes at most N ms\n\n### Corpus\n- In this repo under Git LFS, as compressed IFC exports (`.ifc.zst`) plus a metadata file per project. The metadata records the `.rvt` size, the Revit version and where the model came from. The `.rvt` files themselves aren't committed: only their size is needed.\n- The founding user's student projects (#152) are committed with her explicit OK, and only if nothing in them belongs to her university.\n- Public samples go in only with a clear license. The Revit sample used in #156 has none, so it stays out.\n- CI caches LFS objects, keyed by the corpus's hashes, so the weekly run stays within the LFS bandwidth quota.\n\n### Acceptance criteria\n- [ ] `hito-benchmarks` runs the check on a corpus folder and writes the results as JSON\n- [ ] **Quick check:** a required CI check on every PR that touches the core or storage, using a few small models\n- [ ] **Full check:** a scheduled weekly workflow, plus a `workflow_dispatch` button, over the whole corpus. A broken budget opens an issue.\n- [ ] The results are charted over time (`github-action-benchmark` on GitHub Pages), and a PR comment flags a regression of more than 10%\n- [ ] CONTRIBUTING gets a \"Definition of Done\" section listing the budgets\n- [ ] M1's milestone description lists \"the full check passes on the founding user's projects\" as an exit criterion\n\nDepends on #47 (save and open) and on the founding user's projects (#152).\n\n---\n_Part of epic: E10: Native file format. From spike #156 (Discussion #169)._\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/hito-project/hito/issues/174",
+    "published_date": "2026-10-17",
+    "language": "en",
+    "score": 100,
+    "score_reasons": [
+      "Contains Revit (+25)",
+      "Contains buying intent keywords (+20)",
+      "Budget detected (+15)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20261017_194827_000",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-10-17T19:48:27.915485",
+    "updated_at": "2026-10-17T19:48:27.915491",
+    "keywords_detected": [
+      "budget",
+      "need",
+      "project"
+    ],
+    "service_type": "BIM_MODELING",
+    "offer_page": "/offers/bim-modeling.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261017_194827_000.md"
+  },
+  {
     "id": "lead_2026_001",
     "title": "Need Revit freelancer to convert PDF house plans",
     "description": "Looking for someone to convert PDF house plans into a clean Revit model. The house is a standard 2-story family home. Standard LOD 200 is sufficient. I need the RVT file plus exported DWG plans and PDF sheets.",
@@ -106835,6 +106894,115 @@
     "proposal_path": "/proposals/lead_20261017_143546_014.md"
   },
   {
+    "title": "Android: verificare backup/restore Keystore prima della migrazione Secure Storage 10→11",
+    "description": "## PLATFORM-ANDROID — bounded handoff, ready for canonical claim\n\n**State: implementation NOT STARTED.** This is an Android backup-policy issue, separate from Library candidate certification and from the speculative v10→v11 migration.\n\n### Confirmed on actual released APK\n\nThe actual `app-release.apk` in [v1.0.12+3204](https://github.com/pilialvu75-hue/Ai-orchestrator-riserva/releases/tag/v1.0.12%2B3204) was downloaded in a read-only GitHub Action, size checked (167959098 bytes), SHA-256 verified (`551fa971087bbacf1848e8d17fb68599166a664a1cf0d60991038708a6b43073`), and its compiled AndroidManifest inspected using `aapt2 37.0.0`.\n\nResult in [run #39033084733](https://github.com/pilialvu75-hue/AI-Orchestrator-Module-Library/actions/runs/39033084733): `allowBackup`, `dataExtractionRules`, `fullBackupContent` are all **NOT_DECLARED**. Android `allowBackup` defaults to true when omitted; effective cloud and D2D policy/restore contents are NOT yet proven. This is a policy exposure, not observed secret loss or compromise.\n\n### Exact source inventory (no guessing from v11)\n\nThe Android app resolves `flutter_secure_storage 10.3.4`; all four identified credential clients instantiate `FlutterSecureStorage()` without custom `AndroidOptions`. The upstream **signed tag `v10.3.4`** resolves to source commit `692a374a5071c0b60939f624ede58d666b6b645c`. The pinned v11.2.0 commit is `e8eeb449cd512b26153f0a3376dfe374dd39a999`.\n\nBoth pinned Java sources support the same four **default** SharedPreferences filenames: `FlutterSecureStorage.xml`, `FlutterSecureKeyStorage.xml`, `FlutterSecureStorageConfiguration.xml` and `FlutterSecureStorageConfiguration:FlutterSecureStorage.xml`. This source-level match does NOT prove all historical installations use defaults; runtime file enumeration and earlier legacy-backend handling remain to be checked.\n\nBoth Dart versions have `AndroidOptions.resetOnError=true` by default. v10.3.4 can still migrate deprecated EncryptedSharedPreferences; v11.2.0 removes that legacy backend, so **do not upgrade** based on backup XML checks alone.\n\n### Complete, non-installable proposal\n\n[Library PR #128 (draft)](https://github.com/pilialvu75-hue/AI-Orchestrator-Module-Library/pull/128) contains proposal-only:\n- `intake/storage.secrets.researcher.flutter_secure_storage/0.1.0/proposal/android/res/xml/backup_rules.xml` — default-store exclusions for Android ≤11.\n- `.../proposal/android/res/xml/data_extraction_rules.xml` — same exclusions explicitly under `cloud-backup` and `device-transfer` for Android ≥12.\n- `.../proposal/android/README.md` — scope, validation procedure, and acceptance limits.\n- `.../provenance/cross-version-pref-inventory.json` — signed v10.3.4 / pinned v11.2.0 comparison.\n\nThe proposal preserves backup of unrelated preferences instead of globally setting `allowBackup=false`. Both XML resources have been compiled with actual Android SDK `aapt2`: [run #39034291353](https://github.com/pilialvu75-hue/AI-Orchestrator-Module-Library/actions/runs/39034291353) PASS. Latest comparison test & Library CI: [run #39034870095](https://github.com/pilialvu75-hue/AI-Orchestrator-Module-Library/actions/runs/39034870095) PASS. None of this is physical backup/restore proof.\n\n### Worker acceptance — after proper platform-android claim\n\n1. Claim **platform-android** via the canonical inbox, with this issue and isolated resource locks; respect existing review and collision gates. Do not use the Library-Researcher claim, which is held by Researcher PR #98.\n2. Audit the actual `10.3.4` stores on an **isolated installation with fake fixture keys**; ensure no historical namespace, alternate key storage, or `EncryptedSharedPreferences` remnants are omitted.\n3. Integrate selective XML rules on a focused Android branch if appropriate, without touching inference/Vulkan/trim15/RAM protections, package name, signing or release lifecycle.\n4. Build a test APK at exact SHA. Inspect **compiled** merged manifest and **compiled XML resource contents**; prove correct names are excluded from both cloud and D2D transfer and ordinary settings remain eligible for backup.\n5. Perform Android physical/restoration checks only with disposable fixture credentials, including negative Keystore restore; no real tokens or token hashes in CI, issue, logs or artifacts.\n6. Submit claim-bound evidence to independent Main/Reviewer. Merge/release only at reviewed head. Separate `flutter_secure_storage` 10.3.4→11.2.0 migration is explicitly **NOT AUTHORIZED** by this issue.\n\n### Status / non-claims\n\n- `G0 CLAIM`: NOT ACQUIRED for this issue.\n- `G1–G4`: Library proposal test evidence only; no Android PR/build with this fix.\n- `G5`: no Android backup/restore fixture acceptance.\n- `G6`: no independent Android review.\n- App production state unchanged. Library PR #128 remains draft/discovered, Library PR #120 must remain untouched.\n\nRefs: [Library intake #127](https://github.com/pilialvu75-hue/AI-Orchestrator-Module-Library/issues/127), [PR #128](https://github.com/pilialvu75-hue/AI-Orchestrator-Module-Library/pull/128), [Android developer guidance](https://developer.android.com/identity/data/autobackup).",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/pilialvu75-hue/Ai-orchestrator-riserva/issues/849",
+    "published_date": "2026-10-17",
+    "language": "en",
+    "score": 50,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)",
+      "Contains deadline/quote keyword (+5)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20261017_194827_006",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-10-17T19:48:27.919973",
+    "updated_at": "2026-10-17T19:48:27.919979",
+    "keywords_detected": [
+      "proposal"
+    ],
+    "service_type": "FLUTTER_APP",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "1500 - 4000 USD",
+    "questions_to_ask": [
+      "Do you have UI designs ready (Figma, Adobe XD) or should we design the screens?",
+      "Which backend service will the app connect to (REST API, Firebase)?",
+      "Do you require integration with app stores (App Store, Play Store)?",
+      "What state management solution do you prefer (Bloc, Riverpod, Provider)?",
+      "What is your target launch date?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261017_194827_006.md"
+  },
+  {
+    "title": "Epic #38371 controller evidence continuation after #40428",
+    "description": "Controller-owned durable evidence continuation for Epic #38371, following https://github.com/okou-ai/okou/issues/40428, which has reached 2,499 of the known native 2,500-comment limit. This is proactive lossless storage pagination, not an implementation case or permission workaround.\n\nAuthoritative current primary: https://github.com/okou-ai/okou/issues/38371#issuecomment-6104783800. Follow its fresh evidenceStorageContinuation target for subsequent full evidence records. All previous comments, original hashes, row orders, exact locators/decoders, accepted identities, historical gaps and review budgets remain authoritative and unchanged. No old evidence is deleted, edited or reset by this new page.\n\nMost recent bounded source admission: https://github.com/okou-ai/okou/issues/40428#issuecomment-6236291152, canonical whole SHA256 4fb52485c8ed2cfa8268748c13afe8e59f37689b98ddf770236b634d5fcd7be6. Implementation #40956 has one dedicated GPT6.1Sol/xhigh/priority owner and a private all-terminal completion watcher installed before FIRST. Original TX-0092/0093 holds remain.\n\nAuthenticated ONLYME complete root source/dispatch receipt: https://app.okou.ai/artifacts/kotbpx93me.json — 28,684,307 bytes, SHA256 c961a3b1d62d6f58901c1727760b6ae33ebc6f29b13f3de774b5d9bdc0065340. It contains the complete source report/result/draft/diff, original member verification, actual source ranges, genuine-library proof, full native captures and dispatch records. Downloaded bytes and strict JSON were independently verified.\n\nLedger unchanged: 272 accepted / 150 live / 18 removed-unaccepted of the original 440; 13 additional audits pending, wholeFinancial UNKNOWN, combined PENDING, AUDIT_CLOSURE_READY=false. Zero TX credit, zero audit decrement, zero implementation/PR reservation for this storage issue. No production/release/deploy/data/SQL/provider/operator authority. This issue stays open as an evidence container; implementation completion and root acceptance remain separate.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/okou-ai/okou/issues/40958",
+    "published_date": "2026-10-17",
+    "language": "en",
+    "score": 50,
+    "score_reasons": [
+      "Budget detected (+15)",
+      "Recent request (+15)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20261017_194827_012",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-10-17T19:48:27.922524",
+    "updated_at": "2026-10-17T19:48:27.922527",
+    "keywords_detected": [
+      "budget"
+    ],
+    "service_type": "UNKNOWN",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261017_194827_012.md"
+  },
+  {
     "title": "[SEC-17] Reputación del Bazaar inflable: accept acredita swap completado con payer falsificable",
     "description": "## `[SEC-17]` La reputación del Bazaar es inflable: `accept` acredita \"swap completado\" sin completarse, con payer falsificable\n\n**Archivo:** `apps/api/src/routes/bazaar.ts:120-124, 354` (+ `getAgentTier` 57-61)\n\n### Contexto\n\nLa reputación de agente (`tier`, `completion_rate`, `swaps_completed`) se deriva del historial que el propio API incrementa:\n\n- `recordBroadcast(agentAddress)` en `/intent` (`:122`)\n- `recordCompletion(intent.agent_address, amountUsdc)` en `/accept` (`:354`) — **se ejecuta al solo aceptar/lock, no cuando el swap realmente se liquida**.\n\nDos problemas combinados:\n1. `agentAddress`/`payerAddress` viene del header x402, **falsificable** (ver SEC-12 `mock:` y SEC-13). Un atacante elige qué dirección recibe el crédito.\n2. `swaps_completed` sube por cada `/accept` pagado, sin que exista un swap cross-chain liquidado. El `volume_usdc` también lo controla el atacante vía `amount_usdc` del body.\n\nResultado: por unos centavos (o gratis con SEC-12) se puede **fabricar un agente \"maestro\" 🍄 con 95%+ de completitud**, justo lo que la UI muestra como señal de confianza. El propio endpoint afirma *\"reputation … not transferable, not buyable\"* (`:285`), afirmación que esto contradice.\n\n### Pasos para reproducir\n\n1. Elegir una dirección objetivo `G_ATACANTE`\n2. Repetir N veces: `POST /api/v1/bazaar/intent` y luego `POST /api/v1/bazaar/accept` usando `X-PAYMENT: mock:G_ATACANTE:0` (SEC-12) con `amount_usdc` alto\n3. Consultar `GET /api/v1/bazaar/reputation/G_ATACANTE`\n4. Verificar si `tier`, `swaps_completed`, `completion_rate` y `volume_usdc` reflejan la inflación artificial\n\n### Lo que reportar\n\n- ¿Se puede subir el tier sin completar swaps reales?\n- ¿El crédito de reputación se asigna a una dirección controlada por el atacante?\n- ¿`recordCompletion` se dispara antes de la liquidación real del swap?\n\n**Severidad estimada:** Media — corrompe la señal de confianza central del Bazaar\n\n---\n**Plantilla de respuesta:** `Resultado:` · `Evidencia:` · `Reproducible en testnet:` sí/no · `Sugerencia de fix:` (opcional)\n\n---\n\n## Cómo entregar\nCompleta la plantilla [`docs/security-reports/SEC-17-bazaar-reputacion-inflable.md`](docs/security-reports/SEC-17-bazaar-reputacion-inflable.md) con tu resultado, evidencia y entorno, y **envíala como PR** (el bot de Drips rastrea PRs) o como comentario en este issue. Un asignado por issue.",
     "source": "GitHub Search",
@@ -114950,6 +115118,58 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20261015_021426_019.md"
+  },
+  {
+    "title": "release_session_claims finish refuses cleanly finished sessions: no authored handoff bound to the native transcript",
+    "description": "<!-- github-plan:managed-provenance -->\n\n## Why\n\nTwice on October 17, 2026, `release_session_claims.py finish` refused a Supervisor-launched Claude Code session that had ended with an unqualified `Safe to exit: yes` and a handoff on its item:\n\n```\n\"error\": \"no authored handoff bound to the exact native transcript/session; reconcile this session\"\n```\n\n- CS2069-C1 (codex-skills#2069, PR #2075), transcript `a1e49b95-a28e-443a-807a-6b80353eb409`, closed about 12:18 PM ET.\n- LP3912-D2 (launchplane#3912), transcript `4e27e2ef-2825-40a6-8815-3bbaa07c27b8`, closed about 12:40 PM ET.\n\nOther sessions closed the same way today released fine, or reported \"already released by the session\". Related but different: #1941 (closed). Each unreleased claim leaves its item looking owned, so the next session's claim refuses.\n\n## Finish Line\n\n- Find which binding is missing (claim session label, handoff comment, transcript identity) and fix the root cause, so a session that claimed, handed off and ended cleanly is released by `finish`.\n- If the session claimed with the wrong session identity, `claim` refuses that identity up front (compare #2072).\n- Both claims above are reconciled through the supported crash-recovery route.\n- Tests fail without the fix.\n\n## Current Status\n\nState: Active. Cause fixed in PR #2085 at fca3157d, with CI green. The OpenAI review of record is not run yet; its prompt is on #2085. CS2079-C1 handed off ([handoff](https://github.com/cbusillo/codex-skills/issues/2079#issuecomment-6238123612)). The CS2069-C1 and LP3912-D2 claims are still held; the release evidence is in the [cause comment](https://github.com/cbusillo/codex-skills/issues/2079#issuecomment-6237075636).\nNext action: The Supervisor releases both stranded claims with closed-session attestations, then runs the review on #2085. After that, a successor (`--resume-from` the CS2079-C1 claim) weighs the findings and runs `gh-pr.py ready 2085`.\nBlocked by: None.\nWaiting for: None.\nLast verified: October 17, 2026, about 2:00 PM ET, from CS2079-C1 (Claude Code, Opus 5.5).\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/cbusillo/codex-skills/issues/2079",
+    "published_date": "2026-10-17",
+    "language": "en",
+    "score": 45,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "cold",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20261017_194827_011",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-10-17T19:48:27.922001",
+    "updated_at": "2026-10-17T19:48:27.922004",
+    "keywords_detected": [],
+    "service_type": "UNKNOWN",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261017_194827_011.md"
   },
   {
     "title": "[BUG] Claude Code 2.1.170 ÔÇö all sessions return no_response immediately on Windows 11, query iterator completes in 0s",
