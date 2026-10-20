@@ -24513,6 +24513,63 @@
     "proposal_path": "/proposals/lead_20261020_155844_013.md"
   },
   {
+    "title": "Publish ddc-tools to PyPI (trusted publisher setup)",
+    "description": "## Context\r\nddc-tools 2.0.0 passes tests, builds a wheel and sdist and a publish workflow is prepared (tag ddc-tools-vX.Y.Z -> tests -> build -> smoke -> TestPyPI -> PyPI after manual approval). No tokens are needed.\r\n\r\n## Evidence / how to reproduce\r\nSteps: create accounts on test.pypi.org and pypi.org with 2FA; add a pending publisher (project ddc-tools, owner datadrivenconstruction, repository cad2data-Revit-IFC-DWG, workflow ddc-tools-publish.yml, environments testpypi and pypi); create the two GitHub environments, required reviewers on pypi; tag after merge. Availability of the name is confirmed at creation.\r\n\r\n## Expected result\r\nMaintainer performs the account steps and pushes the tag. README images appear on PyPI only after the branch is merged to main.\r\n\r\n## Definition of done\r\npip install ddc-tools installs and the ddc command runs on Windows, Linux, macOS.\r\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/datadrivenconstruction/cad2data-Revit-IFC-DWG/issues/32",
+    "published_date": "2026-10-20",
+    "language": "en",
+    "score": 90,
+    "score_reasons": [
+      "Contains Revit (+25)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20261020_205847_000",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-10-20T20:58:47.455291",
+    "updated_at": "2026-10-20T20:58:47.455298",
+    "keywords_detected": [
+      "need",
+      "project"
+    ],
+    "service_type": "DWG_TO_REVIT",
+    "offer_page": "/offers/dwg-to-revit.html",
+    "budget_detected": "not specified",
+    "recommended_price": "250 - 700 USD",
+    "questions_to_ask": [
+      "Are the DWG drawings clean and purged of extra blocks?",
+      "Do you have elevations/sections in DWG, or only floor plans?",
+      "Do you require modeling of interior partition walls or structural shell only?",
+      "Which Revit version should be used for deliverables?",
+      "Is there a specific template or shared coordinates file to follow?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/dwg-to-revit.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/dwg-to-revit.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261020_205847_000.md"
+  },
+  {
     "id": "lead_2026_002",
     "title": "Besoin de plans de structure béton armé pour villa R+1",
     "description": "Je recherche un projeteur structure indépendant pour réaliser les plans d'exécution béton armé (fondations, poutres, dalles, colonnes) d'une villa individuelle R+1 de 180m². Les plans d'architecte DWG sont fournis.",
@@ -69380,6 +69437,62 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20261019_021613_005.md"
+  },
+  {
+    "title": "Publish the flutter-domain-errors skill through skills CLI",
+    "description": "## Problem Statement\n\nProjects using domain_error need reusable guidance that matches their installed major version and their own architecture. The package does not currently publish a discoverable, portable flutter-domain-errors skill with a supported installation command. Personal or project-specific rules can also impose conventions that do not belong in a universal package skill.\n\nInstallation, automatic selection, and instruction quality are separate concerns. A successful installation does not prove that a client will select the skill automatically, and an explicitly invoked test does not prove the dependency-based trigger.\n\n## Solution\n\nPublish flutter-domain-errors in this public repository using the portable SKILL.md format and distribute it through the existing skills CLI. Make it eligible for implicit invocation for relevant Dart/Flutter work when the applicable package directly depends on domain_error. Confirm dependency presence and the resolved major before applying version-specific rules.\n\nSupport current 3.x and the agreed next-major interface with maintained rules, scenarios, examples, and migration guidance. Recognize older or unknown majors without silently upgrading them or applying incompatible examples.\n\n## User Stories\n\n1. As a Dart developer, I want the guidance to apply to pure Dart projects so that the skill is useful without Flutter-specific application layers.\n2. As a Flutter developer, I want package-specific guidance selected during relevant work so that I do not need to repeat the error-handling contract in every request.\n3. As a user, I want dependency detection based on the applicable package manifest so that a comment or an unrelated sibling package does not activate the rules.\n4. As a monorepo contributor, I want version selection scoped to the package being changed so that one package's dependency does not control another package's code.\n5. As a user of a path or Git dependency, I want the actual resolved API inspected so that the skill does not assume a hosted release's shape.\n6. As a 3.x user, I want valid 3.x examples so that installing the skill does not require a package upgrade.\n7. As a next-major user, I want guidance for the agreed capture and composition interface so that new capabilities are used consistently.\n8. As a legacy user, I want the unsupported major identified clearly so that incompatible migration is not performed automatically.\n9. As an application maintainer, I want existing architecture, naming, and state-management conventions respected so that a package skill does not redesign my application.\n10. As a developer, I want examples for domain errors, raw-error mapping, result handling, observation, and composition so that common scenarios have executable references.\n11. As a developer, I want sync/async and late-stream error limits explained so that I place capture at the correct execution point.\n12. As a maintainer, I want reporting guidance that distinguishes diagnostics from business decisions so that observers do not change outcomes or expose sensitive context.\n13. As a user, I want a standard npx installation command so that I do not need a custom installer or a separate npm package.\n14. As a user, I want project-local and optional global installation documented so that I can choose the scope deliberately.\n15. As a maintainer, I want selection tested with both matching and non-matching projects so that automatic use is supported by evidence.\n16. As a contributor, I want versioned examples checked against the package so that instructions do not drift after releases.\n\n## Implementation Decisions\n\n- Use skill-creator to produce a self-contained portable skill. Keep essential rules in the entry point and route substantial examples or version-specific detail to maintained references.\n- Publish the skill in this repository under the agreed name flutter-domain-errors. Use the existing skills CLI rather than building or publishing a custom npm installer.\n- Describe the actual automatic-use condition precisely. Keep implicit invocation enabled where a client supports such policy metadata; do not set explicit-only invocation.\n- Before applying rules, inspect the nearest applicable package manifest, direct production or development dependencies, resolved version, overrides, and source when needed. Do not activate solely for a transitive dependency or a textual mention.\n- Support 3.x and the next major with separate, verified contracts. For unsupported or unclear versions, report the mismatch and inspect the source before making version-dependent recommendations; do not upgrade automatically.\n- Cover feature error roots, stable identifiers, equality and diagnostic context, raw-error mapping, result branches, capture routing, observer/reporter failures, mapper failures, sync/async limits, late stream errors, and next-major composition.\n- Keep application-layer recipes optional. Do not require a state-management library, repository return convention, version suffix convention, barrel layout, or personal/company architecture.\n- Preserve existing project instructions and untouched legacy code. Provide migration guidance without treating installation as authority to migrate a project.\n- Distinguish safe structured reporting from arbitrary error strings. Examples must not assume diagnostic text is suitable for remote publication.\n- Keep installation, selection, and behavioral validation separate. Report only the clients and versions actually exercised; do not promise a universal forced trigger without client support.\n- Preserve any pre-existing personal skill and unrelated installed skills. Test installation in isolated projects rather than modifying the user's global setup.\n\n## Testing Decisions\n\nValidate metadata and references, then exercise realistic requests and projects without naming the skill in the automatic-selection prompt. Test example behavior through each supported package major's public interface.\n\n- [ ] The published source is discoverable and installable by the documented npx command in a clean project.\n- [ ] Project-local installation and explicitly requested global scope behave as documented without replacing unrelated skills.\n- [ ] Positive selection cases include direct hosted dependencies, applicable path/Git dependencies, and relevant development-dependency usage.\n- [ ] Negative selection cases include no dependency, a textual mention, a transitive-only dependency, an unrelated sibling package, and unrelated work.\n- [ ] Resolved 3.x and next-major examples compile and pass focused behavior checks against the correct API.\n- [ ] An unsupported major does not trigger a silent upgrade or incompatible implementation.\n- [ ] Examples preserve error identity, callback ordering, observer isolation, mapper failure behavior, and the selected sync/async contract.\n- [ ] Content and selection tests do not rely on project-specific paths, private services, credentials, or a particular application architecture.\n- [ ] Validation results distinguish installation success, automatic selection, example execution, and untested client compatibility.\n- [ ] The package documentation includes the installation command and supported-version policy.\n\n## Out of Scope\n\n- A custom npm CLI or separate npm publication.\n- Hooks or mandatory client integrations that force selection on every request.\n- Full behavioral support for domain_error 2.x in the first published skill.\n- Automatic dependency installation, package upgrades, global setup changes, or migration of untouched code.\n- Imposing a particular state-management or application architecture.\n- Claiming every compatible client has been tested.\n\n## Further Notes\n\nBlocked by: #10 ([Unify naming across the next major API](https://github.com/andrey-krasheninnikov/domain_error/issues/10)). The prerequisite chain also establishes the SDK floor and next-major interface. Internal refactoring can proceed independently because it must preserve the public contracts.\n\nRequired workflow: skill-creator.\n\nPublic installation interface: `npx skills add andrey-krasheninnikov/domain_error --skill flutter-domain-errors`.\n\nReferences: [skills CLI](https://github.com/vercel-labs/skills/blob/main/docs/commands.md) and [portable skill specification](https://agentskills.io/specification).\n\nThis issue publishes the skill through GitHub and validates installation through npx; it does not publish a new Dart package release.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/andrey-krasheninnikov/domain_error/issues/12",
+    "published_date": "2026-10-20",
+    "language": "en",
+    "score": 75,
+    "score_reasons": [
+      "Contains structural drawings (+20)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20261020_205847_006",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-10-20T20:58:47.458259",
+    "updated_at": "2026-10-20T20:58:47.458263",
+    "keywords_detected": [
+      "need",
+      "project"
+    ],
+    "service_type": "STRUCTURAL_DRAWINGS",
+    "offer_page": "/offers/structural-drawings.html",
+    "budget_detected": "not specified",
+    "recommended_price": "800 - 2000 EUR",
+    "questions_to_ask": [
+      "Avez-vous déjà réalisé l'étude de sol géotechnique pour les fondations ?",
+      "Quelles sont les charges d'exploitation particulières (machines, toiture végétalisée) ?",
+      "Fournissez-vous les plans d'architecte définitifs au format DWG ?",
+      "Quels sont les détails d'exécution attendus (nomenclatures d'acier, détails de ferraillage) ?",
+      "Quel est votre calendrier souhaité pour la validation des plans ?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261020_205847_006.md"
   },
   {
     "title": "[FR] Support programmatic administration of AI Gateway configuration",
@@ -119694,6 +119807,58 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20261020_023021_009.md"
+  },
+  {
+    "title": "Revenue Recovery: isolate mainline integration and prove consented Calendar OAuth pilot",
+    "description": "## Objective\nPromote the **existing** Revenue Recovery / Google Calendar feature safely to the canonical EmpireOS release, then run one consented, read-only real-calendar pilot.\n\n## Verified build\n- Feature branch: `feature/inbound-revenue-recovery-20261020`\n- HEAD: `0ce427bf` (as last verified on 20 Oct 2026).\n- Regression suite: **451 passed, one non-failing Starlette/AnyIO deprecation warning**.\n- Existing dedicated dark staging unit: `empire-inbound-recovery-staging.service`, loopback `127.0.0.1:8794`, active + enabled, health HTTP 200; customer OAuth routes stay 404.\n- Native CRM pilot is a separate running service. Calendar code reuses its first-party account and tenant membership checks.\n- Offline/mock-verified Google PKCE consent, read-only provider access-role check, tenant-scoped approved calendar enrollment, Scaleway Secret Manager credential versioning/readback/rotation, redacted activation preflight and revocation tests.\n\n## Critical integration warning — do not open a blind PR to main\nGitHub comparison shows this branch **4,144 commits ahead of `main`**, with hundreds of unrelated files including environment-looking filenames. `master` and the obvious feature branches also diverge. Before merging:\n- Establish the actual canonical deployment/integration branch and owners.\n- Isolate the Revenue Recovery-specific commits/files only, review for accidentally tracked secrets, and run regression/security tests in a clean dedicated worktree.\n- Do not merge historical unrelated changes or print/commit credentials.\n\n## Unfinished operational gates (not claims of completion)\n1. Privately provision and approve a dedicated **Scaleway IAM application**, least-privilege policies scoped to one tenant-specific Secret Manager resource, and pre-created **opaque** secret IDs; review actual per-permission access and write/version-creation grants.\n2. Provision the separate `empire-inbound-recovery-calendar-oauth.service` with scoped systemd `LoadCredential` sources, not the dark staging service; verify actual path permissions and systemd read-back. Current unit and credential directory are absent.\n3. Privately install complete `/etc/empire/inbound-calendar-cloud-pilot.json` with owner-reviewed HTTPS origin, registered Google OAuth callback, approved tenant/calendar/provider mappings, and exact approved secret IDs. Never paste credentials into issue/comments.\n4. Verify actual Scaleway Secret Manager version-access/write/read-back, tenant isolation, IAM scope and revocation. Current tests use mock provider transport only.\n5. Review and apply tenant/PostgreSQL RLS migrations with database owner; existing schemas are **prepared only**. Do not treat offline SQLite registry as production tenant isolation.\n6. Mount opted-in calendar-owner login and OAuth routes only after independent deployment review. Verify real invited CRM owner/admin identity, session binding and registered Google consent.\n7. Run ONE supervised real, explicitly consented, read-only Google `calendarList.get` and tracked appointment-status readback. No booking writes, outbound messages, payment or revenue claims unless independently authorised/proven.\n8. Independently validate OpenManus review worker and any commercial dispatch before enabling automation.\n\n## Safe operator preflight\n```bash\ncd /home/ubuntu/empire_worktrees/inbound_revenue_recovery_20261020\nPYTHONPATH=. /srv/empire_os/.venv/bin/python -B -m scripts.review_inbound_calendar_cloud_activation_20261020 --read-only\n```\nThis preflight checks metadata only, never reads secret contents or calls Google/Scaleway, and deliberately never grants live activation.\n\n**Owner action:** name the canonical integration branch and confirm the service-specific IAM/Google customer consent configuration has been provisioned **outside Git**. Do not merge or activate customer OAuth from this issue alone.",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/empireaipredictiverevenue-coder/empire_os/issues/71",
+    "published_date": "2026-10-20",
+    "language": "en",
+    "score": 45,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "cold",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20261020_205847_014",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-10-20T20:58:47.460804",
+    "updated_at": "2026-10-20T20:58:47.460808",
+    "keywords_detected": [],
+    "service_type": "PYTHON_AUTOMATION",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "200 - 600 USD",
+    "questions_to_ask": [
+      "What is the input data format (Excel sheets, CSV, website, database)?",
+      "What are the step-by-step logic rules for processing the data?",
+      "Where should the output be saved (merged sheet, email, database)?",
+      "Does this script need to run on a schedule (cron, Windows Scheduler) or manually?",
+      "Can you share sample data files for testing?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261020_205847_014.md"
   },
   {
     "title": "[BUG] Claude Code 2.1.170 ÔÇö all sessions return no_response immediately on Windows 11, query iterator completes in 0s",
