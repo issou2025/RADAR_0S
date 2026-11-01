@@ -28990,6 +28990,65 @@
     "proposal_path": "/proposals/lead_20261031_204631_012.md"
   },
   {
+    "title": "Proposal: switchable UI profiles (ribbon layout or tool palette + info panel), core untouched",
+    "description": "Hi! I'm an architect in Italy. I model every day in Archicad and use IFC for quantity takeoff. BIMCraft's engine impressed me: everything is a command, the core is UI-free, IFC4 is validated. I'd like to propose something that could bring users from that workflow without touching the core.\n\n## The idea\nSwitchable **UI profiles** on top of the same engine and the same commands:\n\n- **Ribbon profile** (today's layout, the default)\n- **Palette profile**: a vertical tool palette instead of the ribbon, a context-sensitive info panel showing the active tool's or the selection's main settings (type, heights, location line, layers), and a navigator tree for the project\n\nBoth go through `Session::execute`, so the model, files, undo and MCP behave the same. Only `crates/ui-egui` changes.\n\n## Built on ideas already in IDEAS.md\n- **UX-10** Workspaces: a profile would be a named workspace\n- **UX-09** Editable, importable shortcuts: one shortcut set per profile\n- **VIEW-18** Navigator / minimap, **VIEW-15** Element info on hover\n\n## Optional features, switchable in any profile\nWorkflow features from other tools, each one a setting that can be turned on or off in either profile:\n- **MOD-13** Magic wand (click inside a closed shape to make a floor, roof, room…)\n- **MOD-12** Gravity (place onto the slab or roof under the cursor)\n- **MOD-01** Priority-based junctions of compound layers (this one touches the core, so it would be a separate proposal)\n\nAll of it described by what it does, with no trademarked names, as IDEAS.md asks.\n\n## Suggested first step\nA small, testable start: a profile setting in File > Settings that swaps the ribbon for a tool palette listing the same tools, plus a per-profile shortcut set. The info panel and the navigator would come later, each as its own PR.\n\n## Coming from Archicad: export, not native files\nReading native project files has no public specification, so I'm not asking for that. A guided export would do:\n\n1. **Model through IFC**: an Archicad IFC translator set up for BIMCraft. I can provide real test files exported from Archicad, so the IFC import can be checked against them.\n2. **Documentation through a JSON sidecar**, extracted with Archicad's own scripting API, for what IFC doesn't carry:\n   - **views**: plans, sections and elevations with their level, scale, cut height and which layers and renovation status they show, recreated as BIMCraft views;\n   - **layouts**: sheet name, number, size and where each drawing sits on it, recreated as BIMCraft sheets;\n   - **publishing sets**: named groups of sheets printed together. BIMCraft would need named sheet sets for this (today it prints every sheet into one PDF);\n   - plus layers, renovation status and zone categories.\n3. A BIMCraft command reads the sidecar after the IFC import and rebuilds the views and sheets on the imported model.\n\nStep 1 alone would already be useful; step 2 could come one part at a time.\n\n## Why it might be worth it\nMany architects in Europe work in that other workflow. A familiar layout on an open engine with solid IFC is something no free tool offers today.\n\nI can help with the profile's spec, test builds on real residential projects, and review the result from a daily user's point of view. Does this fit where you want the UI to go?\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/IPedrax/BIMCraft/issues/190",
+    "published_date": "2026-10-31",
+    "language": "en",
+    "score": 90,
+    "score_reasons": [
+      "Contains BIM (+20)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)",
+      "Contains deadline/quote keyword (+5)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20261101_121433_001",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-11-01T12:14:33.485568",
+    "updated_at": "2026-11-01T12:14:33.485575",
+    "keywords_detected": [
+      "project",
+      "proposal",
+      "need"
+    ],
+    "service_type": "BIM_MODELING",
+    "offer_page": "/offers/bim-modeling.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261101_121433_001.md"
+  },
+  {
     "id": "lead_2026_002",
     "title": "Besoin de plans de structure béton armé pour villa R+1",
     "description": "Je recherche un projeteur structure indépendant pour réaliser les plans d'exécution béton armé (fondations, poutres, dalles, colonnes) d'une villa individuelle R+1 de 180m². Les plans d'architecte DWG sont fournis.",
@@ -79669,6 +79728,62 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20261020_205847_006.md"
+  },
+  {
+    "title": "Integrate M-Lab NDT7 speed test for accurate, standardized measurements",
+    "description": "**Is your feature request related to a problem? Please describe.**\nThe current speed test implementation provides basic throughput measurements but lacks the standardization, accuracy, and comprehensive metrics that established measurement platforms offer. Users may question the reliability of results compared to commercial speed test services, and we're missing opportunities to contribute to public internet measurement datasets.\n\n**Describe the solution you'd like**\nIntegrate [Measurement Lab (M-Lab)](https://www.measurementlab.net/) NDT7 protocol into Vernet's speed test feature. M-Lab is a free, open-source internet measurement platform used by researchers, regulators, and commercial services.\n\n**Key integration points:**\n\n1. **NDT7 Protocol Implementation**\n   - Use M-Lab's NDT7 client libraries (available for Android, iOS, JavaScript, Go)\n   - NDT7 uses WebSocket connections with bidirectional streaming for accurate measurements\n   - Measures download speed, upload speed, latency, and packet loss\n   - Protocol spec: https://github.com/m-lab/ndt-server/wiki/NDT7-protocol\n\n2. **Server Discovery via Locate v2 API**\n   - Use M-Lab's Locate v2 API to find the nearest/lowest-latency test server\n   - Endpoint: `https://locate.measurementlab.net/v2/nearest/ndt/ndt7`\n   - Returns a list of servers with latency estimates\n   - No API key required\n\n3. **Comprehensive Metrics**\n   - Download throughput (Mbps)\n   - Upload throughput (Mbps)\n   - Latency (ms) - RTT to server\n   - Packet loss (%)\n   - Retransmission rate\n   - Server location and metadata\n\n4. **Public Data Contribution** (opt-in)\n   - M-Lab publishes all measurement data under CC0 license\n   - Contributes to global internet health monitoring\n   - Users can opt-in to share anonymized results\n   - Helps researchers, regulators, and ISPs improve infrastructure\n\n5. **UI Enhancements**\n   - Show real-time speed graph during test (reuse fl_chart from network score feature)\n   - Display server location and distance\n   - Show all metrics (download, upload, latency, loss) in detail view\n   - Compare results to previous tests and network score baseline\n\n**Implementation approach:**\n\n- **Option A (Recommended)**: Use official M-Lab client libraries\n  - Android: `com.measurementlab:ndt7-client-android`\n  - iOS: `ndt7-client-ios` (Swift)\n  - Wrap in platform channels, keep UI in Flutter/Dart\n  \n- **Option B**: Implement NDT7 protocol in Dart\n  - More work but avoids native dependencies\n  - NDT7 is well-documented WebSocket protocol\n  - Could reuse existing speed test UI logic\n\n- **Option C**: Hybrid approach\n  - Use M-Lab's Locate API for server discovery (Dart HTTP call)\n  - Implement NDT7 measurement in Dart using WebSocket\n  - Full control over implementation, no native plugins needed\n\n**Describe alternatives you've considered**\n- Keep current speed test implementation — works but less accurate and doesn't contribute to public datasets\n- Integrate commercial speed test API (Ookla/Speedtest.net) — requires licensing, less transparent\n- Use iperf3 — requires server setup, not suitable for mobile users\n- Build custom measurement protocol — reinventing the wheel, M-Lab is the standard\n\n**Additional context**\n\n**M-Lab Resources:**\n- Developer docs: https://www.measurementlab.net/develop/\n- NDT7 GitHub: https://github.com/m-lab/ndt-server\n- Locate API: https://www.measurementlab.net/develop/api/locate/\n- Data explorer: https://www.measurementlab.net/data/\n\n**Benefits:**\n- Industry-standard measurements (same protocol as speedtest.net)\n- Free, no API keys or licensing fees\n- Contributes to public internet measurement (opt-in)\n- Comprehensive metrics beyond just throughput\n- Well-maintained, open-source infrastructure\n- Research-backed accuracy\n\n**Integration with existing features:**\n- Speed test results feed into the Network Score reliability dimension (#509)\n- Historical comparisons can show speed trends over time\n- Server discovery can be cached for faster subsequent tests\n\n**Technical considerations:**\n- NDT7 uses WebSocket over TLS (wss://)\n- Tests typically run 10-15 seconds\n- Requires stable internet connection\n- Consider background execution for long-running tests\n- Handle server selection failures gracefully (fallback to manual server list)\n\n**Privacy:**\n- M-Lab publishes anonymized data under CC0\n- IP addresses are truncated in public datasets\n- Users should be informed and can opt-out of data sharing\n- Comply with GDPR/privacy regulations",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/osociety/vernet/issues/512",
+    "published_date": "2026-11-01",
+    "language": "en",
+    "score": 75,
+    "score_reasons": [
+      "Contains structural drawings (+20)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20261101_121433_007",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-11-01T12:14:33.486763",
+    "updated_at": "2026-11-01T12:14:33.486766",
+    "keywords_detected": [
+      "available",
+      "need"
+    ],
+    "service_type": "STRUCTURAL_DRAWINGS",
+    "offer_page": "/offers/structural-drawings.html",
+    "budget_detected": "not specified",
+    "recommended_price": "800 - 2000 EUR",
+    "questions_to_ask": [
+      "Avez-vous déjà réalisé l'étude de sol géotechnique pour les fondations ?",
+      "Quelles sont les charges d'exploitation particulières (machines, toiture végétalisée) ?",
+      "Fournissez-vous les plans d'architecte définitifs au format DWG ?",
+      "Quels sont les détails d'exécution attendus (nomenclatures d'acier, détails de ferraillage) ?",
+      "Quel est votre calendrier souhaité pour la validation des plans ?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/structural-drawings.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261101_121433_007.md"
   },
   {
     "title": "[FR] Support programmatic administration of AI Gateway configuration",
