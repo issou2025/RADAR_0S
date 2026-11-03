@@ -1,7 +1,7 @@
 {
-  "total_leads": 2463,
-  "qualified_leads": 1379,
-  "very_hot_leads": 502,
+  "total_leads": 2470,
+  "qualified_leads": 1385,
+  "very_hot_leads": 505,
   "contacted": 0,
   "won": 0,
   "lost": 0,
@@ -24,7 +24,7 @@
     "FLUTTER_APP"
   ],
   "conversion_rate": 0.0,
-  "average_score": 74.24,
-  "average_risk": 2.13,
-  "weekly_report_summary": "Rapport généré le 2026-11-03.\nOpportunités totales : 2463\nPistes qualifiées : 1379 (Score >= 75)\nTrès chaudes : 502 (Score >= 90)\nContactées : 0\nProjets Gagnés : 0\nTaux de conversion : 0.0%\n\nMeilleure source : GitHub Search\nMeilleur service : STRUCTURAL_DRAWINGS\nRecommandation : Focalisez-vous sur le service STRUCTURAL DRAWINGS avec le mot-clé 'need' pour maximiser vos conversions cette semaine."
+  "average_score": 74.26,
+  "average_risk": 2.12,
+  "weekly_report_summary": "Rapport généré le 2026-11-03.\nOpportunités totales : 2470\nPistes qualifiées : 1385 (Score >= 75)\nTrès chaudes : 505 (Score >= 90)\nContactées : 0\nProjets Gagnés : 0\nTaux de conversion : 0.0%\n\nMeilleure source : GitHub Search\nMeilleur service : STRUCTURAL_DRAWINGS\nRecommandation : Focalisez-vous sur le service STRUCTURAL DRAWINGS avec le mot-clé 'need' pour maximiser vos conversions cette semaine."
 }
