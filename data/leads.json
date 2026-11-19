@@ -92625,6 +92625,62 @@
     "proposal_path": "/proposals/lead_20261118_000952_021.md"
   },
   {
+    "title": "Unreal: read and build the realtime channel's messages",
+    "description": "## Brief\n\n**What:** The Unreal plugin can build and read every realtime message of the export contract, and its connected-host presence payload, as pure logic.\n**Why:** The channel client and the export receiver are built on these messages, and pinning them headlessly keeps the socket code thin.\n\n---\n\n## What to build\n\nThe Unreal plugin can build and read every message of the realtime channel `docs/platform-export-contract.md` describes (protocol 1), as pure logic with no socket: the join of the private `vault:<user id>` topic with the session's access token, presence track and untrack keyed by the connection id, the `postgres_changes` subscriptions for exports and for order rows, heartbeats, and the replies and errors a join can get (an `Unauthorized` channel error apart from the ones that retry). It also builds the `ConnectedHost` presence payload: protocol, host, host version, plugin version, the open project or none, the machine, and the manifest versions the importer reads, taken from the constants the importer gates on.\n\nThe shared .NET core already does this for Revit and AutoCAD (its realtime frames, connected host and published realtime units, with their tests); port the behaviour and the test cases, in a `*Logic` unit in the Runtime module with a headless test beside it. Nothing here opens a socket or changes what a user sees.\n\n**Agent tier:** standard\n\n## Acceptance criteria\n\n- [ ] Every frame the contract's sections 1 to 3 need is built and parsed by pure logic, and a headless test pins each against the same cases the shared .NET tests pin.\n- [ ] The presence payload carries the fields the contract lists, and its readable manifest versions come from the importer's own constants.\n- [ ] The plugin compiles on Unreal 5.8 and the `MantlePlace.` automation suite is green, with no `No editor` skip.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/mantleplace/mantleplace-dcc/issues/725",
+    "published_date": "2026-11-19",
+    "language": "en",
+    "score": 80,
+    "score_reasons": [
+      "Contains Revit (+25)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20261119_045515_000",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-11-19T04:55:15.579668",
+    "updated_at": "2026-11-19T04:55:15.579674",
+    "keywords_detected": [
+      "need",
+      "project"
+    ],
+    "service_type": "BIM_MODELING",
+    "offer_page": "/offers/bim-modeling.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261119_045515_000.md"
+  },
+  {
     "id": "lead_2026_004",
     "title": "Recherche développeur Flutter pour application mobile",
     "description": "Recherche développeur indépendant pour finaliser une application mobile Flutter de e-commerce. Code existant propre, il reste à intégrer la passerelle de paiement Stripe et corriger quelques bugs de navigation.",
@@ -127153,6 +127209,63 @@
     "proposal_path": "/proposals/lead_20261118_234048_022.md"
   },
   {
+    "title": "bug: repeating a command with the same --command-id is refused as \"reused with different input\" unless --expected-revision is also given",
+    "description": "### Self checks\n\n- [x] Searched existing open and closed issues for `command-id`, `idempotency`, `idempotency_conflict`, `command id reused`, `retry`, and read the titles of all issues; none reports this.\n- [x] Read the user guide, contributing guide, and development guide.\n- [x] This report describes a reproducible CLI bug.\n- [x] Included reproducer commands, command output, and validation results.\n- [x] Removed credentials and private local paths.\n\n### ECC version\n\nmain at `8d38045fc43809d38e67906490a630fc27b07fad` (`0.1.0-alpha.12`).\n\n### Affected area\n\nCLI automation options: `--command-id` on `ecc workspace reset-flow`, `ecc workspace refresh` and `ecc param apply --workspace` (`chipcompiler/cli/command_handlers/project.py`, `chipcompiler/cli/command_handlers/param.py`; fingerprint in `chipcompiler/engine/workspace_lifecycle.py`).\n\n### How did you get ECC?\n\nSource checkout with `uv` and the existing editable development environment.\n\n### Environment\n\nUbuntu 26.04 LTS on WSL2, x86_64, glibc 2.43, Python 3.11.15.\n\n### Toolchain, PDK, and dependency context\n\nA project with one RTL file (an 8-bit counter), the ICS55 PDK root in `CHIPCOMPILER_ICS55_PDK_ROOT`, and `flow.preset = \"syn_sta\"`. No flow has to run.\n\n### Steps to reproduce\n\n```bash\necc workspace create w --project /path/to/project --plain\n\necc workspace reset-flow w --command-id K1 --project /path/to/project --plain\necc workspace reset-flow w --command-id K1 --project /path/to/project --plain     # the same command again\n\necc workspace refresh w --force --command-id K2 --project /path/to/project --plain\necc workspace refresh w --force --command-id K2 --project /path/to/project --plain\n\necc param apply --workspace w --set design.frequency_mhz=120 --command-id P1 --project /path/to/project --plain\necc param apply --workspace w --set design.frequency_mhz=120 --command-id P1 --project /path/to/project --plain\n```\n\nControl, in a new project with a new workspace `w` (revision 1): the same retry with the revision pinned.\n\n```bash\necc workspace reset-flow w --command-id R1 --expected-revision 1 --project /path/to/project --plain\necc workspace reset-flow w --command-id R1 --expected-revision 1 --project /path/to/project --plain\n```\n\n### Expected behavior\n\nA command repeated with the same `--command-id` and the same arguments is recognised as a retry of the first one: it returns the result of the first execution and does not apply the change a second time. `idempotency_conflict` is for a command id that comes back with a different request.\n\nThe user guide introduces the option for exactly this purpose (section 5.1):\n\n> Automation options (used by ECOS Studio and CI drivers; optional for interactive use): `--expected-revision N` fails with `revision_conflict` (exit 21) when the workspace revision moved, `--command-id TEXT` stamps the mutation for idempotency/audit, `--no-wait` never blocks on a busy workspace … The same revision/wait flags recur on other mutating commands (`param apply`, `macro import`, `workspace …`)\n\n`--command-id` and `--expected-revision` are described as two independent options; nothing says that the idempotency of `--command-id` depends on also passing `--expected-revision`. The error text itself states the condition that is supposed to be detected: \"command id reused with different input\".\n\n### Actual behavior\n\nThe second, identical call is refused:\n\n```text\n$ ecc workspace reset-flow w --command-id K1 --project /path/to/project --plain\nworkspace_id=w status=flow_reset workspace=/path/to/project/w workspace_revision=2      exit 0\n$ ecc workspace reset-flow w --command-id K1 --project /path/to/project --plain\nkind=error error=idempotency_conflict reason=\"command id reused with different input: K1\"      exit 1\n\n$ ecc workspace refresh w --force --command-id K2 --project /path/to/project --plain\nworkspace_id=w status=refreshed workspace=/path/to/project/w workspace_revision=3      exit 0\n$ ecc workspace refresh w --force --command-id K2 --project /path/to/project --plain\nkind=error error=idempotency_conflict reason=\"command id reused with different input: K2\"      exit 1\n\n$ ecc param apply --workspace w --set design.frequency_mhz=120 --command-id P1 --project /path/to/project --plain\nstatus=applied scope=workspace workspace_id=w workspace=/path/to/project/w workspace_revision=4      exit 0\n$ ecc param apply --workspace w --set design.frequency_mhz=120 --command-id P1 --project /path/to/project --plain\nkind=error error=idempotency_conflict reason=\"command id reused with different input: P1\"      exit 1\n```\n\nWith the revision pinned, the same retry is replayed, which is the expected behaviour:\n\n```text\n$ ecc workspace reset-flow w --command-id R1 --expected-revision 1 --project /path/to/project --plain\nworkspace_id=w status=flow_reset workspace=/path/to/project/w workspace_revision=2      exit 0\n$ ecc workspace reset-flow w --command-id R1 --expected-revision 1 --project /path/to/project --plain\nworkspace_id=w status=flow_reset workspace=/path/to/project/w workspace_revision=2      exit 0\n```\n\nSummary of an identical retry (same command id, same arguments, no `--expected-revision`):\n\n| Command | Identical retry |\n| --- | --- |\n| `ecc workspace create w2 --command-id ID` | replayed, exit 0 |\n| `ecc workspace archive w --command-id ID` | replayed, exit 0 |\n| `ecc workspace reset-flow w --command-id ID` | `idempotency_conflict`, exit 1 |\n| `ecc workspace refresh w --force --command-id ID` | `idempotency_conflict`, exit 1 |\n| `ecc param apply --workspace w --set K=V --command-id ID` | `idempotency_conflict`, exit 1 |\n\nA real conflict is detected correctly: `--command-id R1 --expected-revision 2` after `R1` was used with `--expected-revision 1` answers `idempotency_conflict`, and a stale `--expected-revision` without a command id answers `revision_conflict` (exit 21) with the expected and the actual revision.\n\n### Root cause\n\nThe fingerprint that identifies a request includes the expected workspace revision (`chipcompiler/engine/workspace_lifecycle.py`):\n\n```python\ndef workspace_command_fingerprint(kind, spec, bindings, expected_revision=None) -> str:\n    payload = json.dumps({\"kind\": kind, \"spec\": spec, \"bindings\": bindings,\n                          \"expectedWorkspaceRevision\": expected_revision}, ...)\n```\n\nWhen `--expected-revision` is not given, the handlers fill it in with the workspace's current revision before they call the engine, for example in `reset_workspace_flow`:\n\n```python\ncurrent = read_engineering_snapshot_from_directory(ctx.run_dir)\nexpected = command_input.expected_revision or current[\"workspaceRevision\"]\nworkspace = reset(ctx.run_dir, expected, command_id=command_input.command_id or str(uuid.uuid4()), ...)\n```\n\nThe first execution raises the revision by one. On the retry, \"current revision\" is therefore a different number, the fingerprint differs from the stored one, and `command_retry_matches` reports the retry as a different input:\n\n```python\nif not isinstance(record, dict) or record.get(\"fingerprint\") != fingerprint:\n    raise WorkspaceLifecycleError(\"idempotency_conflict\", f\"command id reused with different input: {command_id}\")\n```\n\nThe same `expected = args.expected_revision or current[\"workspaceRevision\"]` default is in the handlers of `workspace refresh` (`project.py`), `param apply` (`param.py`) and `macro import` (`macro.py`; read in the code, not run here).\n\n### Impact\n\nA client repeats a command with the same id when it does not know whether the first attempt arrived: a timeout, a lost reply, a restarted driver. In that situation it usually does not have the resulting revision either, so it resends the request as it was. That is the case the command id exists for, and it is the one that fails. The error says the input is different, which sends the client looking for a difference that does not exist, and it cannot tell from the answer whether the first attempt was applied.\n\nThe workaround, passing `--expected-revision` on every call, is not stated in the guide, and it is not available to a client that does not track revisions.\n\n### Suggested fix\n\nKeep the defaulted revision out of the fingerprint: use the value of `--expected-revision` only when the caller passed it (`None` otherwise), and keep using the current revision for the revision check itself. Alternatively, look up the command id first and, when a record exists, compare it against a fingerprint built without the defaulted revision. A retry with the same explicit `--expected-revision` already works and stays as it is.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/openecos-projects/ecc/issues/473",
+    "published_date": "2026-11-19",
+    "language": "en",
+    "score": 65,
+    "score_reasons": [
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "warm",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20261119_045515_016",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-11-19T04:55:15.591866",
+    "updated_at": "2026-11-19T04:55:15.591872",
+    "keywords_detected": [
+      "project",
+      "available",
+      "looking for"
+    ],
+    "service_type": "PYTHON_AUTOMATION",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "200 - 600 USD",
+    "questions_to_ask": [
+      "What is the input data format (Excel sheets, CSV, website, database)?",
+      "What are the step-by-step logic rules for processing the data?",
+      "Where should the output be saved (merged sheet, email, database)?",
+      "Does this script need to run on a schedule (cron, Windows Scheduler) or manually?",
+      "Can you share sample data files for testing?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261119_045515_016.md"
+  },
+  {
     "title": "[ENHANCEMENT] Add support for Jupiter v6 API quote routing to optimize cross-dex trade legs",
     "description": "### Is your feature request related to a problem?\nCurrently, the capital funding rate arbitrage module and standard spatial loops on Solana map liquidity directly across specific isolated pools (Raydium, Orca). While the sub-45ms latency architecture is incredibly fast, we miss out on complex multi-hop trade routes that could yield higher spread percentages.\n\n### Describe the solution you'd like\nIt would be awesome to integrate Jupiter v6 API or their local routing SDK directly into the Cortex AI automation core. This would allow the execution engine to automatically find optimized multi-hop routes (e.g., USDT -> SOL -> Jupiter Pool -> Token) for the arbitrage legs while still utilizing the local flash loan bot mechanics for safety.\n\n### Describe alternatives you've considered\nI tried writing a custom Python script wrapper to pipe Jupiter quotes into the engine telemetry layer, but the retail python overhead completely kills the structural latency advantage of the native Cortex infrastructure, pushing execution loops way past 150ms.\n\n### Additional context\nIntegrating this directly into the native C++ / optimized pipeline of the `Cortex_AI_v3.4` binary would make this the ultimate tool for Solana MEV and latency arbitrage.",
     "source": "GitHub Search",
@@ -159622,6 +159735,58 @@
     "proposal_path": "/proposals/lead_20261118_144452_018.md"
   },
   {
+    "title": "Inspector: with xsVerbose on, _xsLogs has no bound and each push past the cap re-sorts the whole buffer",
+    "description": "<details>\n<summary>Jon's Claude speaking from github.com/judell/bram</summary>\n\n- Bram: v0.8.10\n- Model: Opus 5.5\n- Subagent: none\n- OS: macOS\n- Machine: Jons-MacBook-Air\n- Commit: ee4b48b6+dirty\n- Item: xs-verbose-off-by-default\n- Agent CLI: Claude Code 2.1.327\n</details>\n\n**With `xsVerbose` on, `_xsLogs` has no upper bound in a long-lived app, and once it's over `xsVerboseLogMax` every new entry re-partitions and re-sorts the whole buffer.** Bram's agent pane, open about 40 minutes with `xsVerboseLogMax: 200`, held 7,516 entries. Three findings:\n\n- **The cap doesn't apply to the \"preserved\" kinds.** `splicePreservingInteractions` never evicts 16 kinds (`interaction`, `api:start`/`complete`/`error`, `handler:start`/`complete`, `value:change`, `method:call`, `navigate`, `modal:*`, `toast`, `submenu:open`, `selection:change`, `focus:change`) or any `native:*` entry. In an app whose DataSources refetch and whose handlers fire all day, those are most of the entries, so the buffer grows for the app's whole life.\n- **Each push past the cap costs O(n log n) in the buffer size.** `pushXsLog` calls `splicePreservingInteractions(w._xsLogs, xsLogMax - 1)` on every push once at capacity. That partitions the whole array, builds a merged copy, sorts it by timestamp and rewrites it in place. At 7,500 entries that's a full sort plus several throwaway arrays per traced event, and the cost keeps growing.\n- **The design fits a test capture, not a long session.** The function's comment says the preserved kinds exist for Playwright test generation and trace comparison. That's reasonable for a short capture. For an app left open with tracing on, it's an unbounded buffer and a per-event cost that rises with uptime.\n\nData: `window._xsLogs.length` and `window.__xsVerbose` read in Web Inspector's console in Bram's pane (XMLUI standalone build vendored in Bram 0.8.10). Source references are to `main` at `600677866`.\n\n<details>\n<summary><b>1. Where the cap is skipped</b></summary>\n\n`xmlui/src/components-core/inspector/inspectorUtils.ts`:\n\n- `pushXsLog` (around line 395): at capacity with the default `drop-oldest`, it calls `splicePreservingInteractions(w._xsLogs, xsLogMax - 1)` and then pushes.\n- `splicePreservingInteractions` (line 446): the entries are split into `keep` (preserved kinds and `native:*`) and `evictable`. `evictableSlot = maxSize - keep.length`. When `keep.length >= maxSize` it keeps **all** of `keep` and none of `evictable`, so the result is still over `maxSize`, and the next push runs the whole trim again.\n\nThe direct pushes at `inspectorUtils.ts:519` and `audit/pipeline.ts:342` also bypass the cap, but those look bounded (once per kind) or rare.\n\n**Suggestion:** give the preserved kinds a bound of their own: a separate, larger cap (say 10× `xsVerboseLogMax`), dropping their oldest once it's reached. Trim in batches, for example back down to 90% of capacity, so the partition and sort run once per batch rather than once per push. A ring buffer per class would avoid the sort entirely.\n</details>\n\n<details>\n<summary><b>2. What it cost in Bram</b></summary>\n\nBram had `appGlobals.xsVerbose: true` in its pane's config since May, so every Bram user ran with tracing on all day. That was Bram's choice, and it's being turned off by default on Bram's side (Worklist item `xs-verbose-off-by-default`), with `localStorage[\"xmlui:xsVerbose\"] = \"true\"` for debugging sessions.\n\n- The pane already had an open report that it \"slows with use until a reload\" ([judell/bram#482](https://github.com/judell/bram/issues/482)). Its focused stall rate climbed from 19 to 127 an hour over the first two hours of use. A per-event cost that rises with buffer size has that shape. We haven't yet measured whether this is the cause.\n- Memory: the buffer itself is modest (7,516 entries, inside about 60 MB of live JS objects in a heap snapshot). The renderer's total is much larger (500–800 MB of dirty heap), and we're measuring how much of that verbose mode accounts for. We'll add the result here.\n\nOne note for anyone embedding XMLUI: `pushXsLog` treats \"an `_xsLogs` array exists\" as \"tracing is on\". Bram's shell created that array unconditionally before XMLUI loaded, so any push that gates only on the array (`pushXsLog`, the audit pipeline's push at `audit/pipeline.ts:342`) could write with verbose off. We haven't confirmed that it did. Bram is removing that. Gating on `window.__xsVerbose` as well would make it robust to hosts that do this.\n</details>\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/xmlui-org/xmlui/issues/3969",
+    "published_date": "2026-11-19",
+    "language": "en",
+    "score": 45,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "cold",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20261119_045515_007",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-11-19T04:55:15.582889",
+    "updated_at": "2026-11-19T04:55:15.582893",
+    "keywords_detected": [],
+    "service_type": "UNKNOWN",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261119_045515_007.md"
+  },
+  {
     "title": "[BUG] Claude Code 2.1.170 ÔÇö all sessions return no_response immediately on Windows 11, query iterator completes in 0s",
     "description": "### Preflight Checklist\n\n- [x] I have searched [existing issues](https://github.com/anthropics/claude-code/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug) and this hasn't been reported yet\n- [x] This is a single bug report (please file separate reports for different bugs)\n- [x] I am using the latest version of Claude Code\n\n### What's Wrong?\n\n8:52 PM¯äØ¯üñ¯üû¯Ç╗Claude responded: This is the same log we already analyzed ÔÇö it confirms the same no_response / Query closed before response received pattern every time, regardless of what you ÔÇªThis is the same log we already analyzed ÔÇö it confirms the same no_response / Query closed before response received pattern every time, regardless of what you try.\nAt this point we've exhausted everything that can be done from your end. This is a 2.1.170 bug and you need Anthropic to either fix it or give you a way to downgrade.\nFile the bug report now at github.com/anthropics/claude-code/issues with:\n\nTitle: Claude Code 2.1.170 ÔÇö no_response on all sessions, query iterator completes instantly, Windows 11 Pro 25H2\nVersion: App 1.12603.1, Claude Code 2.1.170\nOS: Windows 11 Pro 25H2 (26200.8655)\nError pattern: CCD CycleHealth unhealthy cycle, hadFirstResponse=false, reason=no_response on every session\nAttach: this main.log\n\nAlso post in the GitHub issue asking if there's a way to pin or downgrade to the previous version of the claude.exe binary ÔÇö that's the only remaining workaround short of a patch.\n\n### What Should Happen?\n\nAny response to my promptin\n\n[claude.ai-web.log](https://github.com/user-attachments/files/28984390/claude.ai-web.log)\n[cowork_vm_node.log](https://github.com/user-attachments/files/28984388/cowork_vm_node.log)\n[main.log](https://github.com/user-attachments/files/28984389/main.log)\n[mcp.log](https://github.com/user-attachments/files/28984386/mcp.log)\n[mcp-server-revit-mcp.log](https://github.com/user-attachments/files/28984384/mcp-server-revit-mcp.log)\n[ssh.log](https://github.com/user-attachments/files/28984387/ssh.log)\n[unknown-window.log](https://github.com/user-attachments/files/28984385/unknown-window.log)\n\n### Error Messages/Logs\n\n```shell\n\n```\n\n### Steps to Reproduce\n\nOpen the Desktop app and prompt Claude Code\n\n### Claude Model\n\nNot sure / Multiple models\n\n### Is this a regression?\n\nYes, this worked in a previous version\n\n### Last Working Version\n\n_No response_\n\n### Claude Code Version\n\n2.1.170 \n\n### Platform\n\nAnthropic API\n\n### Operating System\n\nWindows\n\n### Terminal/Shell\n\nOther\n\n### Additional Information\n\nChat and Cowork, work as expected though\n\n---\n*Synced from upstream issue [#68739](https://github.com/anthropics/claude-code/issues/68739)*\n<!-- upstream-issue: 68739 -->",
     "source": "GitHub Search",
@@ -164911,5 +165076,59 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20261118_144452_019.md"
+  },
+  {
+    "title": "Create Drop-in replacements like Expo",
+    "description": "### Use case\n\nCan you create custom Drop-in replacements line Expo did?\nFor the same components.\nDevelopers dont want depend on some libraries\n\nhttps://docs.expo.dev/versions/v56.0.0/sdk/ui/drop-in-replacements/\n\n### Proposal\n\n\n\n<img width=\"1106\" height=\"921\" alt=\"Знімок екрана 2026-11-18 о 12 24 06\" src=\"https://github.com/user-attachments/assets/66f6efb1-b879-4553-8137-380dc8c772d0\" />",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/flutter/flutter/issues/196882",
+    "published_date": "2026-11-18",
+    "language": "en",
+    "score": 40,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)",
+      "Contains deadline/quote keyword (+5)"
+    ],
+    "client_temperature": "cold",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20261119_045515_011",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-11-19T04:55:15.583717",
+    "updated_at": "2026-11-19T04:55:15.583720",
+    "keywords_detected": [
+      "proposal"
+    ],
+    "service_type": "UNKNOWN",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261119_045515_011.md"
   }
 ]
