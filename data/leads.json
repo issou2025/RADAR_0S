@@ -21571,6 +21571,64 @@
     "proposal_path": "/proposals/lead_20261123_043606_016.md"
   },
   {
+    "title": "Navisworks Manage 2027: plugin bundle crashes host at startup (silent exit after 10-20 s, no WER record)",
+    "description": "## Summary\n\nOn Navisworks Manage 2027, loading the nwd-mcp v2.5.1 plugin bundle kills the\nhost process during startup. Roamer.exe exits silently 10-20 s after launch,\nwith no Windows Error Reporting event, no crash dump and no .NET Runtime error.\nWith the bundle renamed away, the same Navisworks starts and runs normally.\n\nThis matches the README's note that 2022-2024 and 2026-2027 shells are\nbuild-verified against their APIs but have not been run live. It looks like\n2027 has a real startup defect.\n\n## Environment\n\n| Item | Value |\n|---|---|\n| nwd-mcp | v2.5.1, commit fe7eecb134943df3bdd657b5964476426f8f0199 (NwdMcp.Setup-v2.5.1-win-x64.zip) |\n| Host | Autodesk Navisworks Manage 2027 (`Roamer.exe`), no document open, fresh start |\n| OS | Windows 11 Pro, build 10.0.26200, locale zh-CN |\n| Install method | Extracted setup ZIP, ran `install.ps1` |\n| Bundle path | `%APPDATA%\\Autodesk\\ApplicationPlugins\\Bimwright.Nwd.bundle` |\n| Server path | `%LOCALAPPDATA%\\Bimwright\\nwd-mcp\\server\\current\\nwd-mcp.exe` (self-contained) |\n| License service | AdskLicensingService Running |\n| Other Autodesk products on machine | Revit 2027, Inventor 2027, Navisworks Freedom 2025 (irrelevant here) |\n\n## What works\n\nThe server half is healthy. Over stdio MCP (protocol 2025-06-18) with no host\nconnected:\n\n- `initialize` returns `nwd-mcp 2.5.1+fe7eecb...`\n- `tools/list` registers exactly 35 `nwd_*` tools\n- `nwd_list_available_targets` returns `[]`\n- `nwd_health_check` answers normally\n\nInstalled file hashes match `manifest.json` (`Bimwright.Nwd.Plugin.Navis27.dll`\nsha256 `175456ef...`, `nwd-mcp.exe` sha256 `3b5a0e43...`).\n\n## Reproduction\n\n1. Run `install.ps1` from the setup ZIP (all default locations).\n2. Launch `Roamer.exe` (Manage 2027).\n3. Observe: splash stage only, process gone within 10-20 s.\n\nThree reproductions with `PowerShell Start-Process -PassThru`, checked via\n`Get-Process` every 10 s inside the same parent process:\n\n| Run | pid | t+10 s | t+20 s |\n|---|---|---|---|\n| 1 | 54604 | ALIVE (92 MB) | - |\n| 2 | 36980 | (died before next check) | - |\n| 3 | 49720 | ALIVE (87 MB) | DEAD |\n\nDiagnostics after each death, all empty for Roamer.exe:\n\n- Windows Event Log `Application` id 1000 / 1001 / 1026 (searched last 30 events)\n- `%LOCALAPPDATA%\\CrashDumps` (no Roamer dump)\n- `%LOCALAPPDATA%\\Autodesk\\Navisworks 2027\\` (no new cache/log writes that day)\n\nSo the host terminates without WER involvement, i.e. a clean/silent exit rather\nthan a caught native crash.\n\n## Control experiment (plugin removed)\n\nRenamed the bundle folder to `Bimwright.Nwd.bundle.disabled`, relaunched the\nsame `Roamer.exe` the same way:\n\n| t | State |\n|---|---|\n| +10 s | ALIVE, 468 MB |\n| +20 s | ALIVE, 694 MB |\n| +30 s to +60 s | ALIVE, ~695 MB (fully loaded) |\n\nSame machine, same launch method, same moment; the only variable is the plugin\nbundle. Navisworks Manage 2027 itself is healthy on this machine.\n\n## Expected behaviour\n\nNavisworks Manage 2027 starts with the plugin loaded and writes the target\ndescriptor (`%LOCALAPPDATA%\\Bimwright\\nwd-mcp\\navis-2027-<pid>.json`).\n\n## Notes\n\n- Both arms of the experiment launched `Roamer.exe` via `Start-Process` from an\n  automation agent rather than a manual double-click, so the differential is\n  valid but a manual-double-click data point was not taken.\n- The dying stage is the splash/bootstrapping stage (87-92 MB); it never gets\n  far enough to write Navisworks caches, which suggests the failure happens\n  during plugin assembly loading/initialization.\n- Happy to test a fixed build or collect more evidence (procmon trace, fusion\n  log, verbose plugin loader log) if you tell me what you need.",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/bimwright/nwd-mcp/issues/15",
+    "published_date": "2026-11-23",
+    "language": "en",
+    "score": 100,
+    "score_reasons": [
+      "Contains Revit (+25)",
+      "Contains BIM (+20)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20261124_033504_001",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-11-24T03:35:04.837747",
+    "updated_at": "2026-11-24T03:35:04.837752",
+    "keywords_detected": [
+      "need",
+      "available"
+    ],
+    "service_type": "BIM_MODELING",
+    "offer_page": "/offers/bim-modeling.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261124_033504_001.md"
+  },
+  {
     "id": "lead_2026_001",
     "title": "Need Revit freelancer to convert PDF house plans",
     "description": "Looking for someone to convert PDF house plans into a clean Revit model. The house is a standard 2-story family home. Standard LOD 200 is sufficient. I need the RVT file plus exported DWG plans and PDF sheets.",
@@ -39610,6 +39668,120 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20261123_164549_007.md"
+  },
+  {
+    "title": "Revit run: what an arrangement step made inside a write that stopped part way is... - Group QA",
+    "description": "**What happened:** Group QA: what an arrangement step made inside a write that stopped part way is never bound by the next request - BUILT, NOT RUN IN REVIT (2026-11-23).\n\n**What is expected:** Each check below passes as its line in the group's file says; a check that fails stays, saying what failed.\n\n**Kind: Revit run on your PC** - Claude runs it through Heron on a scratch copy of a sample model, never a job model; you press Keep or Discard, and you sign.\n\nEach check's pass condition is in [`docs/needs-checking/group-qa.md`](https://github.com/Ajmalpshaik/Heron-AI/blob/main/docs/needs-checking/group-qa.md).\n\n### Checks owed - tick each one when it is done\n\n- [ ] **QA1** - *Positive - the arrangement still reaches the fragment.* `heron_bridge_client.py validate` a write phase whose setup step draws two model lines... ([group](https://github.com/Ajmalpshaik/Heron-AI/blob/main/docs/needs-checking/group-qa.md))\n- [ ] **QA2** - *Negative - stopped part way.* The same, with a second setup step that cannot be given what it needs (a need named that nothing supplies), so the run... ([group](https://github.com/Ajmalpshaik/Heron-AI/blob/main/docs/needs-checking/group-qa.md))\n- [ ] **QA3** - *Regression - a kept run's arrangement stands.* QA1 sent with apply on a scratch copy, the modeller presses Keep, then a request expecting `create-line`... ([group](https://github.com/Ajmalpshaik/Heron-AI/blob/main/docs/needs-checking/group-qa.md))\n\n### What you do\n\nOn your Windows PC, open Claude Code in the Heron folder, paste the prompt below, and answer what it asks.\n\n### Ready prompt\n\n```text\nRead AGENTS.md and follow it. Then read docs/fragment-issues/ISSUES.md, the part \"Working an issue\", and do this GitHub issue in Ajmalpshaik/Heron-AI (\"Revit run: what an arrangement step made inside a write that stopped part way is... - Group QA\") the way it says for a NEEDS-CHECKING issue. Scratch copies of sample models only - never my job model. Ask me before signing anything in my name.\n```\n\n### Close this issue when\n\nEvery box is ticked: each result written into the group's file - release, model, date - and a check that held struck at both ends.\n\n\n---\n_Generated by [Claude Code](https://claude.ai/code)_",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/Ajmalpshaik/Heron-AI/issues/1316",
+    "published_date": "2026-11-23",
+    "language": "en",
+    "score": 90,
+    "score_reasons": [
+      "Contains Revit (+25)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20261124_033504_000",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-11-24T03:35:04.836475",
+    "updated_at": "2026-11-24T03:35:04.836481",
+    "keywords_detected": [
+      "need",
+      "job"
+    ],
+    "service_type": "BIM_MODELING",
+    "offer_page": "/offers/bim-modeling.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261124_033504_000.md"
+  },
+  {
+    "title": "Your decision: Two-element tools, and values three draft tools always fill - rows 5b-2006 and 5b-2007",
+    "description": "**What happened:** (1) Measure distance and available fall need two different elements, and there is no way to hand them two. (2) Three draft tools always fill a value their own checklist negative is supposed to leave empty, so a batch run reads it as not empty. Both found by reading the files, not in Revit.\n\n**What is expected:** (1) Say how two particular elements should be named: typed ids, a second word for a second selected element, or the two tools reshaped to take one list. (2) For each of the three tools, say whether the always-filled value is bookkeeping (a card version) or whether its checklist row should name a different negative.\n\n**Kind: your decision** - nothing is changed until you answer.\n\n### Rows - tick each one when it is done\n\n- [ ] **5b-2006** - `measure-distance` and `measure-available-fall` have no way to be handed two different elements. ([row](https://github.com/Ajmalpshaik/Heron-AI/blob/claude/s4-checklist-rows/docs/fragment-issues/row-5b-2006.md))\n- [ ] **5b-2007** - Three draft cards declare a value as a result that their own prescribed negative always fills - `finishSummary`, `typeCount`, `placed`. ([row](https://github.com/Ajmalpshaik/Heron-AI/blob/claude/s4-checklist-rows/docs/fragment-issues/row-5b-2007.md))\n\n### What you do\n\nAnswer in a comment below, one line a row, in your own words. An AI session then writes your answer in, dated, and makes any change it needs.\n\n### Ready prompt\n\n```text\nRead AGENTS.md and follow it. Then read docs/fragment-issues/ISSUES.md, the part \"Working an issue\", and do this GitHub issue in Ajmalpshaik/Heron-AI (\"Your decision: Two-element tools, and values three draft tools always fill - rows 5b-2006 and 5b-2007\") the way it says for a DECISION issue. Ask me each question in plain words and wait for my answer.\n```\n\n### Close this issue when\n\nEvery box is ticked: your answer to each row is written into it, dated, with what changed.\n",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/Ajmalpshaik/Heron-AI/issues/1308",
+    "published_date": "2026-11-23",
+    "language": "en",
+    "score": 90,
+    "score_reasons": [
+      "Contains Revit (+25)",
+      "Contains buying intent keywords (+20)",
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "very_hot",
+    "risk_score": 0,
+    "recommended_action": "reply_now",
+    "id": "lead_20261124_033504_002",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-11-24T03:35:04.838409",
+    "updated_at": "2026-11-24T03:35:04.838413",
+    "keywords_detected": [
+      "need",
+      "available"
+    ],
+    "service_type": "BIM_MODELING",
+    "offer_page": "/offers/bim-modeling.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/bim-modeling.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261124_033504_002.md"
   },
   {
     "id": "lead_2026_002",
@@ -166925,6 +167097,60 @@
       "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
     },
     "proposal_path": "/proposals/lead_20261122_225552_013.md"
+  },
+  {
+    "title": "[BUG] Read-only tool schema hides exact reads for package-loaded automations and scripts",
+    "description": "### 🔌 Connection Pre-flight\n\n- [ ] My connector URL uses standard HTTPS with **no port** (`https://ha.example.com/...`, not `:8123`) — Anthropic's backend only connects on 443\n- [ ] The URL loads on my **phone with Wi-Fi off**, so it is reachable from the public internet and not just my LAN\n- [ ] Anthropic's egress range `160.79.104.0/21` is not blocked by a WAF, geo-block, or AI-bot filter (Cloudflare's \"Block AI training bots\" included)\n- [x] Not applicable — this isn't an AI-client connection problem\n\n### 💬 What Happened?\n\nI am trying to read the exact definition that Home Assistant has loaded for an automation or script declared in a YAML package. Both entities are present in Core, and the MCP session can list tools and read entity state. The client cannot get either loaded definition through the advertised tool contract.\n\n### Environment\n\n- Home Assistant Core 2026.11.2, stock HA-MCP 9.2.0 over local stdio, and File & YAML companion 9.2.0 active.\n- Read Only Mode on. Tool Search off. The failure reproduces with a direct MCP client.\n\n### Minimal reproduction\n\n1. In a disposable Home Assistant instance, set `homeassistant.packages` to `!include_dir_named packages`. Save this file as `packages/definition_contract.yaml` and start Core.\n\n```yaml\nautomation:\n  - id: qualification_packaged_night\n    alias: Qualification Packaged Night\n    initial_state: false\n    triggers:\n      - trigger: event\n        event_type: qualification_unfired_event\n    conditions:\n      - condition: time\n        after: \"19:00:00\"\n        before: \"06:00:00\"\n    actions:\n      - event: qualification_automation_only\n    mode: single\nscript:\n  qualification_packaged_speakers:\n    alias: Qualification Packaged Speakers\n    sequence:\n      - event: qualification_script_only\n    mode: single\n```\n\n2. Confirm `automation.qualification_packaged_night` and `script.qualification_packaged_speakers` are present in Core. Call `ha_config_get_automation` with the automation `entity_id` and `ha_config_get_script` with the script `script_id`.\n3. Inspect the `ha_search` schema in `tools/list`. Try each full entity ID as `query`, with `exact_match: true` and `limit: 1`.\n\n### Expected result\n\nAn advertised read returns exactly the requested loaded definition. The automation body contains the `qualification_automation_only` action and the script body contains the `qualification_script_only` sequence action.\n\n### Actual result\n\n- The automation getter returns `CONFIG_NOT_FOUND`. The script getter returns `RESOURCE_NOT_FOUND`.\n- The advertised exact search returns no loaded body for either entity. `tools/list` omits `include_config` and `search_types` from `ha_search` with the companion active.\n- As a diagnostic control, the same stock server returns the exact loaded definition when given the following arguments in a direct `tools/call` to `ha_search`. For the script, use `script.qualification_packaged_speakers` and `[\"script\"]`. Both reads worked with Read Only Mode on.\n\n```json\n{\n  \"query\": \"automation.qualification_packaged_night\",\n  \"exact_match\": true,\n  \"include_config\": true,\n  \"search_types\": [\"automation\"],\n  \"limit\": 1\n}\n```\n\nThe control suggests a discoverability problem in the companion-backed search schema. Could HA-MCP advertise a supported exact loaded-definition read for package-backed automations and scripts?\n\n### 📋 ha_report_issue Report\n\nN/A\n\n### Why there is no ha_report_issue report\n\nThis was reproduced in a disposable Home Assistant fixture with a direct MCP client. No ha_report_issue report was generated during that test. The synthetic YAML, versions, exact requests and observed errors are included above.",
+    "source": "GitHub Search",
+    "source_type": "search_api",
+    "url": "https://github.com/homeassistant-ai/ha-mcp/issues/3192",
+    "published_date": "2026-11-23",
+    "language": "en",
+    "score": 45,
+    "score_reasons": [
+      "Recent request (+15)",
+      "Deliverable specified (+10)",
+      "Reliable API source (+10)",
+      "Language English/French (+10)"
+    ],
+    "client_temperature": "cold",
+    "risk_score": 0,
+    "recommended_action": "monitor",
+    "id": "lead_20261124_033504_009",
+    "status": "new",
+    "notes": "",
+    "created_at": "2026-11-24T03:35:04.839244",
+    "updated_at": "2026-11-24T03:35:04.839250",
+    "keywords_detected": [
+      "training"
+    ],
+    "service_type": "UNKNOWN",
+    "offer_page": "/offers/static-website.html",
+    "budget_detected": "not specified",
+    "recommended_price": "300 - 800 USD",
+    "questions_to_ask": [
+      "Could you describe the project scope and deliverables in detail?",
+      "Do you have any existing drawings or reference documents?",
+      "What is your target budget range?",
+      "What is your expected timeline?",
+      "Which tools/software do you prefer for this project?"
+    ],
+    "reply_short": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+    "reply_professional": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+    "replies": {
+      "short_en": "Hello,\n\nI saw your request and I can help you with this Revit/BIM project. I can prepare a clean model and professional drawings from your PDF, DWG, sketch, or existing files.\n\nPlease send the available files so I can review the scope, timeline, and cost.\n\nBest regards.",
+      "prof_en": "Hello,\n\nI saw your request for a Revit/BIM freelancer. I can help you convert your source files (PDF/DWG/sketches) into a clean, accurate, and professional Revit model.\n\nHere is what I can deliver:\n- Fully parametric Revit (RVT) model\n- Precise floor plans, sections, and elevations\n- Clean 3D orthographic views and perspective rendering\n- Document sheets exported to PDF and DWG formats\n\nCould you please share your project requirements, files, and preferred timeline so I can provide a detailed estimate?\n\nBest regards.",
+      "tech_en": "Hello,\n\nI specialize in BIM implementation and building drafting using Autodesk Revit. I can convert your assets into a Revit model configured with correct family parameters, clean wall joins, and accurate level offsets.\n\nMy workflow uses strict Level of Detail (LOD 100 to LOD 300) standards depending on your design phase. I will ensure model hygiene (no redundant elements, clean phases, and purge of unused components).\n\nLet's discuss your project constraints, model template preferences, and shared coordinates setup.\n\nBest regards.",
+      "offer_en": "Hello,\n\nI saw your request and I can assist with this project. I have a dedicated offer page detailing my workflow, deliverables, and typical terms for this specific service:\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nHave a look at the workflow, and feel free to send your files so we can discuss the specifics.\n\nBest regards.",
+      "short_fr": "Bonjour,\n\nJ'ai vu votre demande et je peux vous aider pour ce projet Revit/BIM. Je peux réaliser un modèle propre et des plans professionnels à partir de vos fichiers PDF, DWG, croquis ou documents existants.\n\nN'hésitez pas à m'envoyer les fichiers afin que je puisse étudier le volume de travail, le délai et le coût.\n\nCordialement.",
+      "prof_fr": "Bonjour,\n\nJ'ai pris connaissance de votre demande de prestation. Spécialiste de la conception et modélisation Revit/BIM, je peux vous accompagner pour convertir vos documents (PDF, plans DWG, croquis) en un modèle 3D précis.\n\nVoici les livrables types :\n- Modèle Revit (.RVT) structuré\n- Plans de niveaux, coupes et élévations cotés\n- Vues 3D réalistes et perspectives de présentation\n- Livrables exports PDF et plans DWG d'exécution\n\nPourriez-vous partager vos éléments de base ainsi que vos contraintes de délai pour que je prépare un devis adapté ?\n\nCordialement.",
+      "tech_fr": "Bonjour,\n\nIngénieur/projeteur spécialisé en modélisation BIM sous Revit, je vous propose mes services pour structurer votre projet de manière professionnelle. Je configure les nomenclatures, assure le nettoyage des jonctions d'angles et veille à la cohérence du modèle.\n\nJe travaille selon les standards LOD requis (de 100 à 300) avec des familles correctement paramétrées et un export DWG/IFC propre pour vos partenaires.\n\nDiscutons ensemble de vos contraintes techniques et de l'arborescence projet.\n\nCordialement.",
+      "offer_fr": "Bonjour,\n\nJe suis très intéressé par votre demande. J'ai préparé une page d'offre dédiée détaillant ma méthode de travail, mes réalisations et mes tarifs indicatifs pour ce type de besoin :\n\nhttps://issou2025.github.io/client-radar-os-private/offers/static-website.html\n\nJe vous invite à la consulter et à m'envoyer vos fichiers de base pour démarrer.\n\nCordialement.",
+      "follow_up_3_days": "Hello,\n\nI wanted to follow up on your request. Have you had a chance to review my previous message or check the offer page?\n\nI'm ready to review your files and start when you are.\n\nBest regards.",
+      "follow_up_7_days": "Hello,\n\nI'm checking in one last time regarding your Revit/BIM drafting request. If you are still looking for help, please share your files. Otherwise, no worries, and good luck with your project!\n\nBest regards.",
+      "cautious_risk": "Hello,\n\nI would be glad to look into this project. Please provide the exact scope of work, reference documentation, and budget details so we can formalize a structured agreement before commencing any tasks.\n\nBest regards."
+    },
+    "proposal_path": "/proposals/lead_20261124_033504_009.md"
   },
   {
     "title": "[BUG] Claude Code 2.1.170 ÔÇö all sessions return no_response immediately on Windows 11, query iterator completes in 0s",
